@@ -6,6 +6,9 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { LogoutComponent } from './components/logout/logout.component';
 
+import {Register2Component } from './components/register2/register2.component'
+import { LoginPageComponent } from './components/login-page/login-page.component';
+
 const routes: Routes = [
   {
     path: '',
@@ -13,17 +16,17 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'login',
+        redirectTo: 'login-page',
         pathMatch: 'full',
       },
       {
-        path: 'login',
-        component: LoginComponent,
+        path: 'login-page',
+        component: LoginPageComponent,
         data: { returnUrl: window.location.pathname },
       },
       {
-        path: 'registration',
-        component: RegistrationComponent,
+        path: 'register2',
+        component: Register2Component,
       },
       {
         path: 'forgot-password',
@@ -33,8 +36,8 @@ const routes: Routes = [
         path: 'logout',
         component: LogoutComponent,
       },
-      { path: '', redirectTo: 'login', pathMatch: 'full' },
-      { path: '**', redirectTo: 'login', pathMatch: 'full' },
+      { path: '', redirectTo: 'login-page', pathMatch: 'full' },
+      { path: '**', redirectTo: 'login-page', pathMatch: 'full' },
     ],
   },
 ];

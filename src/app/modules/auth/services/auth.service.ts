@@ -1,11 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, BehaviorSubject, of, Subscription } from 'rxjs';
 import { map, catchError, switchMap, finalize } from 'rxjs/operators';
-import { UserModel } from '../models/user.model';
+import { UserModel , User } from '../models/user.model';
 import { AuthModel } from '../models/auth.model';
 import { AuthHTTPService } from './auth-http';
 import { environment } from 'src/environments/environment';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 
 export type UserType = UserModel | undefined;
 
@@ -31,9 +32,14 @@ export class AuthService implements OnDestroy {
     this.currentUserSubject.next(user);
   }
 
+  // API Copnnection
+  readonly Apiurl ="http://128.199.86.71:8000";
+
   constructor(
     private authHttpService: AuthHTTPService,
-    private router: Router
+    private router: Router,
+    private http:HttpClient
+
   ) {
     this.isLoadingSubject = new BehaviorSubject<boolean>(false);
     this.currentUserSubject = new BehaviorSubject<UserType>(undefined);
@@ -42,6 +48,15 @@ export class AuthService implements OnDestroy {
     const subscr = this.getUserByToken().subscribe();
     this.unsubscribe.push(subscr);
   }
+
+
+  // API Connect
+  singupUser(val:any){
+    console.log("SignUp Access");
+    
+    return this.http.post(this.Apiurl + '/signup',val);
+  }
+
 
   // public methods
   login(email: string, password: string): Observable<UserType> {
@@ -139,3 +154,6 @@ export class AuthService implements OnDestroy {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());
   }
 }
+
+
+

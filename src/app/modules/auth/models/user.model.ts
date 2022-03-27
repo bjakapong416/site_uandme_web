@@ -15,6 +15,7 @@ export class UserModel extends AuthModel {
   phone: string;
   address?: AddressModel;
   socialNetworks?: SocialNetworksModel;
+  
   // personal information
   firstname: string;
   lastname: string;
@@ -63,4 +64,39 @@ export class UserModel extends AuthModel {
     this.address = user.address;
     this.socialNetworks = user.socialNetworks;
   }
+
+
+}
+
+
+
+export class User {
+  id: number;
+  email: string;
+  password: string;
+  fullname: string;
+  token?: string;
+  privilege: string;
+  create_on: string;
+  status?: string;
+
+
+  setUser2(_user: unknown) {
+    const user = _user as User;
+    this.id = user.id ;
+    this.password = user.password || '';
+    this.fullname = user.fullname || '';
+    this.email = user.email || '';
+    this.privilege = user.privilege || '';
+    this.create_on = user.create_on || ''
+    this.status = user.status || '';
+
+  }
+
+
+}
+
+export enum Role {
+  User = '0',
+  Admin = '777'
 }

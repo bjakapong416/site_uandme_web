@@ -8,15 +8,21 @@ import { LogoutComponent } from './components/logout/logout.component';
 
 import {Register2Component } from './components/register2/register2.component'
 import { LoginPageComponent } from './components/login-page/login-page.component';
+import { LoginAsideComponent } from './components/login-aside/login-aside.component';
 
 const routes: Routes = [
+  {
+      path: 'login-aside',
+      component: LoginAsideComponent,
+      data: { returnUrl: window.location.pathname },
+  },
   {
     path: '',
     component: AuthComponent,
     children: [
       {
         path: '',
-        redirectTo: 'login-page',
+        redirectTo: '/auth/login-aside',
         pathMatch: 'full',
       },
       {
@@ -36,8 +42,9 @@ const routes: Routes = [
         path: 'logout',
         component: LogoutComponent,
       },
-      { path: '', redirectTo: 'login-page', pathMatch: 'full' },
-      { path: '**', redirectTo: 'login-page', pathMatch: 'full' },
+
+      { path: '', redirectTo: '/auth/login-aside', pathMatch: 'full' },
+      { path: '**', redirectTo: '/auth/login-aside', pathMatch: 'full' },
     ],
   },
 ];

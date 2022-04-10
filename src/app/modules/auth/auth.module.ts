@@ -11,6 +11,7 @@ import { AuthComponent } from './auth.component';
 import { TranslationModule } from '../i18n/translation.module';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { Register2Component } from './components/register2/register2.component';
+import { LoginAsideComponent } from './components/login-aside/login-aside.component';
 
 
 
@@ -24,6 +25,7 @@ import { Register2Component } from './components/register2/register2.component';
     AuthComponent,
     LoginPageComponent,
     Register2Component,
+    LoginAsideComponent,
   ],
   imports: [
     CommonModule,

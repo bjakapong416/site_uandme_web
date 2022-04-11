@@ -5,6 +5,7 @@ import { AppsRoutingModule } from './apps-routing.module';
 import { StockComponent } from './stock/stock.component';
 import { CustomerComponent } from './customer/customer.component';
 import { BillComponent } from './bill/bill.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { BillComponent } from './bill/bill.component';
   ],
   imports: [
     CommonModule,
-    AppsRoutingModule
+    AppsRoutingModule,
+    HttpClientModule
   ]
 })
 export class AppsModule { }

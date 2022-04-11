@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StockModels } from '../../_models/stock.model';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-stock',
   templateUrl: './stock.component.html',
@@ -10,7 +8,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class StockComponent implements OnInit {
   StockModels: StockModels[];
-
   readonly Apiurl ="http://128.199.86.71:8000"
 
   data: []
@@ -21,21 +18,22 @@ export class StockComponent implements OnInit {
 
   ngOnInit(): void {
 
+    /*this.http.get<StockModels[]>(this.Apiurl + '/items?limit=10').subscribe((res)=>{
+      this.StockModels = res;
+    });*/
+
     this.getData()
 
-    this.test = "Hello world"
+    //this.test = "Hello world"
 
   }
-
+  
   getData(){
-
     fetch('http://128.199.86.71:8000/items?limit=10').then(e=>{
       return e.json()
     }).then(e=>{
       console.log(e)
       this.data = e
     })
-
   }
-
 }

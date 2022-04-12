@@ -5,6 +5,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 //Modules
 import { AppsRoutingModule } from './apps-routing.module';
+import { MatPaginatorModule } from '@angular/material/paginator'; 
+//import {NgxPaginationModule} from 'ngx-pagination';
 
 //Component
 import { StockComponent } from './stock/stock.component';
@@ -13,6 +15,7 @@ import { BillComponent } from './bill/bill.component';
 import { CrudStocksComponent } from './crud-stocks/crud-stocks.component';
 import { AddComponent } from './crud-stocks/add/add.component';
 import { EditComponent } from './crud-stocks/edit/edit.component';
+
 
 @NgModule({
   declarations: [
@@ -28,6 +31,8 @@ import { EditComponent } from './crud-stocks/edit/edit.component';
     AppsRoutingModule,
     HttpClientModule,
     FormsModule,
+    //NgxPaginationModule,
+    MatPaginatorModule,
     ReactiveFormsModule
   ]
 })

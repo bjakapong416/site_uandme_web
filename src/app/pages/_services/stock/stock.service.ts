@@ -21,15 +21,13 @@ export class StockService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<StockModels[]> {
-    return this.httpClient.get<StockModels[]>(this.apiURL + '/items?limit=10').pipe(
+    return this.httpClient.get<StockModels[]>(this.apiURL + '/stock/all').pipe(
       catchError(this.errorHandler)
     )
   }
 
   async async_getAll() {
-    return await this.httpClient.get<StockModels[]>(this.apiURL + '/items?limit=10').pipe(
-      
-    )
+    return await this.httpClient.get<StockModels[]>(this.apiURL + '/stock/all').pipe( )
   }
     
   create(data: any): Observable<StockModels> {

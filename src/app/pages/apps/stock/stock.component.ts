@@ -29,7 +29,7 @@ export class StockComponent implements OnInit {
   }
   
   getData(){
-    fetch('http://128.199.86.71:8000/items?limit=10').then(e=>{
+    fetch('http://128.199.86.71:8000/allitems').then(e=>{
       return e.json()
     }).then(e=>{
       console.log(e)

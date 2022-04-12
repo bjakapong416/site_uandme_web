@@ -2,7 +2,13 @@
     <h1></h1>
    
     <a href="#" routerLink="./add" class="btn btn-success">Create New Post</a>
-     
+    
+    <mat-paginator [length]="68" pageSize=10
+        (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 30]"
+        aria-label="Select page"
+        showFirstLastButtons="true">
+    </mat-paginator>
+
     <table class="table table-bordered">
       <tr>
         <th>ID</th>
@@ -16,9 +22,9 @@
       </tr>
       {{ testConsoleLog("Test: 1 = ") }}
       {{ testConsoleLog(StockDatas$) }}
-      <tr *ngFor="let item of StockDatas | async"> 
-        {{ testConsoleLog("Test: 2 = ") }}
-        {{ testConsoleLog(item) }}
+      <ng-container *ngFor="let item of StockDatas | async | slice: lowValue : highValue">
+      <tr>
+      <!--tr *ngFor="let item of StockDatas$ | paginate: { itemsPerPage: 10, currentPage: p };"--> 
         <td>{{ item.itemno }}</td>
         <td>{{ item.itemdes }}</td>
         <td>{{ item.itemgrp }}</td>
@@ -32,5 +38,9 @@
           <button type="button" (click)="FUNC_DeleteStock_aSync(item['itemno'])" class="btn btn-danger">Delete</button>
         </td>
       </tr>
+    </ng-container>
     </table>
+
+
+    
  </div>

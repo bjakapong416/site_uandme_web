@@ -1,0 +1,36 @@
+<div class="container">
+    <h1></h1>
+   
+    <a href="#" routerLink="./add" class="btn btn-success">Create New Post</a>
+     
+    <table class="table table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Body</th>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Body</th>
+        <th>Body</th>
+        <th>Action</th>
+      </tr>
+      {{ testConsoleLog("Test: 1 = ") }}
+      {{ testConsoleLog(StockDatas$) }}
+      <tr *ngFor="let item of StockDatas | async"> 
+        {{ testConsoleLog("Test: 2 = ") }}
+        {{ testConsoleLog(item) }}
+        <td>{{ item.itemno }}</td>
+        <td>{{ item.itemdes }}</td>
+        <td>{{ item.itemgrp }}</td>
+        <td>{{ item.qty }}</td>
+        <td>{{ item.unitnam }}</td>
+        <td>{{ item.whdes }}</td>
+        <td>{{ item.audttime }}</td>
+        <td>
+          <a href="#" [routerLink]="['/stock/', item['itemno'], 'view']" class="btn btn-info">View</a>
+          <a href="#" [routerLink]="['/stock/', item['itemno'], 'edit']" class="btn btn-primary">Edit</a>
+          <button type="button" (click)="FUNC_DeleteStock_aSync(item['itemno'])" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </table>
+ </div>

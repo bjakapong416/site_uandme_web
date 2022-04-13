@@ -1,201 +1,47 @@
-
-<div class="card card-custom gutter-b">
-    <div class="card-header">
-      <div class="card-title">
-        <h3 class="card-label">Stock Warehourse</h3>
-      </div>
-    </div>
-
-
-
-    <div class="card-body">
-        <!-- begin: Filtration form -->
-        <div class="form form-label-right">
-          <div class="form-group row">
-            <div class="col-lg-4">
-              <div class="row" >
-                <div class="col-lg-6">
-                  <select class="form-control" name="status" placeholder="Filter by Status" formControlName="status">
-                    <option value="">All</option>
-                    <option value="1">Susspended</option>
-                    <option value="2">Active</option>
-                    <option value="3">Pending</option>
-                  </select><small class="form-text text-muted"><b>Filter</b> by Status</small>
-                </div>
-                <div class="col-lg-6">
-                  <select class="form-control" placeholder="Filter by Type" name="type" formControlName="type">
-                    <option value="">All</option>
-                    <option value="1">Business</option>
-                    <option value="2">Individual</option>
-                  </select><small class="form-text text-muted"><b>Filter</b> by Type</small>
-                </div>
-              </div>
-            </div>
-            <div class="col-lg-2" >
-              <input type="text" class="form-control" name="searchText" placeholder="Search" value=""
-                formControlName="searchTerm" /><small class="form-text text-muted"><b>Search</b> in all fields</small>
-            </div>
-          </div>
-        </div>
-    <!-- end: Filtration form -->
-
-
-            <!-- begin: Grouping -->
-    <!-- <ng-container >
-        <div class="form">
-          <div class="row align-items-center form-group-actions margin-top-20 margin-bottom-20">
-            <div class="col-xl-12">
-              <div class="form-group form-group-inline">
-                <div class="form-label form-label-no-wrap">
-                  <label class="font-bold font-danger"><span>Selected records count:
-                      <b>TEST</b></span></label>
-                </div>
-                <div>
-                  <button type="button" class="btn btn-danger font-weight-bolder font-size-sm mr-1"
-                    >
-                    <i class="fa fa-trash"></i> Delete All
-                  </button>&nbsp;
-                  <button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
-                   >
-                    <i class="fa fa-stream"></i> Fetch Selected
-                  </button>&nbsp;
-                  <button type="button" class="btn btn-light-primary font-weight-bolder font-size-sm mr-1"
-                    >
-                    <i class="fa fa-sync-alt"></i> Update Status
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </ng-container> -->
-      <!-- end: Grouping -->
-
-
-
-    <!-- begin:Table -->
-    <div class="table-responsive angular-bootstrap-table">
-        <table class="table table-head-custom table-vertical-center overflow-hidden">
-          <thead>
-            <!-- <th class="selection-cell-header" data-row-selection="true">
-              <label class="checkbox checkbox-single"><input type="checkbox" /><span></span></label>
-            </th> -->
-            <th>
-                ID
-                <!-- <app-sort-icon column="id" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                  (sort)="sort($event)"></app-sort-icon> -->
-              </th>
-              <th>
-                รายละเอียด
-                <!-- <app-sort-icon column="firstName" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                  (sort)="sort($event)"></app-sort-icon> -->
-              </th>
-              <th>
-                กลุ่มสินค้า
-                <!-- <app-sort-icon column="lastName" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                  (sort)="sort($event)"></app-sort-icon> -->
-              </th>
-              <th>
-                จำนวน
-                <!-- <app-sort-icon column="email" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                  (sort)="sort($event)"></app-sort-icon> -->
-              </th>
-              <th>
-                หน่วย
-                <!-- <app-sort-icon column="gender" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                  (sort)="sort($event)"></app-sort-icon> -->
-              </th>
-              <th>
-                คลังสินค้า
-                <!-- <app-sort-icon column="status" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                  (sort)="sort($event)"></app-sort-icon> -->
-              </th>
-              <th>
-                วันที่
-                <!-- <app-sort-icon column="type" [activeColumn]="sorting.column" [activeDirection]="sorting.direction"
-                  (sort)="sort($event)"></app-sort-icon> -->
-              </th>
-            <th>ACTIONS</th>
-            
-
-          </thead>
-
-
-
-
-              
-          
-          <tbody>
-
-          
-            <!-- <tr *ngFor="let item of data">
-              {{item['recordid']}}
-              {{item['itemdes']}}
-            </tr> -->
-             
-           
-
-            <tr *ngFor="let item of data">
-              <!-- <td class="selection-cell">
-                <label class="checkbox checkbox-single"><input type="checkbox" (click)="grouping.selectRow(customer.id)"
-                    [checked]="grouping.isRowSelected(customer.id)" />
-                  <span></span>
-                </label>
-              </td> -->
-              <td>{{ item['itemno'] }}</td>
-              <td>{{ item['itemdes'] }}</td>
-              <td>{{ item['itemgrp'] }}</td>
-              <td>{{ item['qty'] }}</td>
-              <td>{{ item['unitnam'] }}</td>
-              <td>{{ item['whdes'] }}</td>
-              <td>{{ item['audttime'] }}</td>
-
-              <!-- <td>
-                <span class="label label-lg label-inline" [class.label-light-danger]="customer.status === 1"
-                  [class.label-light-success]="customer.status === 2" [class.label-light-primary]="customer.status === 3">
-                  <ng-container *ngIf="customer.status === 1">Suspended</ng-container>
-                  <ng-container *ngIf="customer.status === 2">Active</ng-container>
-                  <ng-container *ngIf="customer.status === 3">Pending</ng-container>
-                </span>
-              </td>
-              <td>
-                <span class="label label-dot label-primary mr-2" [class.label-success]="customer.type === 1"
-                  [class.label-primary]="customer.type === 2"></span>&nbsp;<span class="font-bold font-primary">
-                  <ng-container *ngIf="customer.type === 1">Business</ng-container>
-                  <ng-container *ngIf="customer.type === 2">Individual</ng-container>
-                </span>
-              </td>
-              <td>
+<div class="container">
+  <h1></h1>
+ 
+  <a href="#" routerLink="./add" class="btn btn-success">Create New Post</a>
   
-                <a title="Edit customer" class="btn btn-icon btn-light btn-hover-primary btn-sm mx-3"
-                  (click)="edit(customer.id)">
-                  <span [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'" cacheSVG="true"
-                    class="svg-icon svg-icon-md svg-icon-primary">
-                  </span>
-                </a>
+  <mat-paginator [length]="68" pageSize=10
+      (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 30]"
+      aria-label="Select page"
+      showFirstLastButtons="true">
+  </mat-paginator>
+
+  <table class="table table-bordered">
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Body</th>
+      <th>Body</th>
+      <th>Action</th>
+    </tr>
+    {{ testConsoleLog("Test: 1 = ") }}
+    {{ testConsoleLog(StockDatas$) }}
+    <ng-container *ngFor="let item of StockDatas | async | slice: lowValue : highValue">
+    <tr>
+    <!--tr *ngFor="let item of StockDatas$ | paginate: { itemsPerPage: 10, currentPage: p };"--> 
+      <td>{{ item.itemno }}</td>
+      <td>{{ item.itemdes }}</td>
+      <td>{{ item.itemgrp }}</td>
+      <td>{{ item.qty }}</td>
+      <td>{{ item.unitnam }}</td>
+      <td>{{ item.whdes }}</td>
+      <td>{{ item.audttime }}</td>
+      <td>{{ item.cusstatus }}</td>
+      <!-- <td>
+        <a href="#" [routerLink]="['/stock/', item['itemno'], 'view']" class="btn btn-info">View</a>
+        <a href="#" [routerLink]="['/stock/', item['itemno'], 'edit']" class="btn btn-primary">Edit</a>
+        <button type="button" (click)="FUNC_DeleteStock_aSync(item['itemno'])" class="btn btn-danger">Delete</button>
+      </td> -->
+    </tr>
+  </ng-container>
+  </table>
+
+
   
-                <a title="Delete customer" class="btn btn-icon btn-light btn-hover-danger btn-sm"
-                  (click)="delete(customer.id)">
-                  <span [inlineSVG]="'./assets/media/svg/icons/General/Trash.svg'" cacheSVG="true"
-                    class="svg-icon svg-icon-md svg-icon-danger">
-                  </span>
-                </a>
-              </td> -->
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-
-      
-      <!-- end: Table -->
-      <!-- <app-paginator class="d-flex justify-content-between align-items-center flex-wrap" [paginator]="paginator"
-        [isLoading]="isLoading" (paginate)="paginate($event)"></app-paginator> -->
-    </div>
-
 </div>
-
-   
-  
-  
-    

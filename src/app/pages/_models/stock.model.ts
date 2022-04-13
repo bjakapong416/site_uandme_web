@@ -8,4 +8,9 @@ export class StockModels {
     qty: number;
     unitnam: string;
     audttime: Date;
+    cusstatus?:string;
+    maplink?:string;
+    highlight?:string;
+    img?:string;
+
 }

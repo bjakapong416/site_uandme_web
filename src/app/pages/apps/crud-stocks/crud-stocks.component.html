@@ -23,8 +23,8 @@
       {{ testConsoleLog("Test: 1 = ") }}
       {{ testConsoleLog(StockDatas$) }}
       <ng-container *ngFor="let item of StockDatas | async | slice: lowValue : highValue">
-      <tr>
-      <!--tr *ngFor="let item of StockDatas$ | paginate: { itemsPerPage: 10, currentPage: p };"--> 
+      <!--ng-container *ngFor="let item of StockDatas$"-->
+      <tr> 
         <td>{{ item.itemno }}</td>
         <td>{{ item.itemdes }}</td>
         <td>{{ item.itemgrp }}</td>

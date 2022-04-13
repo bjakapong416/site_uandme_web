@@ -1,47 +1,58 @@
-<div class="container">
-  <h1></h1>
- 
-  <a href="#" routerLink="./add" class="btn btn-success">Create New Post</a>
-  
-  <mat-paginator [length]="68" pageSize=10
-      (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 30]"
-      aria-label="Select page"
-      showFirstLastButtons="true">
-  </mat-paginator>
+<mat-form-field appearance="standard">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search.. id, name" #input>
+</mat-form-field>
 
-  <table class="table table-bordered">
-    <tr>
-      <th>ID</th>
-      <th>Title</th>
-      <th>Body</th>
-      <th>ID</th>
-      <th>Title</th>
-      <th>Body</th>
-      <th>Body</th>
-      <th>Action</th>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+      <td mat-cell *matCellDef="let row"> {{row.itemno}} <p class="text-muted mb-0">kate.hunington@gmail.com</p> </td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+      <td mat-cell *matCellDef="let row"> {{row.itemdes}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="type">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Type </th>
+      <td mat-cell *matCellDef="let row"> {{row.itemgrp}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="qty">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Qty </th>
+      <td mat-cell *matCellDef="let row"> {{row.qty}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="unit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Unit </th>
+      <td mat-cell *matCellDef="let row"> {{row.unitnam}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="where">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Stock </th>
+      <td mat-cell *matCellDef="let row"> {{row.whdes}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+      <td mat-cell *matCellDef="let row"> </td>
+    </ng-container>
+    
+    <!-- <ng-container [matColumnDef]="dColumns" *ngFor="let DispColumn of dColumns">
+      <th mat-header-cell *matHeaderCellDef>{{ DispColumn }}</th>
+      <td mat-cell *matCellDef="let row">{{ row[fColumn] }}</td>
+    </ng-container> -->
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
-    {{ testConsoleLog("Test: 1 = ") }}
-    {{ testConsoleLog(StockDatas$) }}
-    <ng-container *ngFor="let item of StockDatas | async | slice: lowValue : highValue">
-    <tr>
-    <!--tr *ngFor="let item of StockDatas$ | paginate: { itemsPerPage: 10, currentPage: p };"--> 
-      <td>{{ item.itemno }}</td>
-      <td>{{ item.itemdes }}</td>
-      <td>{{ item.itemgrp }}</td>
-      <td>{{ item.qty }}</td>
-      <td>{{ item.unitnam }}</td>
-      <td>{{ item.whdes }}</td>
-      <td>{{ item.audttime }}</td>
-      <td>{{ item.cusstatus }}</td>
-      <!-- <td>
-        <a href="#" [routerLink]="['/stock/', item['itemno'], 'view']" class="btn btn-info">View</a>
-        <a href="#" [routerLink]="['/stock/', item['itemno'], 'edit']" class="btn btn-primary">Edit</a>
-        <button type="button" (click)="FUNC_DeleteStock_aSync(item['itemno'])" class="btn btn-danger">Delete</button>
-      </td> -->
-    </tr>
-  </ng-container>
   </table>
 
-
-  
+  <mat-paginator [pageSize]="10" [pageSizeOptions]="[10, 25, 100]" showFirstLastButtons="true"></mat-paginator>
 </div>

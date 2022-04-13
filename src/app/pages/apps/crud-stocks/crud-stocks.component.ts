@@ -40,7 +40,8 @@ export class CrudStocksComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.FUNC_getStock();
+    //console.log(this.route.snapshot.data['StockResolver']);
+    //this.FUNC_getStock();
     this.FUNC_aSync_getStock();
   }
 

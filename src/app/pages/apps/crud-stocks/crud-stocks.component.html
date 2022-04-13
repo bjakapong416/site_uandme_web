@@ -3,7 +3,7 @@
    
     <a href="#" routerLink="./add" class="btn btn-success">Create New Post</a>
     
-    <mat-paginator [length]="68" pageSize=10
+    <mat-paginator [length]="(StockDatas | async)?.length" pageSize=10
         (page)="getPaginatorData($event)" [pageSizeOptions]="[10, 20, 30]"
         aria-label="Select page"
         showFirstLastButtons="true">

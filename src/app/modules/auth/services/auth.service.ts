@@ -60,8 +60,8 @@ export class AuthService implements OnDestroy {
   }
 
 
-
   login1(email: string, password: string) {
+    this.isLoadingSubject.next(true);
     return this.http.post<any>(this.Apiurl + '/login/access', { email, password })
         .pipe(map(user => {
             // login successful if there's a jwt token in the response
@@ -72,7 +72,14 @@ export class AuthService implements OnDestroy {
                 this.currentUserSubject.next(user);
             }
             return user as User;
-        }));
+        }),
+        catchError((err) => {
+          console.error('err', err);
+          return of(undefined);
+        }),
+        finalize(() => this.isLoadingSubject.next(false))
+        );
+        
 }
 
 

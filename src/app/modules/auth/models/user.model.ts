@@ -73,13 +73,16 @@ export class UserModel extends AuthModel {
 export class User {
   id: number;
   email: string;
+  username:string;
   password: string;
   fullname: string;
+  employee_id:string;
+  pic:string;
+  phone:string;
+  role:string;
   token?: string;
-  privilege: string;
   create_on: string;
   status?: string;
-
 
   setUser2(_user: unknown) {
     const user = _user as User;
@@ -87,7 +90,7 @@ export class User {
     this.password = user.password || '';
     this.fullname = user.fullname || '';
     this.email = user.email || '';
-    this.privilege = user.privilege || '';
+    this.role = user.role || '';
     this.create_on = user.create_on || ''
     this.status = user.status || '';
 

@@ -83,10 +83,14 @@ export class LoginAsideComponent implements OnInit {
     console.log(user)
     console.log(passwd)
 
+
     const loginSubscr = this.authService
-      .login(this.f.email.value, this.f.password.value)
+      .login1(this.f.email.value, this.f.password.value)
       .pipe(first())
-      .subscribe((user: UserModel | undefined) => {
+      .subscribe((user: User | undefined) => {
+
+        console.log(user);
+        
         if (user) {
           this.router.navigate([this.returnUrl]);
         } else {
@@ -94,6 +98,10 @@ export class LoginAsideComponent implements OnInit {
         }
       });
     this.unsubscribe.push(loginSubscr);
+
+
+
+
   }
 
   ngOnDestroy() {

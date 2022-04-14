@@ -35,6 +35,8 @@ export class AuthService implements OnDestroy {
   // API Copnnection
   readonly Apiurl ="http://128.199.86.71:8000";
 
+  user: User;
+
   constructor(
     private authHttpService: AuthHTTPService,
     private router: Router,
@@ -56,6 +58,24 @@ export class AuthService implements OnDestroy {
     
     return this.http.post(this.Apiurl + '/signup',val);
   }
+
+
+
+  login1(email: string, password: string) {
+    return this.http.post<any>(this.Apiurl + '/login/access', { email, password })
+        .pipe(map(user => {
+            // login successful if there's a jwt token in the response
+            if (user && user.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.clear();
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                this.currentUserSubject.next(user);
+            }
+            return user as User;
+        }));
+}
+
+
 
 
   // public methods

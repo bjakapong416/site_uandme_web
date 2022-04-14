@@ -25,6 +25,9 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.user$ = this.auth.currentUserSubject.asObservable();
     this.setLanguage(this.translationService.getSelectedLanguage());
+
+    console.log(this.user$);
+    
   }
 
   logout() {

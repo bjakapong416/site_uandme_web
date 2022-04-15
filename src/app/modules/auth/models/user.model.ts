@@ -68,8 +68,6 @@ export class UserModel extends AuthModel {
 
 }
 
-
-
 export class User {
   id: number;
   email: string;
@@ -95,7 +93,6 @@ export class User {
     this.status = user.status || '';
 
   }
-
 
 }
 

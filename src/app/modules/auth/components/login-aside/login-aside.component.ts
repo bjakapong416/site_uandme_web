@@ -47,6 +47,8 @@ export class LoginAsideComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     // get return url from route parameters or default to '/'
+
+
     this.returnUrl =
       this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
   }
@@ -97,6 +99,8 @@ export class LoginAsideComponent implements OnInit {
         console.log(user);
         
         if (user) {
+          
+
           this.router.navigate([this.returnUrl]);
         } else {
           this.hasError = true;

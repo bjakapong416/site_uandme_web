@@ -24,6 +24,7 @@ import { EditComponent } from './crud-stocks/edit/edit.component';
 
 
 
+
 @NgModule({
   declarations: [
     StockComponent,
@@ -32,6 +33,7 @@ import { EditComponent } from './crud-stocks/edit/edit.component';
     CrudStocksComponent,
     AddComponent,
     EditComponent,
+
   ],
   imports: [
     CommonModule,

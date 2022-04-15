@@ -23,8 +23,6 @@ import { EditComponent } from './crud-stocks/edit/edit.component';
 
 
 
-
-
 @NgModule({
   declarations: [
     StockComponent,

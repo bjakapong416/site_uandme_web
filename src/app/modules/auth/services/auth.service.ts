@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 export type UserType = UserModel | undefined;
-export type user = User | undefined;
+
+export type UserP = User | undefined;
+
 
 @Injectable({
   providedIn: 'root',
@@ -40,9 +42,6 @@ export class AuthService implements OnDestroy {
 
   // API Copnnection
   readonly Apiurl ="http://128.199.86.71:8000";
-
-  // user: User | undefined; 
-
 
 
   constructor(

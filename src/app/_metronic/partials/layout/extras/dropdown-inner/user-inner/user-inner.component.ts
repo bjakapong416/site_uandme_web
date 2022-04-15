@@ -1,7 +1,7 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { TranslationService } from '../../../../../../modules/i18n';
-import { AuthService, UserType } from '../../../../../../modules/auth';
+import { AuthService, UserType  } from '../../../../../../modules/auth';
 
 @Component({
   selector: 'app-user-inner',
@@ -17,6 +17,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
   langs = languages;
   private unsubscribe: Subscription[] = [];
 
+
   constructor(
     private auth: AuthService,
     private translationService: TranslationService
@@ -24,6 +25,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.user$ = this.auth.currentUserSubject.asObservable();
+      
     this.setLanguage(this.translationService.getSelectedLanguage());
 
     console.log(this.user$);

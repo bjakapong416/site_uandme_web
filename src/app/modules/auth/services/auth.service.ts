@@ -89,7 +89,6 @@ export class AuthService implements OnDestroy {
   }
 
 
-
   // public methods
   login(email: string, password: string): Observable<UserType> {
     this.isLoadingSubject.next(true);

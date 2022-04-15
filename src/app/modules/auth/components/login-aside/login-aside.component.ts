@@ -99,8 +99,6 @@ export class LoginAsideComponent implements OnInit {
         console.log(user);
         
         if (user) {
-          
-
           this.router.navigate([this.returnUrl]);
         } else {
           this.hasError = true;
@@ -111,7 +109,7 @@ export class LoginAsideComponent implements OnInit {
   //   const loginSubscr = this.authService
   //   .login(this.f.email.value, this.f.password.value)
   //   .pipe(first())
-  //   .subscribe((user: User | undefined) => {
+  //   .subscribe((user: UserModel | undefined) => {
 
   //     console.log(user);
       

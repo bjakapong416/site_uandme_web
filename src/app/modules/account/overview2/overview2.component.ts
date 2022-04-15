@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+
+import { AuthService, UserType ,User  } from '../../../modules/auth';
 
 @Component({
   selector: 'app-overview2',
@@ -7,9 +10,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class Overview2Component implements OnInit {
 
-  constructor() { }
+
+  user$: Observable<UserType> ;
+
+  profile= []
+  constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
+
+    this.user$ = this.auth.currentUserSubject.asObservable();
+
+    
+    console.log(this.user$);
+          
+    
   }
 
 }

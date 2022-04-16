@@ -11,18 +11,24 @@ import { AuthService, UserType ,User  } from '../../../modules/auth';
 export class Overview2Component implements OnInit {
 
 
-  user$: Observable<UserType> ;
+  // user$: Observable<UserType> ;
 
-  profile= []
+  user$: User | null = null;
+
   constructor(private auth: AuthService) { }
 
   ngOnInit(): void {
 
-    this.user$ = this.auth.currentUserSubject.asObservable();
+    // this.user$ = this.auth.currentUserSubject.asObservable();
 
-    
-    console.log(this.user$);
-          
+    const userProfiles = localStorage.getItem('currentUser$')
+
+    if(userProfiles != null){
+      this.user$ = JSON.parse(userProfiles) as User ;
+      
+    }
+
+
     
   }
 

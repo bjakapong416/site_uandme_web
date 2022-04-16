@@ -1,6 +1,4 @@
-<ng-container *ngIf="user$ | async as _user">
-
-
+<ng-container *ngIf="user$">
   
     <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
         <div class="card-header cursor-pointer">
@@ -21,7 +19,7 @@
             <label class="col-lg-4 fw-bold text-muted">ชื่อ - นามสกุล</label>
       
             <div class="col-lg-8">
-              <span class="fw-bolder fs-6 text-dark">{{_user.fullname}}</span>
+              <span class="fw-bolder fs-6 text-dark">{{user$.fullname}}</span>
             </div>
           </div>
       
@@ -29,7 +27,7 @@
             <label class="col-lg-4 fw-bold text-muted">รหัสพนักงาน</label>
       
             <div class="col-lg-8 fv-row">
-              <span class="fw-bold fs-6">{{_user.role}}</span>
+              <span class="fw-bold fs-6">{{user$.role}}</span>
             </div>
           </div>
 
@@ -37,7 +35,7 @@
             <label class="col-lg-4 fw-bold text-muted">Email</label>
       
             <div class="col-lg-8 fv-row">
-              <span class="fw-bold fs-6">{{_user.email}}</span>
+              <span class="fw-bold fs-6">{{user$.email}}</span>
             </div>
           </div>
 
@@ -52,7 +50,7 @@
             </label>
       
             <div class="col-lg-8 d-flex align-items-center">
-              <span class="fw-bolder fs-6 me-2">{{_user.phone}}</span>
+              <span class="fw-bolder fs-6 me-2">{{user$.phone}}</span>
       
               <!-- <span class="badge badge-success">Verified</span> -->
             </div>
@@ -62,14 +60,7 @@
         </div>
       </div>
   
-  
 
-  
-  
-  
-  
- 
-  
 
   </ng-container>
   

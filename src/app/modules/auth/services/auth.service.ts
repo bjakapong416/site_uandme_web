@@ -9,7 +9,6 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 export type UserType = UserModel | undefined;
-
 export type UserP = User | undefined;
 
 
@@ -24,15 +23,15 @@ export class AuthService implements OnDestroy {
 
   
   // public fields
-  currentUser$: Observable<UserType>;
+  public currentUser$: Observable<UserType>;
   isLoading$: Observable<boolean>;
-  currentUserSubject: BehaviorSubject<UserType>;
+  public currentUserSubject: BehaviorSubject<UserType>;
   isLoadingSubject: BehaviorSubject<boolean>;
 
   tokenId:string
   
 
-  get currentUserValue(): UserType {
+  public get currentUserValue(): UserType {
     return this.currentUserSubject.value;
   }
 
@@ -65,7 +64,7 @@ export class AuthService implements OnDestroy {
   }
 
 
-  login1(email: string, password: string) {
+  login1(email: string, password: string): Observable<UserP> {
     this.isLoadingSubject.next(true);
     return this.http.post<any>(this.Apiurl + '/login/access', { email, password })
         .pipe(map(user => {
@@ -75,7 +74,12 @@ export class AuthService implements OnDestroy {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.clear();
                 localStorage.setItem('currentUser$', JSON.stringify(user));
+ 
+                
+                console.log(localStorage.getItem(user.token));
+
                 this.currentUserSubject.next(user);
+
             }
             return user as User;
         }),
@@ -107,7 +111,8 @@ export class AuthService implements OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem(this.authLocalStorageToken);
+    // localStorage.removeItem(this.authLocalStorageToken);
+    localStorage.clear()
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });

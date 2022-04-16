@@ -89,10 +89,13 @@ export class User {
     this.id = user.id ;
     this.password = user.password || '';
     this.fullname = user.fullname || '';
+    this.employee_id = user.employee_id ?? '',
     this.email = user.email || '';
-    this.role = user.role || '';
+    this.pic = user.pic ?? '';
+    this.role = user.role ?? '';
     this.create_on = user.create_on || ''
     this.status = user.status || '';
+
 
   }
 

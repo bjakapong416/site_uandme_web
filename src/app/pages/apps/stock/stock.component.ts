@@ -1,22 +1,10 @@
-import { AfterViewInit, Component, OnInit, ViewChild, Pipe, PipeTransform } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { StockModels } from '../../_models/stock.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StockService } from '../../_services/stock/stock.service';
 import { AuthService } from 'src/app/modules/auth';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
-@Pipe({
-  name: 'filterUnique',
-  pure: false
-})
-export class FilterPipe implements PipeTransform {
-  transform(value: any, args?: any): any {
-    let uniqueArray = Array.from(new Set(value));
-    return uniqueArray;
-  }
-}
 
 @Component({
   selector: 'app-stock',
@@ -26,14 +14,14 @@ export class FilterPipe implements PipeTransform {
 
 export class StockComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  @ViewChild(MatSort) sort: MatSort;
 
   displayedColumns: string[] = ['id', 'name', 'type', 'qty', 'unit', 'where', 'action'];
   dispColumns: string[] = ['ID', 'Name', 'Type', 'Qty', 'Unit', 'Where', 'Action'];
   fieldColumns: string[] = ['itemno', 'itemdes', 'itemgrp', 'qty', 'unitnam', 'whdes', 'itemno'];
   dataSource = new MatTableDataSource();
+  dataLength = 0;
 
-  length:number;
+  p:number = 1;
   lowValue: number = 0;
   highValue: number = 10;
 
@@ -56,7 +44,6 @@ export class StockComponent implements OnInit {
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
   }
 
   applyFilter(event: Event) {
@@ -72,7 +59,6 @@ export class StockComponent implements OnInit {
     this.stockService.getAll().subscribe((data: any)=>{
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
       console.log(this.dataSource);
     })
   }

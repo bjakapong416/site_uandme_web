@@ -9,6 +9,8 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 
 export type UserType = UserModel | undefined;
+export type UserP = User | undefined;
+
 
 @Injectable({
   providedIn: 'root',
@@ -18,13 +20,18 @@ export class AuthService implements OnDestroy {
   private unsubscribe: Subscription[] = []; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
   private authLocalStorageToken = `${environment.appVersion}-${environment.USERDATA_KEY}`;
 
+
+  
   // public fields
-  currentUser$: Observable<UserType>;
+  public currentUser$: Observable<UserType>;
   isLoading$: Observable<boolean>;
-  currentUserSubject: BehaviorSubject<UserType>;
+  public currentUserSubject: BehaviorSubject<UserType>;
   isLoadingSubject: BehaviorSubject<boolean>;
 
-  get currentUserValue(): UserType {
+  tokenId:string
+  
+
+  public get currentUserValue(): UserType {
     return this.currentUserSubject.value;
   }
 
@@ -34,6 +41,7 @@ export class AuthService implements OnDestroy {
 
   // API Copnnection
   readonly Apiurl ="http://128.199.86.71:8000";
+
 
   constructor(
     private authHttpService: AuthHTTPService,
@@ -52,9 +60,36 @@ export class AuthService implements OnDestroy {
 
   // API Connect
   singupUser(val:any){
-    console.log("SignUp Access");
-    
     return this.http.post(this.Apiurl + '/signup',val);
+  }
+
+
+  login1(email: string, password: string): Observable<UserP> {
+    this.isLoadingSubject.next(true);
+    return this.http.post<any>(this.Apiurl + '/login/access', { email, password })
+        .pipe(map(user => {
+
+            // login successful if there's a jwt token in the response
+            if (user && user.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.clear();
+                localStorage.setItem('currentUser$', JSON.stringify(user));
+ 
+                
+                console.log(localStorage.getItem(user.token));
+
+                this.currentUserSubject.next(user);
+
+            }
+            return user as User;
+        }),
+        catchError((err) => {
+          console.error('err', err);
+          return of(undefined);
+        }),
+        finalize(() => this.isLoadingSubject.next(false))
+        );
+
   }
 
 
@@ -76,7 +111,8 @@ export class AuthService implements OnDestroy {
   }
 
   logout() {
-    localStorage.removeItem(this.authLocalStorageToken);
+    // localStorage.removeItem(this.authLocalStorageToken);
+    localStorage.clear()
     this.router.navigate(['/auth/login'], {
       queryParams: {},
     });

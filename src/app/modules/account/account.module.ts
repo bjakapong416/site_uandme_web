@@ -13,6 +13,7 @@ import { EmailPreferencesComponent } from './settings/forms/email-preferences/em
 import { NotificationsComponent } from './settings/forms/notifications/notifications.component';
 import { SignInMethodComponent } from './settings/forms/sign-in-method/sign-in-method.component';
 import { DropdownMenusModule, WidgetsModule } from '../../_metronic/partials';
+import { Overview2Component } from './overview2/overview2.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { DropdownMenusModule, WidgetsModule } from '../../_metronic/partials';
     EmailPreferencesComponent,
     NotificationsComponent,
     SignInMethodComponent,
+    Overview2Component,
   ],
   imports: [
     CommonModule,

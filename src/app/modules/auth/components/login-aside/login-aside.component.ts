@@ -18,6 +18,11 @@ export class LoginAsideComponent implements OnInit {
     email: 'admin@demo.com',
     password: 'demo',
   };
+  // defaultAuth: any = {
+  //   email: '',
+  //   password: '',
+  // };
+
   loginForm: FormGroup;
   hasError: boolean;
   returnUrl: string;
@@ -42,6 +47,8 @@ export class LoginAsideComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
     // get return url from route parameters or default to '/'
+
+
     this.returnUrl =
       this.route.snapshot.queryParams['returnUrl'.toString()] || '/';
   }
@@ -83,10 +90,14 @@ export class LoginAsideComponent implements OnInit {
     console.log(user)
     console.log(passwd)
 
+
     const loginSubscr = this.authService
-      .login(this.f.email.value, this.f.password.value)
+      .login1(this.f.email.value, this.f.password.value)
       .pipe(first())
-      .subscribe((user: UserModel | undefined) => {
+      .subscribe((user: User | undefined) => {
+
+        console.log(user);
+        
         if (user) {
           this.router.navigate([this.returnUrl]);
         } else {
@@ -94,6 +105,25 @@ export class LoginAsideComponent implements OnInit {
         }
       });
     this.unsubscribe.push(loginSubscr);
+
+  //   const loginSubscr = this.authService
+  //   .login(this.f.email.value, this.f.password.value)
+  //   .pipe(first())
+  //   .subscribe((user: UserModel | undefined) => {
+
+  //     console.log(user);
+      
+  //     if (user) {
+  //       this.router.navigate([this.returnUrl]);
+  //     } else {
+  //       this.hasError = true;
+  //     }
+  //   });
+  // this.unsubscribe.push(loginSubscr);
+
+
+
+
   }
 
   ngOnDestroy() {

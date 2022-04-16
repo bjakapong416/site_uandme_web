@@ -26,6 +26,7 @@ export class StockService {
     )
   }
 
+
   async async_getAll() {
     return await this.httpClient.get<StockModels[]>(this.apiURL + '/stock/all').pipe( )
   }

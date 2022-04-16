@@ -6,7 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 //Modules
 import { AppsRoutingModule } from './apps-routing.module';
 import { MaterialModule } from '../_models/material.module';
-import { NgxPaginationModule } from 'ngx-pagination';
+// import { NgxPaginationModule } from 'ngx-pagination';
 
 //Resolver
 import { StockResolver } from '../_services/stock/stock.resolver';
@@ -37,7 +37,6 @@ import { EditComponent } from './crud-stocks/edit/edit.component';
     AppsRoutingModule,
     HttpClientModule,
     FormsModule,
-    NgxPaginationModule,
     MaterialModule,
     ReactiveFormsModule
   ],

@@ -58,6 +58,7 @@ export class AuthService implements OnDestroy {
   }
 
 
+
   // API Connect
   singupUser(val:any){
     return this.http.post(this.Apiurl + '/signup',val);
@@ -74,9 +75,9 @@ export class AuthService implements OnDestroy {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.clear();
                 localStorage.setItem('currentUser$', JSON.stringify(user));
- 
+
                 
-                console.log(localStorage.getItem(user.token));
+                // console.log(localStorage.getItem(user.token));
 
                 this.currentUserSubject.next(user);
 

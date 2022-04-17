@@ -11,4 +11,11 @@ export class AuthModel {
 }
 
 
+export class AuthModel2 {
+  token:string
+  setAuth2(auth:AuthModel2){
+    this.token = auth.token;
+  }
+}
+
 

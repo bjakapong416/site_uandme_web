@@ -83,14 +83,6 @@ export class LoginAsideComponent implements OnInit {
   submit() {
 
     this.hasError = false;
-    
-    let user = this.f.email.value
-    let passwd = this.f.password.value
-
-    console.log(user)
-    console.log(passwd)
-
-
     const loginSubscr = this.authService
       .login1(this.f.email.value, this.f.password.value)
       .pipe(first())
@@ -105,24 +97,6 @@ export class LoginAsideComponent implements OnInit {
         }
       });
     this.unsubscribe.push(loginSubscr);
-
-  //   const loginSubscr = this.authService
-  //   .login(this.f.email.value, this.f.password.value)
-  //   .pipe(first())
-  //   .subscribe((user: UserModel | undefined) => {
-
-  //     console.log(user);
-      
-  //     if (user) {
-  //       this.router.navigate([this.returnUrl]);
-  //     } else {
-  //       this.hasError = true;
-  //     }
-  //   });
-  // this.unsubscribe.push(loginSubscr);
-
-
-
 
   }
 

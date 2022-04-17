@@ -14,6 +14,10 @@ import { NotificationsComponent } from './settings/forms/notifications/notificat
 import { SignInMethodComponent } from './settings/forms/sign-in-method/sign-in-method.component';
 import { DropdownMenusModule, WidgetsModule } from '../../_metronic/partials';
 import { Overview2Component } from './overview2/overview2.component';
+import { Settings2Component } from './settings2/settings2.component';
+import { ProfileDetails2Component } from './settings2/forms/profile-details2/profile-details2.component';
+
+
 
 @NgModule({
   declarations: [
@@ -27,6 +31,8 @@ import { Overview2Component } from './overview2/overview2.component';
     NotificationsComponent,
     SignInMethodComponent,
     Overview2Component,
+    Settings2Component,
+    ProfileDetails2Component,
   ],
   imports: [
     CommonModule,

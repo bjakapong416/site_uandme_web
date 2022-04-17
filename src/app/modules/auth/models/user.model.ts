@@ -1,4 +1,4 @@
-import { AuthModel } from './auth.model';
+import { AuthModel , AuthModel2 } from './auth.model';
 import { AddressModel } from './address.model';
 import { SocialNetworksModel } from './social-networks.model';
 
@@ -70,7 +70,7 @@ export class UserModel extends AuthModel {
 
 }
 
-export class User {
+export class User extends AuthModel2{
   id: number;
   email: string;
   username:string;
@@ -80,7 +80,7 @@ export class User {
   pic:string;
   phone:string;
   role:string;
-  token?: string;
+  token: string;
   create_on: string;
   status?: string;
 

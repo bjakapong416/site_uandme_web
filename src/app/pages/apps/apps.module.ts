@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InlineSVGModule } from 'ng-inline-svg';
+
 
 //Modules
 import { AppsRoutingModule } from './apps-routing.module';
@@ -38,7 +40,8 @@ import { EditComponent } from './crud-stocks/edit/edit.component';
     HttpClientModule,
     FormsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    InlineSVGModule
   ],
   providers: [
     StockService,

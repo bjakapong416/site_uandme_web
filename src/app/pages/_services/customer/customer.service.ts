@@ -2,15 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { StockModels } from '../../_models/stock.model';
+import { CustomerModels } from '../../_models/customer.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-
-export class StockService {
-  readonly apiURL = `${environment.apiUrl}/stock`;
+export class CustomerService {
+  readonly apiURL = `${environment.apiUrl}/customer`;
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,37 +19,36 @@ export class StockService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getAll(): Observable<StockModels[]> {
-    return this.httpClient.get<StockModels[]>(this.apiURL + '/all').pipe(
+  getAll(): Observable<CustomerModels[]> {
+    return this.httpClient.get<CustomerModels[]>(this.apiURL + '/all').pipe(
       catchError(this.errorHandler)
     )
   }
 
-
   async async_getAll() {
-    return await this.httpClient.get<StockModels[]>(this.apiURL + '/all').pipe( )
+    return await this.httpClient.get<CustomerModels[]>(this.apiURL + '/all').pipe( )
   }
     
-  create(data: any): Observable<StockModels> {
-    return this.httpClient.post<StockModels>(this.apiURL + '/', JSON.stringify(data), this.httpOptions).pipe(
+  create(data: any): Observable<CustomerModels> {
+    return this.httpClient.post<CustomerModels>(this.apiURL + '/', JSON.stringify(data), this.httpOptions).pipe(
       catchError(this.errorHandler)
     )
   }  
     
-  find(id: any): Observable<StockModels> {
-    return this.httpClient.get<StockModels>(this.apiURL + '/' + id).pipe(
+  find(id: any): Observable<CustomerModels> {
+    return this.httpClient.get<CustomerModels>(this.apiURL + '/' + id).pipe(
       catchError(this.errorHandler)
     )
   }
     
-  update(id: any, data: any): Observable<StockModels> {
-    return this.httpClient.put<StockModels>(this.apiURL + '/' + id, JSON.stringify(data), this.httpOptions).pipe(
+  update(id: any, data: any): Observable<CustomerModels> {
+    return this.httpClient.put<CustomerModels>(this.apiURL + '/' + id, JSON.stringify(data), this.httpOptions).pipe(
       catchError(this.errorHandler)
     )
   }
     
   delete(id: any){
-    return this.httpClient.delete<StockModels>(this.apiURL + '/' + id, this.httpOptions).pipe(
+    return this.httpClient.delete<CustomerModels>(this.apiURL + '/' + id, this.httpOptions).pipe(
       catchError(this.errorHandler)
     )
   }

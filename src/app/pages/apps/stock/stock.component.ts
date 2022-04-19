@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StockModels } from '../../_models/stock.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { StockService } from '../../_services/stock/stock.service';
@@ -33,13 +33,12 @@ export class StockComponent implements OnInit {
     return event;
   }
 
-  StockDatas$: StockModels[] = [];
+  mainDatas$: StockModels[] = [];
   constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, public stockService: StockService) { 
-    this.FUNC_getStock();
   }
 
   ngOnInit(): void {
-    this.FUNC_getStock();
+    this.FUNC_getData();
   }
 
   ngAfterViewInit() {
@@ -55,7 +54,7 @@ export class StockComponent implements OnInit {
     }
   }
 
-  FUNC_getStock() {
+  FUNC_getData() {
     this.stockService.getAll().subscribe((data: any)=>{
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
@@ -63,9 +62,9 @@ export class StockComponent implements OnInit {
     })
   }
 
-  FUNC_DeleteStock(id: string){
+  FUNC_Delete(id: string){
     this.stockService.delete(id).subscribe(res => {
-         this.StockDatas$ = this.StockDatas$.filter(item => item.itemno !== id);
+         this.mainDatas$ = this.mainDatas$.filter(item => item.itemno !== id);
          console.log('Post deleted successfully!');
     })
   }

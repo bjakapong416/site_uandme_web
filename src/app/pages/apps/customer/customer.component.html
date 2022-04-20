@@ -42,12 +42,9 @@
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef > Action </th>
           <td mat-cell *matCellDef="let row"> 
-            <span class="menu-icon">
-              <span
-                [inlineSVG]="'../assets/media/svg/icons/Communication/Write.svg'"
-                class="svg-icon svg-icon-2 svg-icon-primary "
-              ></span> 
-            </span>
+            <a title="Add review" class="btn btn-active-light-primary" (click)="add(row.cuscod)">
+              <span class="svg-icon svg-icon-2 svg-icon-primary" [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"></span>
+            </a>
           </td>
         </ng-container>
         

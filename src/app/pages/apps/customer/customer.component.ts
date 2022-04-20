@@ -5,6 +5,8 @@ import { CustomerService } from '../../_services/customer/customer.service';
 import { AuthService } from 'src/app/modules/auth';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddCusComponent } from './add-cus/add-cus.component';
 
 @Component({
   selector: 'app-customer',
@@ -19,7 +21,7 @@ export class CustomerComponent implements OnInit {
 
   mainDatas$: CustomerModels[] = [];
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, public customerService: CustomerService) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private modalService: NgbModal, public customerService: CustomerService) { }
 
   ngOnInit(): void {
     this.FUNC_getData()
@@ -51,6 +53,12 @@ export class CustomerComponent implements OnInit {
          this.mainDatas$ = this.mainDatas$.filter(item => item.cuscod !== id);
          console.log('Post deleted successfully!');
     })
+  }
+
+  //action
+  add(id: any) {
+    const modalRef = this.modalService.open(AddCusComponent, { size: 'xl' });
+    modalRef.componentInstance.id = id;
   }
 
 }

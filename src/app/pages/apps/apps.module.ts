@@ -21,6 +21,10 @@ import { BillComponent } from './bill/bill.component';
 import { CrudStocksComponent } from './crud-stocks/crud-stocks.component';
 import { AddComponent } from './crud-stocks/add/add.component';
 import { EditComponent } from './crud-stocks/edit/edit.component';
+import { AddCusComponent } from './customer/add-cus/add-cus.component';
+import { DetailCusComponent } from './customer/detail-cus/detail-cus.component';
+import { ReviewCusComponent } from './customer/review-cus/review-cus.component';
+import { BillCusComponent } from './customer/bill-cus/bill-cus.component';
 
 
 
@@ -32,7 +36,10 @@ import { EditComponent } from './crud-stocks/edit/edit.component';
     CrudStocksComponent,
     AddComponent,
     EditComponent,
-
+    AddCusComponent,
+    DetailCusComponent,
+    ReviewCusComponent,
+    BillCusComponent,
   ],
   imports: [
     CommonModule,

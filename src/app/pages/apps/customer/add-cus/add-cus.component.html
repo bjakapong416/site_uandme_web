@@ -1,1 +1,21 @@
-<div class="card-header">TEST Modal: ADD REVIEW & COMMENTs</div>
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title h4 w-100 text-center" id="example-modal-sizes-title-lg">
+                <ng-container *ngIf="mainData">
+                    แสดงความคิดเห็นต่อลูกค้า | "{{mainData.cusnam}}"
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="overlay overlay-block cursor-default modal-body">
+            <p>REVIEW AND COMMENT BOX.</p>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss('Close click')"> ยกเลิก </button>
+            <button type="submit" class="btn btn-primary"> บันทึก </button>
+            <!--button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid"> บันทึก </button-->
+        </div>
+    </div>
+</div>

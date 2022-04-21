@@ -1,9 +1,5 @@
 <!-- begin::Header -->
 <div class="card-header border-0 pt-5">
-
-
-
-
   <mat-form-field appearance="outline">
     <mat-label>Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="รหัส ชื่อสินค้า อื่นๆ" #input>
@@ -15,7 +11,7 @@
 
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> ID </th>
-        <td mat-cell *matCellDef="let row"> {{row.itemno}} <p class="text-muted mb-0">kate.hunington@gmail.com</p> </td>
+        <td mat-cell *matCellDef="let row"> {{row.itemno}} <p class="text-muted mb-0">{{row.itemdes}}</p> </td>
       </ng-container>
 
       <ng-container matColumnDef="name">

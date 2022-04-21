@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../core/layout.service';
+import { AuthService, UserType ,User  } from '../../../../modules/auth';
+
 
 @Component({
   selector: 'app-topbar',
@@ -13,9 +15,29 @@ export class TopbarComponent implements OnInit {
   toolbarButtonIconSizeClass = 'svg-icon-1';
   headerLeft: string = 'menu';
 
+  user$: User | null = null;
+
+  name$:string | null = null;
+
   constructor(private layout: LayoutService) {}
 
   ngOnInit(): void {
     this.headerLeft = this.layout.getProp('header.left') as string;
+
+
+    // Get user info from localstorage
+    const userProfiles = localStorage.getItem('currentUser$')
+    if(userProfiles != null){
+      this.user$ = JSON.parse(userProfiles) as User ;
+
+      // Split String name
+      let text = this.user$.fullname
+      const arr = text.split("");
+      this.name$ = arr[0];
+
+    }
+
+
+
   }
 }

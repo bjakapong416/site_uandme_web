@@ -1,5 +1,5 @@
 <!-- Search toolbar -->
-<div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
+<!-- <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
   <div
     class="btn btn-icon btn-active-light-primary position-relative"
     [ngClass]="toolbarButtonHeightClass"
@@ -15,11 +15,11 @@
     ></span>
   </div>
   <app-search-result-inner></app-search-result-inner>
-</div>
+</div> -->
 
 <!-- Activities -->
-<div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
-  <!-- begin::Drawer toggle -->
+<!-- <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
+
   <div
     class="btn btn-icon btn-active-light-primary"
     [ngClass]="toolbarButtonHeightClass"
@@ -31,8 +31,8 @@
       [ngClass]="toolbarButtonIconSizeClass"
     ></span>
   </div>
-  <!-- end::Drawer toggle -->
-</div>
+
+</div> -->
 
 <!-- NOTIFICATIONS -->
 <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
@@ -54,8 +54,8 @@
 </div>
 
 <!-- CHAT -->
-<div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
-  <!-- begin::Menu wrapper -->
+<!-- <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
+
   <div
     class="btn btn-icon btn-active-light-primary position-relative"
     [ngClass]="toolbarButtonHeightClass"
@@ -80,11 +80,11 @@
       "
     ></span>
   </div>
-  <!-- end::Menu wrapper -->
-</div>
+
+</div> -->
 
 <!-- Quick links -->
-<div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
+<!-- <div class="d-flex align-items-center" [ngClass]="toolbarButtonMarginClass">
   <div
     class="btn btn-icon btn-active-light-primary"
     [ngClass]="toolbarButtonHeightClass"
@@ -100,7 +100,7 @@
     ></span>
   </div>
   <app-quick-links-inner></app-quick-links-inner>
-</div>
+</div> -->
 
 <!-- begin::User -->
 <div
@@ -110,14 +110,16 @@
 >
   <!-- begin::Toggle -->
   <div
-    class="cursor-pointer symbol"
+    class="cursor-pointer symbol symbol-50px symbol-circle"
     [ngClass]="toolbarUserAvatarHeightClass"
     data-kt-menu-trigger="click"
     data-kt-menu-attach="parent"
     data-kt-menu-placement="bottom-end"
     data-kt-menu-flip="bottom"
   >
-    <img src="./assets/media/avatars/300-1.jpg" alt="metronic" />
+    <!-- <img src="./assets/media/avatars/300-1.jpg" alt="metronic" /> -->
+    <div class="symbol-label fs-2 fw-bold text-success">{{name$}}</div>
+
   </div>
   <!-- end::Toggle  -->
   <app-user-inner></app-user-inner>

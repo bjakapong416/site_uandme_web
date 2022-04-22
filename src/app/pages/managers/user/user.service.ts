@@ -31,12 +31,8 @@ export class userService {
           this.user$ = JSON.parse(userProfiles) as User ;
         }
 
-        const headers = new Headers({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.user$?.token}`
-          })
-
-        return this.httpClient.get<UserModels[]>(this.apiURL + '/listUsers'  ).pipe(
+      
+        return this.httpClient.get<UserModels[]>(this.apiURL + '/listUsers' ).pipe(
           catchError(this.errorHandler)
         )
     }

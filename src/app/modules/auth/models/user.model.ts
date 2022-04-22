@@ -83,6 +83,7 @@ export class User extends AuthModel2{
   token: string;
   create_on: string;
   status?: string;
+  lastlogin?: string;
 
   setUser2(_user: unknown) {
     const user = _user as User;
@@ -95,7 +96,7 @@ export class User extends AuthModel2{
     this.role = user.role ?? '';
     this.create_on = user.create_on || ''
     this.status = user.status || '';
-
+    this.lastlogin = user.lastlogin ?? '';
 
   }
 

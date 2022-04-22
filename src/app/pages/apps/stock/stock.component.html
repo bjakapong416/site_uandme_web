@@ -1,11 +1,11 @@
+<mat-form-field appearance="outline">
+  <mat-label>Search</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="รหัส ชื่อสินค้า อื่นๆ" #input>
+  <mat-icon matPrefix>search</mat-icon>
+</mat-form-field>
+
 <!-- begin::Header -->
 <div class="card-header border-0 pt-5">
-  <mat-form-field appearance="outline">
-    <mat-label>Search</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="รหัส ชื่อสินค้า อื่นๆ" #input>
-    <mat-icon matPrefix>search</mat-icon>
-  </mat-form-field>
-
   <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
 

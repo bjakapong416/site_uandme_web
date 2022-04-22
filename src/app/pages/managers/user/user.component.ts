@@ -13,8 +13,14 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
+
+  toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px';
+
+  avar$:string[] | null = null;
+
+
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name', 'emp_id', 'email', 'job', 'last_login', 'action'];
+  displayedColumns: string[] = ['avart','name', 'emp_id', 'email', 'job', 'last_login', 'action'];
   dataSource = new MatTableDataSource();
   mainDatas$: UserModels[] = [];
 
@@ -39,6 +45,10 @@ export class UserComponent implements OnInit {
 
   FUNC_getData() {
     this.userService.getAll().subscribe((data: any)=>{
+
+
+
+    
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);

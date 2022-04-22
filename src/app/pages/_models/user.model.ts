@@ -11,4 +11,5 @@ export class UserModels {
     token: string;
     create_on: Date;
     status: string;
+    lastlogin: Date;
 }

@@ -8,12 +8,15 @@ import { CustomerComponent } from './customer/customer.component';
 import { StockComponent } from './stock/stock.component';
 import { UserComponent } from './user/user.component';
 
+import { ShortNamePipe } from '../_pipes/short-name.pipe';
+
 
 @NgModule({
   declarations: [
     CustomerComponent,
     StockComponent,
-    UserComponent
+    UserComponent,
+    ShortNamePipe
   ],
   imports: [
     CommonModule,

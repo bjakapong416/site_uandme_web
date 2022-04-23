@@ -26,6 +26,8 @@ import { DetailCusComponent } from './customer/detail-cus/detail-cus.component';
 import { ReviewCusComponent } from './customer/review-cus/review-cus.component';
 import { BillCusComponent } from './customer/bill-cus/bill-cus.component';
 
+//Pipes
+
 
 
 @NgModule({

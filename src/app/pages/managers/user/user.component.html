@@ -27,6 +27,7 @@
         <option value="Declined">Co-Sale</option>
         <option value="In Progress">Completed</option>
       </select>
+
     </div>
     <a
       class="btn btn-success btn-sm cursor-pointer"
@@ -56,16 +57,11 @@
             data-kt-menu-placement="bottom-end"
             data-kt-menu-flip="bottom"
           >
-
-
-            <div class="symbol-label fs-2 fw-bold text-danger" > 
-              {{row.pic}}
+              <div class="symbol-label fs-2 fw-bold text-danger" > 
+                {{row.pic}}
+              </div>
             </div>
-        
-          </div>
-            
-            
-             </td>
+          </td>
         </ng-container>
 
 
@@ -97,7 +93,7 @@
   
         <ng-container matColumnDef="last_login">
           <th mat-header-cell *matHeaderCellDef > ล็อคอินล่าสุด </th>
-          <td mat-cell *matCellDef="let row"> {{row.create_on}} </td>
+          <td mat-cell *matCellDef="let row"> {{row.lastlogin}} </td>
         </ng-container>
 
         <ng-container matColumnDef="action">

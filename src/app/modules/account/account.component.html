@@ -10,7 +10,21 @@
               position-relative
             "
           >
-            <img src="./assets/media/avatars/300-1.jpg" alt="Metronic" />
+          <div
+          class="cursor-pointer symbol symbol-50px symbol-circle"
+          [ngClass]="toolbarUserAvatarHeightClass"
+          data-kt-menu-attach="parent"
+          data-kt-menu-placement="bottom-end"
+          data-kt-menu-flip="bottom"
+        >
+            <div class="symbol-label fs-1 fw-bold text-danger" > 
+              {{user$.pic}}
+            </div>
+          </div>
+
+
+
+            <!-- <img src="./assets/media/avatars/300-1.jpg" alt="Metronic" /> -->
             <div
               class="
                 position-absolute
@@ -72,7 +86,8 @@
                   data-bs-toggle="modal"
                   data-bs-target="#kt_modal_upgrade_plan"
                 >
-                  Admin
+                <ng-container *ngIf="user$.role == '777' ">Admin</ng-container>
+                <ng-container *ngIf="user$.role == '0' ">Sale</ng-container>
                 </a>
               </div>
   

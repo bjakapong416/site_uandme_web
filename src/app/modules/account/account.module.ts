@@ -16,6 +16,7 @@ import { DropdownMenusModule, WidgetsModule } from '../../_metronic/partials';
 import { Overview2Component } from './overview2/overview2.component';
 import { Settings2Component } from './settings2/settings2.component';
 import { ProfileDetails2Component } from './settings2/forms/profile-details2/profile-details2.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -40,6 +41,7 @@ import { ProfileDetails2Component } from './settings2/forms/profile-details2/pro
     InlineSVGModule,
     DropdownMenusModule,
     WidgetsModule,
+    ReactiveFormsModule
   ],
 })
 export class AccountModule {}

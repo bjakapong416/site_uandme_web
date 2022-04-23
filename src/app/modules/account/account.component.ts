@@ -9,6 +9,8 @@ import { AuthService, UserType ,User  } from '../../modules/auth';
 export class AccountComponent implements OnInit {
 
   // user$: Observable<UserType> ;
+
+  toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px';
   constructor(private auth: AuthService) {}
 
   user$: User | null = null;

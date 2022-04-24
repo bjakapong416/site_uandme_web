@@ -49,14 +49,6 @@
         <ng-container matColumnDef="avart">
           <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let row">   
-            <div
-            class="cursor-pointer symbol symbol-50px symbol-circle"
-            [ngClass]="toolbarUserAvatarHeightClass"
-            data-kt-menu-trigger="click"
-            data-kt-menu-attach="parent"
-            data-kt-menu-placement="bottom-end"
-            data-kt-menu-flip="bottom"
-          >
             <div class="symbol-label fs-2 fw-bold text-danger" > 
               {{row.fullname | shortName}}
             </div>

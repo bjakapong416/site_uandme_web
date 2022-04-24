@@ -22,16 +22,25 @@ export class setting2sService {
 
 
 
-    getUser1(): Observable<UserModels[]> {
-        const userProfiles = localStorage.getItem('currentUser$')
+    // Set localstorage user
+    setGetMe(val:any)
+    {
+      this.httpClient.get<any>(this.apiURL + '/getUserByID/'+val).subscribe(res =>{
 
-        if(userProfiles != null){
-          this.user$ = JSON.parse(userProfiles) as User ;
+        if (res != null){   
+           localStorage.setItem('currentUser$', JSON.stringify(res)); 
+          window.location.reload();
         }
+        
+      });      
+    
+    }
 
-        return this.httpClient.get<UserModels[]>(this.apiURL + '/listUsers' ).pipe(
-          catchError(this.errorHandler)
-        )
+    // Edit user setting page
+    editUser(val:any){
+      const body = val;
+      this.httpClient.put<any>(this.apiURL + '/editUser', body).subscribe();
+
     }
 
 

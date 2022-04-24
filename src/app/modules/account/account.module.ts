@@ -18,6 +18,8 @@ import { Settings2Component } from './settings2/settings2.component';
 import { ProfileDetails2Component } from './settings2/forms/profile-details2/profile-details2.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
+import { ShortNamePipe } from '../../pages/_pipes/short-name.pipe';
+
 
 
 @NgModule({
@@ -33,7 +35,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     SignInMethodComponent,
     Overview2Component,
     Settings2Component,
-    ProfileDetails2Component,
+    ProfileDetails2Component
   ],
   imports: [
     CommonModule,

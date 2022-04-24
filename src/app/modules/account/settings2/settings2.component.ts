@@ -27,7 +27,7 @@ export class Settings2Component implements OnInit {
 
 
 
-  constructor(private cdr: ChangeDetectorRef) { 
+  constructor(private cdr: ChangeDetectorRef,public settingService: setting2sService) { 
     const loadingSubscr = this.isLoading$
     .asObservable()
     .subscribe((res) => (this.isLoading = res));
@@ -40,20 +40,18 @@ export class Settings2Component implements OnInit {
     if(userProfiles != null){
       this.user$ = JSON.parse(userProfiles) as User ;
       this.profileForm.patchValue({id:this.user$.id ,fullname:this.user$.fullname , employee_id:this.user$.employee_id , phone:this.user$.phone})
-
     }
-
-
   }
+
 
 
   saveSettings() {
     this.isLoading$.next(true);
-
     let formValue = this.profileForm.value;
-    
-    console.log(formValue);
-    
+
+    this.settingService.editUser(formValue);  
+    this.settingService.setGetMe(this.user$?.id)
+
     setTimeout(() => {
       this.isLoading$.next(false);
       this.cdr.detectChanges();

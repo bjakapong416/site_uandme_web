@@ -15,7 +15,6 @@ import { MatTableDataSource } from '@angular/material/table';
 export class UserComponent implements OnInit {
 
   toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px';
-
   avar$:string[] | null = null;
 
 
@@ -44,11 +43,7 @@ export class UserComponent implements OnInit {
   }
 
   FUNC_getData() {
-    this.userService.getAll().subscribe((data: any)=>{
-
-
-
-    
+    this.userService.getAll().subscribe((data: any)=>{    
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);

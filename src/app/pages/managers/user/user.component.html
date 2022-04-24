@@ -60,6 +60,11 @@
             <div class="symbol-label fs-2 fw-bold text-danger" > 
               {{row.fullname | shortName}}
             </div>
+
+            </div>
+            
+
+
           </td>
         </ng-container>
 
@@ -87,7 +92,7 @@
             <ng-container *ngIf="row.role == 777">Admin</ng-container>
             <ng-container *ngIf="row.role == 0">Sale</ng-container>
             
-            </td>
+          </td>
         </ng-container>
   
         <ng-container matColumnDef="last_login">

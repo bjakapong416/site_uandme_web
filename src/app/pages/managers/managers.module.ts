@@ -9,6 +9,8 @@ import { StockComponent } from './stock/stock.component';
 import { UserComponent } from './user/user.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
+import { WidgetsModule } from '../../_metronic/partials';
+
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
     InlineSVGModule,
     MaterialModule,
     ManagersRoutingModule,
-    SharedModule
+    SharedModule,
+    WidgetsModule
   ]
 })
 export class ManagersModule { }

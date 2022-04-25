@@ -35,7 +35,6 @@ export class Settings2Component implements OnInit {
   }
 
   ngOnInit(): void {
-    
     const userProfiles = localStorage.getItem('currentUser$')
     if(userProfiles != null){
       this.user$ = JSON.parse(userProfiles) as User ;

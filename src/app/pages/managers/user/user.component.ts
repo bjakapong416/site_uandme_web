@@ -17,6 +17,7 @@ export class UserComponent implements OnInit {
   toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px';
   avar$:string[] | null = null;
 
+  userTotal$:string | null = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = ['avart','name', 'emp_id', 'email', 'job', 'last_login', 'action'];
@@ -45,6 +46,9 @@ export class UserComponent implements OnInit {
   FUNC_getData() {
     this.userService.getAll().subscribe((data: any)=>{    
       this.dataSource = new MatTableDataSource(data);
+      this.userTotal$ = data.length;
+       
+
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);
     })

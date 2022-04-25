@@ -1,16 +1,26 @@
-
+  <div class="col-xl-3">
+    <app-stats-widget5
+      svgIcon="./assets/media/icons/duotune/graphs/gra007.svg"
+      class="card bg-info hoverable card-xl-stretch mb-5 mb-xl-8"
+      color="info"
+      iconColor="white"
+      title="สมาชิกทั้งหมด {{userTotal$}} คน"
+      description=""
+    ></app-stats-widget5>
+  </div>
 
 
 
 <!-- Search  -->
 <div class="d-flex flex-wrap flex-stack mb-6">
 
-
   <mat-form-field appearance="outline">
     <mat-label>Search</mat-label>
     <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
     <mat-icon matPrefix>search</mat-icon>
   </mat-form-field>  
+
+
 
 
   <div class="d-flex flex-wrap my-2">
@@ -49,7 +59,7 @@
         <ng-container matColumnDef="avart">
           <th mat-header-cell *matHeaderCellDef>  </th>
           <td mat-cell *matCellDef="let row">   
-            <div class="symbol-label fs-2 fw-bold text-danger" > 
+            <div class="symbol-label fs-2 fw-bold text-info " > 
               {{row.fullname | shortName}}
             </div>
           </td>
@@ -59,7 +69,9 @@
         <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> ชื่อ - นามสกุล </th>
           <td mat-cell *matCellDef="let row">    
-            {{row.fullname}} </td>
+            {{row.fullname}} 
+            <p class="text-muted mb-0">{{row.phone}}</p>
+          </td>
         </ng-container>
   
         <ng-container matColumnDef="emp_id">

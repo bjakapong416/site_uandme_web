@@ -31,12 +31,10 @@ export class userService {
           this.user$ = JSON.parse(userProfiles) as User ;
         }
 
-      
         return this.httpClient.get<UserModels[]>(this.apiURL + '/listUsers' ).pipe(
           catchError(this.errorHandler)
         )
     }
-
 
 
 

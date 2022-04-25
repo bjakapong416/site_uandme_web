@@ -75,7 +75,6 @@ export class AuthService implements OnDestroy {
                 // store user details and jwt token in local storage to keep user logged in between page refreshes
                 localStorage.clear();
                 localStorage.setItem('currentUser$', JSON.stringify(user));
-
                 
                 // console.log(localStorage.getItem(user.token));
 

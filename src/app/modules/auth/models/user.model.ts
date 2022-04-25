@@ -102,6 +102,7 @@ export class User extends AuthModel2{
 
 }
 
+
 export enum Role {
   User = '0',
   Admin = '777'

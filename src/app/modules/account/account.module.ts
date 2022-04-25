@@ -17,10 +17,7 @@ import { Overview2Component } from './overview2/overview2.component';
 import { Settings2Component } from './settings2/settings2.component';
 import { ProfileDetails2Component } from './settings2/forms/profile-details2/profile-details2.component';
 import { ReactiveFormsModule } from '@angular/forms';
-
-import { ShortNamePipe } from '../../pages/_pipes/short-name.pipe';
-
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -43,7 +40,8 @@ import { ShortNamePipe } from '../../pages/_pipes/short-name.pipe';
     InlineSVGModule,
     DropdownMenusModule,
     WidgetsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
   ],
 })
 export class AccountModule {}

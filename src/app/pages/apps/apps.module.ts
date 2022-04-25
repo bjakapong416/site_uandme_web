@@ -27,7 +27,7 @@ import { ReviewCusComponent } from './customer/review-cus/review-cus.component';
 import { BillCusComponent } from './customer/bill-cus/bill-cus.component';
 
 //Pipes
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -50,7 +50,8 @@ import { BillCusComponent } from './customer/bill-cus/bill-cus.component';
     FormsModule,
     MaterialModule,
     ReactiveFormsModule,
-    InlineSVGModule
+    InlineSVGModule,
+    SharedModule
   ],
   providers: [
     StockService,

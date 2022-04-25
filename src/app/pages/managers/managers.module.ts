@@ -7,22 +7,21 @@ import { ManagersRoutingModule } from './managers-routing.module';
 import { CustomerComponent } from './customer/customer.component';
 import { StockComponent } from './stock/stock.component';
 import { UserComponent } from './user/user.component';
-
-import { ShortNamePipe } from '../_pipes/short-name.pipe';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
   declarations: [
     CustomerComponent,
     StockComponent,
-    UserComponent,
-    ShortNamePipe
+    UserComponent
   ],
   imports: [
     CommonModule,
     InlineSVGModule,
     MaterialModule,
-    ManagersRoutingModule
+    ManagersRoutingModule,
+    SharedModule
   ]
 })
 export class ManagersModule { }

@@ -1,4 +1,30 @@
-<mat-form-field appearance="outline">
+<!-- <table cellspacing="0"><tr>
+  <td><mat-form-field *ngFor="let filter of filterSelectObj" appearance="outline" style="margin-left: 15px;">
+    <mat-label>Filter {{filter.name}}</mat-label>
+    <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+      (change)="filterChange(filter,$event)">
+      <option value="">-- Select {{filter.name}} --</option>
+      <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+    </select>
+  </mat-form-field></td>
+
+  <td><mat-form-field appearance="outline" class="example-full-width">
+    <mat-label>Search</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="รหัส ชื่อสินค้า อื่นๆ" #input>
+    <mat-icon matPrefix>search</mat-icon>
+  </mat-form-field></td>
+</tr></table> -->
+
+<mat-form-field *ngFor="let filter of filterSelectObj" appearance="outline" style="margin-left: 15px;">
+  <mat-label>Filter {{filter.name}}</mat-label>
+  <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+    (change)="filterChange(filter, $event)">
+    <option value="">-- Select {{filter.name}} --</option>
+    <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+  </select>
+</mat-form-field>
+
+<mat-form-field appearance="outline" style="margin-left: 15px;">
   <mat-label>Search</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="รหัส ชื่อสินค้า อื่นๆ" #input>
   <mat-icon matPrefix>search</mat-icon>

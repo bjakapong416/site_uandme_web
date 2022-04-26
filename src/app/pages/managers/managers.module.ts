@@ -10,13 +10,16 @@ import { UserComponent } from './user/user.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { WidgetsModule } from '../../_metronic/partials';
+import { AdduserComponent } from './user/register/adduser/adduser.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     CustomerComponent,
     StockComponent,
-    UserComponent
+    UserComponent,
+    AdduserComponent
   ],
   imports: [
     CommonModule,
@@ -24,7 +27,8 @@ import { WidgetsModule } from '../../_metronic/partials';
     MaterialModule,
     ManagersRoutingModule,
     SharedModule,
-    WidgetsModule
+    WidgetsModule,
+    ReactiveFormsModule
   ]
 })
 export class ManagersModule { }

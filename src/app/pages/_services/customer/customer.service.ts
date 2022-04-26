@@ -20,7 +20,7 @@ export class CustomerService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<CustomerModels[]> {
-    return this.httpClient.get<CustomerModels[]>(this.apiURL + '/all').pipe(
+    return this.httpClient.get<CustomerModels[]>(this.apiURL + '/limit/5').pipe(
       catchError(this.errorHandler)
     )
   }

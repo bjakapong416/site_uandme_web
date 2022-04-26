@@ -19,10 +19,10 @@ import { StockResolver } from '../_services/stock/stock.resolver';
 const routes: Routes = [
   { path: 'stock', component: StockComponent, resolve: { StockResolver: StockResolver } },
   { path: 'customer', component: CustomerComponent},
-  { path: 'customer/:cusId', component: DetailCusComponent},
+  { path: 'customer/:cusId', component: DetailCusComponent, outlet: 'cusModal'},
   { path: 'customer/:cusId/add', component: AddCusComponent},
-  { path: 'customer/:cusId/review', component: ReviewCusComponent},
-  { path: 'customer/:cusId/cusbill', component: BillCusComponent},
+  { path: 'customer/:cusId/review', component: ReviewCusComponent, outlet: 'cusModal'},
+  { path: 'customer/:cusId/cusbill', component: BillCusComponent, outlet: 'cusModal'},
   { path: 'bill', component: BillComponent},
   { path: 'crud-stocks', component: CrudStocksComponent, resolve: { StockResolver: StockResolver } },
   { path: 'crud-stocks/add', component: AddComponent },

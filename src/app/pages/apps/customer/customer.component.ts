@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddCusComponent } from './add-cus/add-cus.component';
+import { DetailCusComponent } from './detail-cus/detail-cus.component';
 
 @Component({
   selector: 'app-customer',
@@ -58,6 +59,11 @@ export class CustomerComponent implements OnInit {
   //action
   add(id: any) {
     const modalRef = this.modalService.open(AddCusComponent, { size: 'xl' });
+    modalRef.componentInstance.id = id;
+  }
+
+  details(id: any) {
+    const modalRef = this.modalService.open(DetailCusComponent, { size: 'xl' });
     modalRef.componentInstance.id = id;
   }
 

@@ -12,20 +12,33 @@ import { DetailCusComponent } from './detail-cus/detail-cus.component';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.scss']
+  styleUrls: ['./customer.component.scss'],
 })
-
 export class CustomerComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name_cus', 'tel', 'area', 'finan', 'balance', 'status_cus', 'action'];
+  displayedColumns: string[] = [
+    'name_cus',
+    'tel',
+    'area',
+    'finan',
+    'balance',
+    'status_cus',
+    'action',
+  ];
   dataSource = new MatTableDataSource();
 
   mainDatas$: CustomerModels[] = [];
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, private modalService: NgbModal, public customerService: CustomerService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router,
+    private modalService: NgbModal,
+    public customerService: CustomerService
+  ) {}
 
   ngOnInit(): void {
-    this.FUNC_getData()
+    this.FUNC_getData();
   }
 
   ngAfterViewInit() {
@@ -42,18 +55,18 @@ export class CustomerComponent implements OnInit {
   }
 
   FUNC_getData() {
-    this.customerService.getAll().subscribe((data: any)=>{
+    this.customerService.getAll().subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);
-    })
+    });
   }
 
-  FUNC_Delete(id: string){
-    this.customerService.delete(id).subscribe(res => {
-         this.mainDatas$ = this.mainDatas$.filter(item => item.cuscod !== id);
-         console.log('Post deleted successfully!');
-    })
+  FUNC_Delete(id: string) {
+    this.customerService.delete(id).subscribe((res) => {
+      this.mainDatas$ = this.mainDatas$.filter((item) => item.cuscod !== id);
+      console.log('Post deleted successfully!');
+    });
   }
 
   //action
@@ -63,8 +76,9 @@ export class CustomerComponent implements OnInit {
   }
 
   details(id: any) {
-    const modalRef = this.modalService.open(DetailCusComponent, { size: 'xl' });
+    const modalRef = this.modalService.open(DetailCusComponent, {
+      size: 'xl',
+    });
     modalRef.componentInstance.id = id;
   }
-
 }

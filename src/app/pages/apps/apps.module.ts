@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InlineSVGModule } from 'ng-inline-svg';
 
-
 //Modules
 import { AppsRoutingModule } from './apps-routing.module';
 import { MaterialModule } from '../_models/material.module';
@@ -28,7 +27,7 @@ import { BillCusComponent } from './customer/bill-cus/bill-cus.component';
 
 //Pipes
 import { SharedModule } from 'src/app/shared/shared.module';
-
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 @NgModule({
   declarations: [
@@ -51,11 +50,9 @@ import { SharedModule } from 'src/app/shared/shared.module';
     MaterialModule,
     ReactiveFormsModule,
     InlineSVGModule,
-    SharedModule
+    SharedModule,
+    TabsModule,
   ],
-  providers: [
-    StockService,
-    StockResolver,
-  ]
+  providers: [StockService, StockResolver],
 })
-export class AppsModule { }
+export class AppsModule {}

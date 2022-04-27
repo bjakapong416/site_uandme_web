@@ -77,14 +77,16 @@
             <label class="col-lg-4 col-form-label fw-bold fs-6"
               ><span class="required">ตำแหน่ง</span></label
             >
+
             <div class="col-lg-8 fv-row">
-              <input
-                type="tel"
-                class="form-control form-control-lg form-control-solid"
-                placeholder="098-7654321"
-                formControlName="role"
-              />
+              <mat-form-field >
+                <select matNativeControl formControlName="role" placeholder="เลือกตำแหน่ง">
+                  <option *ngFor="let position of roles" [value]="position">{{position}}</option>
+                </select>
+              </mat-form-field>
             </div>
+
+
           </div>
 
 
@@ -104,7 +106,30 @@
           
           
         </div>
+
+
+
+
+
         <div class="card-footer d-flex justify-content-end py-6 px-9">
+          <button
+            type="button"
+            class="btn btn-danger"
+            [disabled]="isLoading"
+            (click)="decline()"
+          >
+            <ng-container *ngIf="!isLoading">Cancel</ng-container>
+            <ng-container *ngIf="isLoading">
+              <span clas="indicator-progress" [style.display]="'block'">
+                Please wait...{{ " " }}
+                <span
+                  class="spinner-border spinner-border-sm align-middle ms-2"
+                ></span>
+              </span>
+            </ng-container>
+          </button>
+
+
           <button
             type="submit"
             class="btn btn-primary"

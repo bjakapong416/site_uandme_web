@@ -12,6 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { WidgetsModule } from '../../_metronic/partials';
 import { AdduserComponent } from './user/register/adduser/adduser.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmationDialogComponent } from './user/register/confirmation-dialog/confirmation-dialog.component';
+
 
 
 @NgModule({
@@ -19,7 +21,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CustomerComponent,
     StockComponent,
     UserComponent,
-    AdduserComponent
+    AdduserComponent,
+    ConfirmationDialogComponent
   ],
   imports: [
     CommonModule,
@@ -29,6 +32,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     SharedModule,
     WidgetsModule,
     ReactiveFormsModule
-  ]
+  ],
+
 })
 export class ManagersModule { }

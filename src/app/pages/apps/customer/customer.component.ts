@@ -8,10 +8,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddCusComponent } from './add-cus/add-cus.component';
 import { DetailCusComponent } from './detail-cus/detail-cus.component';
-
+import { ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./customer.component.scss'],
 })
 export class CustomerComponent implements OnInit {
@@ -71,13 +72,16 @@ export class CustomerComponent implements OnInit {
 
   //action
   add(id: any) {
-    const modalRef = this.modalService.open(AddCusComponent, { size: 'xl' });
+    const modalRef = this.modalService.open(AddCusComponent, {
+      size: 'xl',
+    });
     modalRef.componentInstance.id = id;
   }
 
   details(id: any) {
     const modalRef = this.modalService.open(DetailCusComponent, {
       size: 'xl',
+      windowClass: 'bg-blank',
     });
     modalRef.componentInstance.id = id;
   }

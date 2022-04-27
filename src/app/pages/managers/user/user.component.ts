@@ -5,6 +5,9 @@ import { UserService } from '../../_services/user/user.service';
 import { AuthService } from 'src/app/modules/auth';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AdduserComponent } from './register/adduser/adduser.component';
 
 
 @Component({
@@ -24,7 +27,7 @@ export class UserComponent implements OnInit {
   dataSource = new MatTableDataSource();
   mainDatas$: UserModels[] = [];
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, public userService: UserService) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, public userService: UserService , private modalService: NgbModal) { }
 
   ngOnInit(): void {
     this.FUNC_getData()
@@ -60,5 +63,11 @@ export class UserComponent implements OnInit {
          console.log('Post deleted successfully!');
     })
   }
+
+  signin() {
+    const modalRef = this.modalService.open(AdduserComponent, { size: 'x1' });
+    
+  }
+
 
 }

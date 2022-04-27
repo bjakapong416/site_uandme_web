@@ -1,6 +1,26 @@
 ::ng-deep .nav-line-tabs.nav-line-tabs-2x .nav-item {
-  margin-bottom: 0px
+  margin: 10px 20px 0px 20px;
+}
+::ng-deep .nav-tabs {
+  border-bottom:0
+}
+::ng-deep .nav-line-tabs .nav-item .nav-link {
+  padding-bottom: 1rem ;
 }
 ::ng-deep .tab :focus-visible {
   outline: none;
+}
+
+::ng-deep .card .card-header {
+  min-height: 50px;
+}
+
+.title {
+  font-size: 20px;
+}
+
+.text-green-200 {
+  background-color: #A7FFEB;
+  color: #00BFA5;
+  font-weight: 900;
 }

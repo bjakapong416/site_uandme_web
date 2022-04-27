@@ -15,6 +15,7 @@ import { CustomerService } from '../../../_services/customer/customer.service';
 export class DetailCusComponent implements OnInit {
   @Input() id: number;
   mainData: CustomerModels;
+  selectedTab: string;
 
   constructor(
     private customerService: CustomerService,
@@ -22,13 +23,14 @@ export class DetailCusComponent implements OnInit {
   ) {}
 
   tabs = [
-    { title: 'Overview', content: 'Overview', active: true },
-    { title: 'Projects', content: 'Projects' },
-    { title: 'Campaigns', content: 'Campaigns' },
+    { title: 'รายละเอียด', content: 'detail', active: true },
+    { title: 'รีวิวลูกค้า', content: 'review' },
+    { title: 'บิลค้างจ่าย', content: 'bill' },
   ];
 
   ngOnInit(): void {
     this.FUNC_getDataById();
+    this.selectedTab = 'detail';
   }
 
   FUNC_getDataById() {
@@ -37,5 +39,9 @@ export class DetailCusComponent implements OnInit {
       console.log(data);
       console.log(location);
     });
+  }
+
+  handelClickTab(tab: any) {
+    this.selectedTab = tab;
   }
 }

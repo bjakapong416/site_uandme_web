@@ -35,9 +35,16 @@ $demo1-theme: mat.define-light-theme((
 
 /* You can add global styles to this file, and also import other style files */
 @import "./assets/sass/style";
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@100&family=Prompt:wght@300&display=swap');
 
 // Replace above style with this SCSS file to enable dark mode styles
 //@import "./assets/sass/style.dark";
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Prompt, "Helvetica Neue", sans-serif; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Prompt, "Helvetica Neue", sans-serif;
+}

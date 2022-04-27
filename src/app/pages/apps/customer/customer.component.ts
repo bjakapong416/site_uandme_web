@@ -30,9 +30,9 @@ export class CustomerComponent implements OnInit {
   mainDatas$: CustomerModels[] = [];
 
   constructor(
-    private route: ActivatedRoute,
-    private authService: AuthService,
-    private router: Router,
+    // private route: ActivatedRoute,
+    // private authService: AuthService,
+    // private router: Router,
     private modalService: NgbModal,
     public customerService: CustomerService
   ) {}

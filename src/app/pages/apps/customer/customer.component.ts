@@ -18,6 +18,7 @@ import { ViewEncapsulation } from '@angular/core';
 export class CustomerComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = [
+    'check_box',
     'name_cus',
     'tel',
     'area',

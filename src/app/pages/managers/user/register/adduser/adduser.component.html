@@ -13,7 +13,7 @@
     </div>
     
     <div id="kt_account_profile_details" class="collapse show">
-      <form [formGroup]="profileForm" class="form" (ngSubmit)="saveSettings()">
+      <form [formGroup]="profileForm" class="form" novalidate="novalidate" (ngSubmit)="saveSettings()">
         <div class="card-body border-top p-9">
           
             <div class="row mb-6">
@@ -26,7 +26,14 @@
                     class="form-control form-control-lg form-control-solid"
                     placeholder="example@gmail.com"
                     formControlName="email"
+                    [ngClass]="{
+                      'is-invalid': profileForm.controls['email'].invalid,
+                      'is-valid': profileForm.controls['email'].valid
+                  }"
                   />
+
+
+
                 </div>
               </div>
 
@@ -41,6 +48,9 @@
                     placeholder=""
                     formControlName="password"
                   />
+
+
+
                 </div>
               </div>
 
@@ -56,6 +66,7 @@
                 class="form-control form-control-lg form-control-solid"
                 placeholder=""
                 formControlName="fullname"
+                required
               />
             </div>
           </div>
@@ -98,16 +109,15 @@
               <input
                 type="tel"
                 class="form-control form-control-lg form-control-solid"
-                placeholder="098-7654321"
+                placeholder="xxx-xxxxxxx"
                 formControlName="phone"
+                required
               />
             </div>
           </div>
           
           
         </div>
-
-
 
 
 
@@ -118,16 +128,11 @@
             [disabled]="isLoading"
             (click)="decline()"
           >
-            <ng-container *ngIf="!isLoading">Cancel</ng-container>
-            <ng-container *ngIf="isLoading">
-              <span clas="indicator-progress" [style.display]="'block'">
-                Please wait...{{ " " }}
-                <span
-                  class="spinner-border spinner-border-sm align-middle ms-2"
-                ></span>
-              </span>
-            </ng-container>
+            <ng-container >Cancel</ng-container>
+          
           </button>
+
+        &nbsp;
 
 
           <button

@@ -16,7 +16,7 @@ import { addUserService } from './adduser.service';
 export class AdduserComponent implements OnInit {
   @Input() id: number;
 
-  profileForm: FormGroup;
+  // profileForm: FormGroup;
 
 
 
@@ -25,14 +25,14 @@ export class AdduserComponent implements OnInit {
   isLoading: boolean;
   private unsubscribe: Subscription[] = [];
 
-  // profileForm = new FormGroup({
-  //   email: new FormControl('', [Validators.required,Validators.email]),
-  //   password: new FormControl('',Validators.minLength(4)),
-  //   fullname: new FormControl(''),
-  //   employee_id: new FormControl(''),
-  //   phone: new FormControl(''),
-  //   role: new FormControl('')
-  // });
+  profileForm = new FormGroup({
+    email: new FormControl(null, [Validators.required,Validators.email]),
+    password: new FormControl(null,Validators.minLength(4)),
+    fullname: new FormControl(''),
+    employee_id: new FormControl(''),
+    phone: new FormControl(''),
+    role: new FormControl('')
+  });
 
 
   constructor(private fb: FormBuilder,public modal: NgbActiveModal, private cdr: ChangeDetectorRef,public addUserService: addUserService) {
@@ -44,14 +44,14 @@ export class AdduserComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.profileForm = this.fb.group({
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      fullname: ['', Validators.required],
-      employee_id: ['', Validators.required],
-      phone: ['', Validators.required],
-      role: ['', Validators.required],
-    });
+    // this.profileForm = this.fb.group({
+    //   email: ['', Validators.required, Validators.email],
+    //   password: ['', Validators.required],
+    //   fullname: ['', Validators.required],
+    //   employee_id: ['', Validators.required],
+    //   phone: ['', Validators.required],
+    //   role: ['', Validators.required],
+    // });
   
     
   }
@@ -60,8 +60,16 @@ export class AdduserComponent implements OnInit {
     this.isLoading$.next(true);
     let formValue = this.profileForm.value;
 
+    // Convert Roles to number
+    for (let pos in this.roles){      
+      if (formValue.role == this.roles[pos]){
+        formValue.role = pos.toString(); 
+      }
+    }
+
     console.log(formValue);    
     // this.addUserService.signup(formValue); 
+
 
     setTimeout(() => {
       this.isLoading$.next(false);
@@ -75,7 +83,7 @@ export class AdduserComponent implements OnInit {
     this.modal.close(false);
   }
 
-  
+
   checkIfMatchingPasswords(passwordKey: string, passwordConfirmationKey: string) {
     return (group: FormGroup) => {
       let passwordInput = group.controls[passwordKey],

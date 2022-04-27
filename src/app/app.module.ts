@@ -17,6 +17,9 @@ import { SharedModule } from './shared/shared.module';
 // #fake-end#
 
 
+import { ReactiveFormsModule  } from '@angular/forms';
+
+
 
 function appInitializer(authService: AuthService) {
   return () => {
@@ -36,6 +39,7 @@ function appInitializer(authService: AuthService) {
     TranslateModule.forRoot(),
     HttpClientModule,
     ClipboardModule,
+    ReactiveFormsModule,
     // #fake-start#
     environment.isMockEnabled
       ? HttpClientInMemoryWebApiModule.forRoot(FakeAPIService, {

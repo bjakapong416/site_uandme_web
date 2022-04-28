@@ -30,6 +30,7 @@ export class CustomerComponent implements OnInit {
   dataSource = new MatTableDataSource();
 
   mainDatas$: CustomerModels[] = [];
+  selectedItemsList: any = [];
 
   constructor(
     // private route: ActivatedRoute,
@@ -61,6 +62,13 @@ export class CustomerComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);
+
+      this.dataSource.filteredData.forEach((element: any, index) => {
+        if (index < 3) element.isChecked = true;
+        else element.isChecked = false;
+      });
+
+      this.fetchSelectedItems();
     });
   }
 
@@ -85,5 +93,17 @@ export class CustomerComponent implements OnInit {
       windowClass: 'bg-blank',
     });
     modalRef.componentInstance.id = id;
+  }
+
+  changeSelection() {
+    this.fetchSelectedItems();
+  }
+
+  fetchSelectedItems() {
+    this.selectedItemsList = this.dataSource.filteredData.filter(
+      (value: any) => {
+        return value.isChecked;
+      }
+    );
   }
 }

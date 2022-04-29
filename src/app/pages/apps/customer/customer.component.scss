@@ -25,3 +25,9 @@ tr.mat-header-row {
 th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   border-bottom-width: 0 !important;
 }
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+ padding-bottom: 5px;
+ padding-top: 1px;
+ width: 400px;
+}

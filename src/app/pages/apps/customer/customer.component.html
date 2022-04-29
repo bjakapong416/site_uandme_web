@@ -68,19 +68,27 @@
         </div>
       </div>
     </div>
-    <div class="d-flex flex-wrap card"></div>
   </ng-container>
 </div>
 
 <div class="card-header border-0 pt-5">
-  <mat-form-field appearance="standard">
-    <input
-      matInput
-      (keyup)="applyFilter($event)"
-      placeholder="Search.. id, name"
-      #input
-    />
-  </mat-form-field>
+  <div class="d-flex flex-wrap mb-3">
+    <div class="me-10 mb-4">
+      <p class="fs-3 mb-0 fw-bold">รายละเอียดลูกค้า</p>
+      <p class="fs-8 fw-bold text-gray-500">
+        รายการลูกค้า {{ dataSource.filteredData.length }} รายชื่อ
+      </p>
+    </div>
+
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="ค้นหา รหัสลูกค้า, ชื่อลูกค้า"
+        #input
+      />
+    </mat-form-field>
+  </div>
 
   <div>
     <table mat-table [dataSource]="dataSource" matSort>
@@ -91,6 +99,7 @@
             type="checkbox"
             [(ngModel)]="row.isChecked"
             (change)="changeSelection()"
+            class="form-check-input"
           />
         </td>
       </ng-container>

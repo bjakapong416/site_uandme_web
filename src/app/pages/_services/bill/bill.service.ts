@@ -41,6 +41,12 @@ export class BillService {
       catchError(this.errorHandler)
     )
   }
+
+  find_cus(id: any): Observable<BillModels> {
+    return this.httpClient.get<BillModels>(this.apiURL + '/customer/' + id).pipe(
+      catchError(this.errorHandler)
+    )
+  }
     
   update(id: any, data: any): Observable<BillModels> {
     return this.httpClient.put<BillModels>(this.apiURL + '/' + id, JSON.stringify(data), this.httpOptions).pipe(

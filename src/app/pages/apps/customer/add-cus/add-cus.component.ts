@@ -21,7 +21,7 @@ export class AddCusComponent implements OnInit {
     this.FUNC_getDataById();
   }
 
-  FUNC_getDataById() {
+  FUNC_getDataById() {    
     this.customerService.find(this.id).subscribe((data: any)=>{
       this.mainData = data;
       console.log(data);

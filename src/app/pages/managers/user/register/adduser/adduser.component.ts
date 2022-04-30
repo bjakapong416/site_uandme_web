@@ -66,15 +66,15 @@ export class AdduserComponent implements OnInit {
         formValue.role = pos.toString(); 
       }
     }
-
-    console.log(formValue);    
-    // this.addUserService.signup(formValue); 
+    
+    this.addUserService.signup(formValue);
 
 
     setTimeout(() => {
       this.isLoading$.next(false);
       this.cdr.detectChanges();
     }, 1000);
+    window.location.reload();
 
   }
 

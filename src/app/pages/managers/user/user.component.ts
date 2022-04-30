@@ -8,7 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdduserComponent } from './register/adduser/adduser.component';
-
+import { DeleteComponent } from './delete/delete.component';
 
 @Component({
   selector: 'app-user',
@@ -66,7 +66,15 @@ export class UserComponent implements OnInit {
 
   signin() {
     const modalRef = this.modalService.open(AdduserComponent, { size: 'x1' });
-    
+  }
+
+
+  FUNC_DeleteUser(id:any, fullname:string, emp_id:string, role:string){
+    const modalRef = this.modalService.open(DeleteComponent, { size: 'x1' });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.fullname = fullname;
+    modalRef.componentInstance.emp_id = emp_id;
+    modalRef.componentInstance.role = role;
   }
 
 

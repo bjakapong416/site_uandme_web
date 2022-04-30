@@ -107,8 +107,8 @@
           ></span>
         </a>
         <a
-          href="#"
           class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+          (click)="FUNC_DeleteUser(row.id, row.fullname, row.employee_id, row.role)"
         >
           <span
             [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"

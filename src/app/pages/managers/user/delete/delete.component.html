@@ -1,0 +1,40 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title h4 w-100 text-center" id="example-modal-sizes-title-lg">
+                <ng-container >
+                    <h3 class="stepper-title"> <B>ลบสมาชิก</B> </h3>
+                </ng-container>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <h3 class="stepper-title"> <B>รหัสพนักงาน   :</B>  {{empid}} </h3>
+            <h3 class="stepper-title"> <B>ชื่อ - นามสกุล :</B>  {{fname}} </h3>
+            
+
+            <ng-container *ngIf="roles == 777"><h3 class="stepper-title"> <B>ตำแหน่ง :</B>  Admin </h3> </ng-container>
+            <ng-container *ngIf="roles == 0">
+                <h3 class="stepper-title"> <B>ตำแหน่ง :</B>  Sale </h3>
+            </ng-container>
+
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss('Close click')"> ยกเลิก </button>
+            <button type="submit" class="btn btn-danger" (click)="saveSettings()"> 
+                <ng-container *ngIf="!isLoading">ยืนยันการลบ</ng-container>
+                <ng-container *ngIf="isLoading">
+                  <span clas="indicator-progress" [style.display]="'block'">
+                    Please wait...{{ " " }}
+                    <span
+                      class="spinner-border spinner-border-sm align-middle ms-2"
+                    ></span>
+                  </span>
+                </ng-container>    
+            
+            </button>
+            <!--button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid"> บันทึก </button-->
+        </div>
+    </div>
+</div>

@@ -13,6 +13,7 @@ import { WidgetsModule } from '../../_metronic/partials';
 import { AdduserComponent } from './user/register/adduser/adduser.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDialogComponent } from './user/register/confirmation-dialog/confirmation-dialog.component';
+import { DeleteComponent } from './user/delete/delete.component';
 
 
 
@@ -22,7 +23,8 @@ import { ConfirmationDialogComponent } from './user/register/confirmation-dialog
     StockComponent,
     UserComponent,
     AdduserComponent,
-    ConfirmationDialogComponent
+    ConfirmationDialogComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,

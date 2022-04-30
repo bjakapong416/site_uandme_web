@@ -9,7 +9,7 @@ import { catchError } from 'rxjs/operators';
 
 
 @Injectable({ providedIn: 'root' })
-export class addUserService {
+export class deleteService {
 
     readonly apiURL = `${environment.apiUrl}`;
 
@@ -32,11 +32,14 @@ export class addUserService {
     
     }
 
-    // Register user setting page
-    signup(val:any){
-      const body = val;
-      this.httpClient.post<any>(this.apiURL + '/signup', body).subscribe();
+    // Edit user setting page
+    delete(val:any){
       
+      console.log(val);
+    
+      this.httpClient.delete<any>(this.apiURL + '/delUserByID/' + val).subscribe();
+      
+
     }
 
 

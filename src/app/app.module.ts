@@ -14,6 +14,7 @@ import { environment } from 'src/environments/environment';
 // #fake-start#
 import { FakeAPIService } from './_fake/fake-api.service';
 import { SharedModule } from './shared/shared.module';
+import { MaterialModule } from './pages/_models/material.module';
 // #fake-end#
 
 
@@ -51,7 +52,8 @@ function appInitializer(authService: AuthService) {
     AppRoutingModule,
     InlineSVGModule.forRoot(),
     NgbModule,
-    SharedModule
+    SharedModule,
+    MaterialModule
   ],
   providers: [
     {

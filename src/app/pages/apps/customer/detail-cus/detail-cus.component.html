@@ -73,6 +73,27 @@
     </div>
     <div class="card-body">
       <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">ยอดที่ใช้</label>
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">{{ creditused }}</span>
+        </div>
+      </div>
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">ยอดคงเหลือ</label>
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">{{mainData?.creditbal}}</span>
+        </div>
+      </div>
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">วงเงินอนุมัติ</label>
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">{{mainData?.creditamt}}</span>
+        </div>
+      </div>
+
+      <hr/>
+
+      <div class="row mb-7">
         <label class="col-lg-4 fw-bold text-muted">ชื่อผู้ต่อติด</label>
         <div class="col-lg-8">
           <span class="fw-bolder fs-6 text-dark">{{mainData?.telnum}}</span>
@@ -111,13 +132,91 @@
   <div *ngIf="selectedTab == 'review'">
     <div class="card-header">
       <p class="title my-2 py-2 align-items-center">รีวิวลูกค้า</p>
-
-
+    </div>
+    <div class="card-body">
+      <div *ngFor="let item of reviewData"> 
+        <div> 
+          {{ item.fullname }} 
+          <span class="text-muted">
+            <ng-container *ngIf="item.role == '777'"> Admin </ng-container>
+            <ng-container *ngIf="item.role == '0'"> Sale </ng-container>
+          </span> 
+          | {{ item.timestemp }} 
+        </div>
+        <span> {{ item.review }} </span>
+        <hr/>
+      </div>
     </div>
   </div>
+
   <div *ngIf="selectedTab == 'bill'">
     <div class="card-header">
       <p class="title my-2 py-2 align-items-center">บิลค้างจ่าย</p>
+    </div>
+    <div class="card-body">
+      <!-- <table class="table table-bordered">
+        <tr>
+          <th>เลขที่เอกสาร</th>
+          <th>วันที่เอกสาร</th>
+          <th>พนักงานขาย</th>
+          <th>ยอดค้างชำระ</th>
+          <th>สถานะ</th>
+        </tr>
+
+        <ng-container *ngFor="let item of billData">
+          <tr> 
+            <td>{{ item.docnum }}</td>
+            <td>{{ item.docdat }}</td>
+            <td>{{ item.slmdes }}</td>
+            <td>{{ item.balamt }}</td>
+            <td class="text-danger"> ค้างจ่าย </td>
+          </tr>
+          </ng-container>
+      </table> -->
+
+      <!-- begin::Header -->
+      <table mat-table [dataSource]="billDataSource" matSort>
+        <ng-container matColumnDef="name_cus">
+          <th mat-header-cell *matHeaderCellDef class="fs-4 fw-bolder"> ชื่อลูกค้า </th>
+          <td mat-cell *matCellDef="let row"> {{row.cusnam}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="doc_id">
+          <th mat-header-cell *matHeaderCellDef class="fs-4 fw-bolder"> เลขที่เอกสาร </th>
+          <td mat-cell *matCellDef="let row"> {{row.docnum}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="doc_date">
+          <th mat-header-cell *matHeaderCellDef class="fs-4 fw-bolder"> วันที่เอกสาร </th>
+          <td mat-cell *matCellDef="let row"> {{row.docdat}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="name_sale">
+          <th mat-header-cell *matHeaderCellDef class="fs-4 fw-bolder"> พนักงานขาย </th>
+          <td mat-cell *matCellDef="let row"> {{row.slmdes}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef class="fs-4 fw-bolder"> ยอดค้างชำระ </th>
+          <td mat-cell *matCellDef="let row"> {{row.balamt}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="status_cus">
+          <th mat-header-cell *matHeaderCellDef class="fs-4 fw-bolder"> สถานะ </th>
+          <td mat-cell *matCellDef="let row" class="fw-bolder text-danger"> ค้างจ่าย </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="billColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: billColumns"></tr>
+
+        <!-- Row shown when there is no matching data. -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4" class="fs-3 fw-bolder text-info"> ไม่พบยอดบิลที่ค้างจ่าย </td>
+        </tr>
+
+      </table>
+      <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
+      
     </div>
   </div>
 </div>

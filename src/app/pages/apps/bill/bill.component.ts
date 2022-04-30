@@ -53,4 +53,8 @@ export class BillComponent implements OnInit {
     })
   }
 
+  testConsoleLog(data: any){
+    console.log(data)
+  }
+
 }

@@ -1,11 +1,9 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import {
-  NgbActiveModal,
-  NgbDateAdapter,
-  NgbDateParserFormatter,
-} from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerModels } from '../../../_models/customer.model';
 import { CustomerService } from '../../../_services/customer/customer.service';
+import { BillModels } from '../../../_models/bill.model';
+import { BillService } from '../../../_services/bill/bill.service';
 
 @Component({
   selector: 'app-detail-cus',
@@ -15,10 +13,13 @@ import { CustomerService } from '../../../_services/customer/customer.service';
 export class DetailCusComponent implements OnInit {
   @Input() id: number;
   mainData: CustomerModels;
+  reviewData: [];
+  billData: BillModels;
   selectedTab: string;
 
   constructor(
     private customerService: CustomerService,
+    private BillService: BillService,
     public modal: NgbActiveModal
   ) {}
 

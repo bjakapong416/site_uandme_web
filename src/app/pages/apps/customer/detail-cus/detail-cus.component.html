@@ -2,29 +2,20 @@
   <div class="card-body pt-9 pb-0">
     <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
       <div class="me-7 mb-4">
-        <div
-          class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative"
-        >
+        <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
           <img src="./assets/media/avatars/300-1.jpg" alt="Metronic" />
-          <div
-            class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"
-          ></div>
+          <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"></div>
         </div>
       </div>
 
       <div class="flex-grow-1">
-        <div
-          class="d-flex justify-content-between align-items-start flex-wrap mb-2"
-        >
+        <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
           <div class="d-flex flex-column">
             <div class="d-flex align-items-center mb-2">
               <div class="text-gray-800 fs-2 fw-bolder me-1">
                 {{ mainData?.cuscod }}
               </div>
-              <span
-                [inlineSVG]="'./assets/media/svg/icons/General/Bookmark.svg'"
-                class="svg-icon svg-icon-1 svg-icon-warning"
-              ></span>
+              <span [inlineSVG]="'./assets/media/svg/icons/General/Bookmark.svg'" class="svg-icon svg-icon-1 svg-icon-warning"></span>
             </div>
 
             <div class="d-flex flex-wrap fw-bold fs-4 text-gray-500 my-4 pe-2">
@@ -40,16 +31,14 @@
             </div>
           </div>
         </div>
-        <div
-          class="d-flex justify-content-between align-items-start flex-wrap mb-2"
-        >
+        <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
           <div class="d-flex flex-column">
             <div class="d-flex align-items-center mb-2">
               <div class="fs-5 border-end border-dark fw-bolder me-1 pe-2">
                 พนักงานขาย
               </div>
               <div class="fs-5 fw-bolder me-1 ps-2">
-                ชลธิชา  รุ่งเรืองวรโชติ
+                {{ mainData?.cusnam }}
               </div>
             </div>
           </div>
@@ -68,18 +57,9 @@
       </div>
     </div>
     <div class="d-flex overflow-auto border-top">
-      <ul
-        class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap"
-      >
+      <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bolder flex-nowrap">
         <tabset>
-          <tab
-            *ngFor="let tabz of tabs"
-            [heading]="tabz.title"
-            [active]="tabz.active"
-            (selectTab)="handelClickTab(tabz?.content)"
-            customClass="tab"
-          >
-          </tab>
+          <tab *ngFor="let tabz of tabs" [heading]="tabz.title" [active]="tabz.active" (selectTab)="handelClickTab(tabz?.content)" customClass="tab"> </tab>
         </tabset>
       </ul>
     </div>
@@ -91,7 +71,42 @@
     <div class="card-header">
       <p class="title my-2 py-2 align-items-center">รายละเอียดลูกค้า</p>
     </div>
-    <div class="card-body"></div>
+    <div class="card-body">
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">ชื่อผู้ต่อติด</label>
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">{{mainData?.telnum}}</span>
+        </div>
+      </div>
+
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">เขตการขาย</label>
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">{{mainData?.areades}}</span>
+        </div>
+      </div>
+
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">รายละเอียดที่อยู่</label>
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">{{mainData?.addr01 + " " + mainData?.addr02 + " " + mainData?.addr02 + " " + mainData?.zipcod}}</span>
+        </div>
+      </div>
+
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">รายละเอียดที่อยู่ (ที่อยู่จัดส่งสินค้า)</label>
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">{{mainData?.addr01 + " " + mainData?.addr02 + " " + mainData?.addr02 + " " + mainData?.zipcod}}</span>
+        </div>
+      </div>
+
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bold text-muted">* หมายเหตุ</label>
+        <div class="col-lg-8">
+          <span class="fw-bolder fs-6 text-dark">{{mainData?.remark}}</span>
+        </div>
+      </div>
+    </div>
   </div>
   <div *ngIf="selectedTab == 'review'">
     <div class="card-header">
@@ -104,5 +119,3 @@
     </div>
   </div>
 </div>
-
-<router-outlet name="cusModal"></router-outlet>

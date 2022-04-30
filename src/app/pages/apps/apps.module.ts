@@ -25,6 +25,7 @@ import { DetailCusComponent } from './customer/detail-cus/detail-cus.component';
 import { ReviewCusComponent } from './customer/review-cus/review-cus.component';
 import { BillCusComponent } from './customer/bill-cus/bill-cus.component';
 import { WidgetsModule } from '../../_metronic/partials';
+import { NgApexchartsModule } from 'ng-apexcharts';
 
 //Pipes
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -54,6 +55,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     SharedModule,
     TabsModule,
     WidgetsModule,
+    NgApexchartsModule,
   ],
   providers: [StockService, StockResolver],
 })

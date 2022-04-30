@@ -1,5 +1,9 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { NgbActiveModal, NgbDateAdapter, NgbDateParserFormatter } from '@ng-bootstrap/ng-bootstrap';
+import {
+  NgbActiveModal,
+  NgbDateAdapter,
+  NgbDateParserFormatter,
+} from '@ng-bootstrap/ng-bootstrap';
 import { CustomerModels } from '../../../_models/customer.model';
 import { CustomerService } from '../../../_services/customer/customer.service';
 import { BillModels } from '../../../_models/bill.model';
@@ -10,6 +14,7 @@ import { ReviewService } from '../../../_services/review/review.service';
 
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
 
 @Component({
   selector: 'app-detail-cus',
@@ -22,15 +27,23 @@ export class DetailCusComponent implements OnInit {
   reviewData: ReviewModels[] = [];
   selectedTab: string;
   creditused: number;
+  chartOptions: any = {};
+  series: number;
 
-  @ViewChild(MatPaginator, {static: false})
+  @ViewChild(MatPaginator, { static: false })
   set paginator(value: MatPaginator) {
-    if (this.billDataSource){
+    if (this.billDataSource) {
       this.billDataSource.paginator = value;
     }
   }
 
-  billColumns: string[] = ['doc_id', 'doc_date', 'name_sale', 'price', 'status_cus'];
+  billColumns: string[] = [
+    'doc_id',
+    'doc_date',
+    'name_sale',
+    'price',
+    'status_cus',
+  ];
   billDataSource = new MatTableDataSource();
 
   constructor(
@@ -46,25 +59,25 @@ export class DetailCusComponent implements OnInit {
     { title: 'บิลค้างจ่าย', content: 'bill' },
   ];
 
-  ngOnInit(): void {
-    this.FUNC_getDataById();
+  async ngOnInit(): Promise<void> {
+    await this.FUNC_getDataById();
     this.selectedTab = 'detail';
+    this.chartOptions = this.getChartOptions();
   }
 
   ngAfterViewInit() {
     this.billDataSource.paginator = this.paginator;
   }
 
-  FUNC_getDataById() {
-    this.customerService.find(this.id).subscribe((data: any) => {
-      this.mainData = data;
-      this.creditused = (data.creditamt - data.creditbal);
-    });
+  async FUNC_getDataById() {
+    const data = await this.customerService.find(this.id).toPromise();
+    this.mainData = data;
+    this.creditused = data.creditamt - data.creditbal;
 
     this.ReviewService.find(this.id).subscribe((data: any) => {
       this.reviewData = data;
     });
-    
+
     this.BillService.find_cus(this.id).subscribe((data: any) => {
       this.billDataSource = new MatTableDataSource(data);
     });
@@ -74,4 +87,51 @@ export class DetailCusComponent implements OnInit {
     this.selectedTab = tab;
   }
 
+  getChartOptions() {
+    const baseColor = getCSSVariableValue('--bs-' + 'success');
+    const lightColor = getCSSVariableValue('--bs-light-' + 'success');
+    const labelColor = getCSSVariableValue('--bs-gray-700');
+
+    return {
+      series: [this.mainData.creditbal],
+      chart: {
+        fontFamily: 'inherit',
+        height: 200,
+        type: 'radialBar',
+      },
+      plotOptions: {
+        radialBar: {
+          hollow: {
+            margin: 0,
+            size: '65%',
+          },
+          dataLabels: {
+            name: {
+              show: false,
+              fontWeight: '700',
+            },
+            value: {
+              color: labelColor,
+              fontSize: '30px',
+              fontWeight: '700',
+              offsetY: 12,
+              show: true,
+              formatter: function (val: number) {
+                return val;
+              },
+            },
+          },
+          track: {
+            background: lightColor,
+            strokeWidth: '100%',
+          },
+        },
+      },
+      colors: [baseColor],
+      stroke: {
+        lineCap: 'round',
+      },
+      labels: ['Progress'],
+    };
+  }
 }

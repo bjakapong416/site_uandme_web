@@ -11,7 +11,7 @@
         <h3 class="fw-bolder m-0">สมัครสมาชิก</h3>
       </div>
     </div>
-    
+
     <div id="kt_account_profile_details" class="collapse show">
       <form [formGroup]="profileForm" class="form" novalidate="novalidate" (ngSubmit)="saveSettings()">
         <div class="card-body border-top p-9">
@@ -31,8 +31,6 @@
                       'is-valid': profileForm.controls['email'].valid
                   }"
                   />
-
-
 
                 </div>
               </div>
@@ -66,7 +64,7 @@
                 class="form-control form-control-lg form-control-solid"
                 placeholder=""
                 formControlName="fullname"
-                required
+                
               />
             </div>
           </div>
@@ -115,8 +113,7 @@
               />
             </div>
           </div>
-          
-          
+        
         </div>
 
 
@@ -132,13 +129,13 @@
           
           </button>
 
-        &nbsp;
-
+          <!-- Seperate Space -->
+          &nbsp;
 
           <button
             type="submit"
             class="btn btn-primary"
-            [disabled]="isLoading"
+            [disabled]="profileForm.invalid"
           >
             <ng-container *ngIf="!isLoading">Save Changes</ng-container>
             <ng-container *ngIf="isLoading">
@@ -151,6 +148,12 @@
             </ng-container>
           </button>
         </div>
+
       </form>
+
+
+
     </div>
   </div>
+
+

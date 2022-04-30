@@ -1,6 +1,33 @@
 table { width: 100%; }
 
-::ng-deep .modal-content  {
-  background-color: rgba(0, 0, 0, 0);
-  box-shadow: none;
+.bg-blank {
+  .modal-content {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+  }
+}
+
+.mat-header-cell {
+  font-size: 14px;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+tr.mat-header-row {
+  background-color:  rgba(243, 246, 249, 1);
+  height: 40px !important;
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  border-bottom-width: 0 !important;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-infix {
+ padding-bottom: 5px;
+ padding-top: 1px;
+ width: 400px;
 }

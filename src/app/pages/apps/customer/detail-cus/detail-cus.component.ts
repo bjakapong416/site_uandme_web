@@ -45,4 +45,6 @@ export class DetailCusComponent implements OnInit {
   handelClickTab(tab: any) {
     this.selectedTab = tab;
   }
+
+  
 }

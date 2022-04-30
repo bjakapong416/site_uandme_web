@@ -8,15 +8,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddCusComponent } from './add-cus/add-cus.component';
 import { DetailCusComponent } from './detail-cus/detail-cus.component';
-
+import { ViewEncapsulation } from '@angular/core';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
+  encapsulation: ViewEncapsulation.None,
   styleUrls: ['./customer.component.scss'],
 })
 export class CustomerComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = [
+    'check_box',
     'name_cus',
     'tel',
     'area',
@@ -28,6 +30,7 @@ export class CustomerComponent implements OnInit {
   dataSource = new MatTableDataSource();
 
   mainDatas$: CustomerModels[] = [];
+  selectedItemsList: any = [];
 
   constructor(
     // private route: ActivatedRoute,
@@ -59,6 +62,13 @@ export class CustomerComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);
+
+      this.dataSource.filteredData.forEach((element: any, index) => {
+        if (index < 3) element.isChecked = true;
+        else element.isChecked = false;
+      });
+
+      this.fetchSelectedItems();
     });
   }
 
@@ -71,14 +81,29 @@ export class CustomerComponent implements OnInit {
 
   //action
   add(id: any) {
-    const modalRef = this.modalService.open(AddCusComponent, { size: 'xl' });
+    const modalRef = this.modalService.open(AddCusComponent, {
+      size: 'xl',
+    });
     modalRef.componentInstance.id = id;
   }
 
   details(id: any) {
     const modalRef = this.modalService.open(DetailCusComponent, {
       size: 'xl',
+      windowClass: 'bg-blank',
     });
     modalRef.componentInstance.id = id;
+  }
+
+  changeSelection() {
+    this.fetchSelectedItems();
+  }
+
+  fetchSelectedItems() {
+    this.selectedItemsList = this.dataSource.filteredData.filter(
+      (value: any) => {
+        return value.isChecked;
+      }
+    );
   }
 }

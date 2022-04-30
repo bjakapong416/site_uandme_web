@@ -1,28 +1,46 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { BillModels } from '../../_models/bill.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BillService } from '../../_services/bill/bill.service';
 import { AuthService } from 'src/app/modules/auth';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
 
 @Component({
   selector: 'app-bill',
   templateUrl: './bill.component.html',
-  styleUrls: ['./bill.component.scss']
+  styleUrls: ['./bill.component.scss'],
 })
-
 export class BillComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['name_cus', 'doc_id', 'doc_date', 'name_sale', 'price', 'status_cus', 'action'];
+  @Input() chartColor: string = '';
+  @Input() chartHeight: string;
+  chartOptions: any = {};
+
+  displayedColumns: string[] = [
+    'name_cus',
+    'doc_id',
+    'doc_date',
+    'name_sale',
+    'price',
+    'status_cus',
+    'action',
+  ];
   dataSource = new MatTableDataSource();
 
   mainDatas$: BillModels[] = [];
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, public billService: BillService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router,
+    public billService: BillService
+  ) {}
 
   ngOnInit(): void {
-    this.FUNC_getData()
+    this.chartOptions = getChartOptions(this.chartHeight, this.chartColor);
+    this.FUNC_getData();
   }
 
   ngAfterViewInit() {
@@ -39,22 +57,144 @@ export class BillComponent implements OnInit {
   }
 
   FUNC_getData() {
-    this.billService.getAll().subscribe((data: any)=>{
+    this.billService.getAll().subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);
-    })
+    });
   }
 
-  FUNC_Delete(id: string){
-    this.billService.delete(id).subscribe(res => {
-         this.mainDatas$ = this.mainDatas$.filter(item => item.docnum !== id);
-         console.log('Post deleted successfully!');
-    })
+  FUNC_Delete(id: string) {
+    this.billService.delete(id).subscribe((res) => {
+      this.mainDatas$ = this.mainDatas$.filter((item) => item.docnum !== id);
+      console.log('Post deleted successfully!');
+    });
   }
 
-  testConsoleLog(data: any){
-    console.log(data)
+  testConsoleLog(data: any) {
+    console.log(data);
   }
+}
 
+function getChartOptions(chartHeight: string, chartColor: string) {
+  const labelColor = getCSSVariableValue('--bs-gray-800');
+  const strokeColor = getCSSVariableValue('--bs-gray-300');
+  const baseColor = getCSSVariableValue('--bs-' + chartColor);
+  const lightColor = getCSSVariableValue('--bs-light-' + chartColor);
+
+  return {
+    series: [
+      {
+        name: 'Net Profit',
+        data: [15, 25, 15, 40, 20, 50],
+      },
+    ],
+    chart: {
+      fontFamily: 'inherit',
+      type: 'area',
+      height: chartHeight,
+      toolbar: {
+        show: false,
+      },
+      zoom: {
+        enabled: false,
+      },
+      sparkline: {
+        enabled: true,
+      },
+    },
+    plotOptions: {},
+    legend: {
+      show: false,
+    },
+    dataLabels: {
+      enabled: false,
+    },
+    fill: {
+      type: 'solid',
+      opacity: 1,
+    },
+    stroke: {
+      curve: 'smooth',
+      show: true,
+      width: 3,
+      colors: [baseColor],
+    },
+    xaxis: {
+      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+      axisBorder: {
+        show: false,
+      },
+      axisTicks: {
+        show: false,
+      },
+      labels: {
+        show: false,
+        style: {
+          colors: labelColor,
+          fontSize: '12px',
+        },
+      },
+      crosshairs: {
+        show: false,
+        position: 'front',
+        stroke: {
+          color: strokeColor,
+          width: 1,
+          dashArray: 3,
+        },
+      },
+      tooltip: {
+        enabled: false,
+      },
+    },
+    yaxis: {
+      min: 0,
+      max: 60,
+      labels: {
+        show: false,
+        style: {
+          colors: labelColor,
+          fontSize: '12px',
+        },
+      },
+    },
+    states: {
+      normal: {
+        filter: {
+          type: 'none',
+          value: 0,
+        },
+      },
+      hover: {
+        filter: {
+          type: 'none',
+          value: 0,
+        },
+      },
+      active: {
+        allowMultipleDataPointsSelection: false,
+        filter: {
+          type: 'none',
+          value: 0,
+        },
+      },
+    },
+    tooltip: {
+      style: {
+        fontSize: '12px',
+      },
+      y: {
+        formatter: function (val: number) {
+          return '$' + val + ' thousands';
+        },
+      },
+    },
+    colors: [lightColor],
+    markers: {
+      colors: [lightColor],
+      strokeColors: [baseColor],
+      strokeWidth: 3,
+    },
+  };
 }

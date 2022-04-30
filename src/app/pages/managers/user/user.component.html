@@ -1,27 +1,18 @@
-  <div class="col-xl-3">
-    <app-stats-widget5
-      svgIcon="./assets/media/icons/duotune/graphs/gra007.svg"
-      class="card bg-info hoverable card-xl-stretch mb-5 mb-xl-8"
-      color="info"
-      iconColor="white"
-      title="สมาชิกทั้งหมด {{userTotal$}} คน"
-      description=""
-    ></app-stats-widget5>
-  </div>
-
-
-
 <!-- Search  -->
+
 <div class="d-flex flex-wrap flex-stack mb-6">
-
-  <mat-form-field appearance="outline">
-    <mat-label>Search</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
-    <mat-icon matPrefix>search</mat-icon>
-  </mat-form-field>  
-
-
-
+  <div class="d-flex">
+    <div class="me-3 my-auto fs-3 fw-bolder">สมาชิก ({{ userTotal$ }})</div>
+    <mat-form-field appearance="outline">
+      <input
+        matInput
+        (keyup)="applyFilter($event)"
+        placeholder="ค้นหา"
+        #input
+      />
+      <mat-icon matPrefix>search</mat-icon>
+    </mat-form-field>
+  </div>
 
   <div class="d-flex flex-wrap my-2">
     <div class="me-4">
@@ -37,7 +28,6 @@
         <option value="Declined">Co-Sale</option>
         <option value="In Progress">Completed</option>
       </select>
-
     </div>
     <a
       class="btn btn-success btn-sm cursor-pointer"
@@ -50,115 +40,97 @@
   </div>
 </div>
 
-
 <!-- begin::Header -->
 <div class="card-header border-0 pt-5">
-  
-    <div class="mat-elevation-z8">
-      <table mat-table [dataSource]="dataSource" matSort>
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="avart">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let row">
+        <div class="symbol-label fs-2 fw-bold text-info">
+          {{ row.fullname | shortName }}
+        </div>
+      </td>
+    </ng-container>
 
-        <ng-container matColumnDef="avart">
-          <th mat-header-cell *matHeaderCellDef>  </th>
-          <td mat-cell *matCellDef="let row">   
-            <div class="symbol-label fs-2 fw-bold text-info " > 
-              {{row.fullname | shortName}}
-            </div>
-          </td>
-        </ng-container>
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef>ชื่อ - นามสกุล</th>
+      <td mat-cell *matCellDef="let row">
+        {{ row.fullname }}
+        <p class="text-muted mb-0">{{ row.phone }}</p>
+      </td>
+    </ng-container>
 
+    <ng-container matColumnDef="emp_id">
+      <th mat-header-cell *matHeaderCellDef>รหัสพนักงาน</th>
+      <td mat-cell *matCellDef="let row">{{ row.employee_id }}</td>
+    </ng-container>
 
-        <ng-container matColumnDef="name">
-          <th mat-header-cell *matHeaderCellDef> ชื่อ - นามสกุล </th>
-          <td mat-cell *matCellDef="let row">    
-            {{row.fullname}} 
-            <p class="text-muted mb-0">{{row.phone}}</p>
-          </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="emp_id">
-          <th mat-header-cell *matHeaderCellDef > รหัสพนักงาน </th>
-          <td mat-cell *matCellDef="let row"> {{row.employee_id}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="email">
-          <th mat-header-cell *matHeaderCellDef > อีเมล์ </th>
-          <td mat-cell *matCellDef="let row"> {{row.email}} </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="job">
-          <th mat-header-cell *matHeaderCellDef > ตำแหน่ง </th>
-          <td mat-cell *matCellDef="let row"> 
-            
-              <span class="dot"></span>
-              <!-- Seperate Space -->
-              &nbsp;
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef>อีเมล์</th>
+      <td mat-cell *matCellDef="let row">{{ row.email }}</td>
+    </ng-container>
 
-              <ng-container *ngIf="row.role == 777">Admin</ng-container>
-              <ng-container *ngIf="row.role == 0">Sale</ng-container>
-          
-          </td>
-        </ng-container>
-  
-        <ng-container matColumnDef="last_login">
-          <th mat-header-cell *matHeaderCellDef > ล็อคอินล่าสุด </th>
-          <td mat-cell *matCellDef="let row"> {{row.lastlogin}} </td>
-        </ng-container>
+    <ng-container matColumnDef="job">
+      <th mat-header-cell *matHeaderCellDef>ตำแหน่ง</th>
+      <td mat-cell *matCellDef="let row">
+        <span class="dot"></span>
+        <!-- Seperate Space -->
+        &nbsp;
 
-        <ng-container matColumnDef="action">
-          <th mat-header-cell *matHeaderCellDef > Action </th>
-          <td mat-cell *matCellDef="let row"> 
-            <!-- <span class="menu-icon">
+        <ng-container *ngIf="row.role == 777">Admin</ng-container>
+        <ng-container *ngIf="row.role == 0">Sale</ng-container>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="last_login">
+      <th mat-header-cell *matHeaderCellDef>Logig ล่าสุด</th>
+      <td mat-cell *matCellDef="let row">{{ row.lastlogin }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef>Action</th>
+      <td mat-cell *matCellDef="let row">
+        <!-- <span class="menu-icon">
               <span
                 [inlineSVG]="'../assets/media/svg/icons/Communication/Write.svg'"
                 class="svg-icon svg-icon-2 svg-icon-primary "
               ></span> 
             </span> -->
 
-              <a
-                href="#"
-                class="
-                  btn btn-icon btn-bg-light btn-active-color-primary btn-sm
-                  me-1
-                "
-              >
-                <span
-                  [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
-                  class="svg-icon svg-icon-3"
-                ></span>
-              </a>
-              <a
-                href="#"
-                class="
-                  btn btn-icon btn-bg-light btn-active-color-primary btn-sm
-                "
-              >
-                <span
-                  [inlineSVG]="
-                    './assets/media/icons/duotune/general/gen027.svg'
-                  "
-                  class="svg-icon svg-icon-3"
-                ></span>
-              </a>
+        <a
+          href="#"
+          class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+        >
+          <span
+            [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"
+            class="svg-icon svg-icon-3"
+          ></span>
+        </a>
+        <a
+          href="#"
+          class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm"
+        >
+          <span
+            [inlineSVG]="'./assets/media/icons/duotune/general/gen027.svg'"
+            class="svg-icon svg-icon-3"
+          ></span>
+        </a>
+      </td>
+    </ng-container>
 
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-
-
-          </td>
-        </ng-container>
-        
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  
-        <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-        </tr>
-      </table>
-      <mat-paginator [pageSize]="10" hidePageSize showFirstLastButtons></mat-paginator>
-    </div>
-  
-  </div>
-  
-
-
-
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">
+        No data matching the filter "{{ input.value }}"
+      </td>
+    </tr>
+  </table>
+  <mat-paginator
+    [pageSize]="10"
+    hidePageSize
+    showFirstLastButtons
+  ></mat-paginator>
+</div>

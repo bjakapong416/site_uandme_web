@@ -5,7 +5,12 @@ import { UserService } from '../../_services/user/user.service';
 import { AuthService } from 'src/app/modules/auth';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdduserComponent } from './register/adduser/adduser.component';
 import { DeleteComponent } from './delete/delete.component';
@@ -13,24 +18,37 @@ import { DeleteComponent } from './delete/delete.component';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.scss']
+  styleUrls: ['./user.component.scss'],
 })
 export class UserComponent implements OnInit {
-
   toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px';
-  avar$:string[] | null = null;
+  avar$: string[] | null = null;
 
-  userTotal$:string | null = null;
+  userTotal$: string | null = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  displayedColumns: string[] = ['avart','name', 'emp_id', 'email', 'job', 'last_login', 'action'];
+  displayedColumns: string[] = [
+    'avart',
+    'name',
+    'emp_id',
+    'email',
+    'job',
+    'last_login',
+    'action',
+  ];
   dataSource = new MatTableDataSource();
   mainDatas$: UserModels[] = [];
 
-  constructor(private route: ActivatedRoute, private authService: AuthService, private router: Router, public userService: UserService , private modalService: NgbModal) { }
+  constructor(
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private router: Router,
+    public userService: UserService,
+    private modalService: NgbModal
+  ) {}
 
   ngOnInit(): void {
-    this.FUNC_getData()
+    this.FUNC_getData();
   }
 
   ngAfterViewInit() {
@@ -47,35 +65,37 @@ export class UserComponent implements OnInit {
   }
 
   FUNC_getData() {
-    this.userService.getAll().subscribe((data: any)=>{    
+    this.userService.getAll().subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data);
       this.userTotal$ = data.length;
-       
 
       this.dataSource.paginator = this.paginator;
       console.log(this.dataSource);
-    })
+    });
   }
 
-  FUNC_Delete(id: string){
-    this.userService.delete(id).subscribe(res => {
-         this.mainDatas$ = this.mainDatas$.filter(item => item.id !== id);
-         console.log('Post deleted successfully!');
-    })
+  FUNC_Delete(id: string) {
+    this.userService.delete(id).subscribe((_res) => {
+      this.mainDatas$ = this.mainDatas$.filter((item) => item.id !== id);
+      console.log('Post deleted successfully!');
+    });
   }
 
   signin() {
-    const modalRef = this.modalService.open(AdduserComponent, { size: 'x1' });
+    this.modalService.open(AdduserComponent, {
+      size: 'x1',
+      centered: true,
+    });
   }
 
-
-  FUNC_DeleteUser(id:any, fullname:string, emp_id:string, role:string){
-    const modalRef = this.modalService.open(DeleteComponent, { size: 'x1' });
+  FUNC_DeleteUser(id: any, fullname: string, emp_id: string, role: string) {
+    const modalRef = this.modalService.open(DeleteComponent, {
+      size: 'x1',
+      centered: true,
+    });
     modalRef.componentInstance.id = id;
     modalRef.componentInstance.fullname = fullname;
     modalRef.componentInstance.emp_id = emp_id;
     modalRef.componentInstance.role = role;
   }
-
-
 }

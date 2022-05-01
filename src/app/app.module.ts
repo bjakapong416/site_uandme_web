@@ -17,10 +17,7 @@ import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './pages/_models/material.module';
 // #fake-end#
 
-
-import { ReactiveFormsModule  } from '@angular/forms';
-
-
+import { ReactiveFormsModule } from '@angular/forms';
 
 function appInitializer(authService: AuthService) {
   return () => {
@@ -29,8 +26,6 @@ function appInitializer(authService: AuthService) {
     });
   };
 }
-
-
 
 @NgModule({
   declarations: [AppComponent],
@@ -53,7 +48,7 @@ function appInitializer(authService: AuthService) {
     InlineSVGModule.forRoot(),
     NgbModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
   ],
   providers: [
     {

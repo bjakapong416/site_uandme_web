@@ -24,3 +24,21 @@
   color: #00BFA5;
   font-weight: 900;
 }
+
+.mat-header-cell {
+  font-size: 14px;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+}
+
+tr.mat-header-row {
+  background-color:  rgba(243, 246, 249, 1);
+  height: 40px !important;
+}
+
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+  border-bottom-width: 0 !important;
+}

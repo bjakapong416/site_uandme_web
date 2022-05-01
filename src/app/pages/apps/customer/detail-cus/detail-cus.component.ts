@@ -1,12 +1,7 @@
-import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import {
-  NgbActiveModal,
-  NgbDateAdapter,
-  NgbDateParserFormatter,
-} from '@ng-bootstrap/ng-bootstrap';
+import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { CustomerModels } from '../../../_models/customer.model';
 import { CustomerService } from '../../../_services/customer/customer.service';
-import { BillModels } from '../../../_models/bill.model';
 import { BillService } from '../../../_services/bill/bill.service';
 
 import { ReviewModels } from '../../../_models/review.model';
@@ -73,9 +68,16 @@ export class DetailCusComponent implements OnInit {
     const data = await this.customerService.find(this.id).toPromise();
     this.mainData = data;
     this.creditused = data.creditamt - data.creditbal;
+    // this.ReviewService.find(this.id).subscribe((data: any) => {
+    //   this.reviewData = data;
+    // });
 
-    this.ReviewService.find(this.id).subscribe((data: any) => {
-      this.reviewData = data;
+    const reviews: any = await this.ReviewService.find(this.id).toPromise();
+    this.reviewData = Object.keys(reviews).map((index) => {
+      let review = reviews[index];
+      review.shortName =
+        review.fullname != null ? review.fullname.charAt(0) : 'U';
+      return review;
     });
 
     this.BillService.find_cus(this.id).subscribe((data: any) => {
@@ -92,9 +94,12 @@ export class DetailCusComponent implements OnInit {
     const lightColor = getCSSVariableValue('--bs-light-' + 'success');
     const labelColor = getCSSVariableValue('--bs-gray-700');
     const labelColor2 = getCSSVariableValue('--bs-gray-400');
-
+    const series =
+      this.mainData.creditamt !== 0
+        ? (this.mainData.creditbal * 100) / this.mainData.creditamt
+        : 0;
     return {
-      series: [this.mainData.creditbal],
+      series: [series],
       chart: {
         fontFamily: 'inherit',
         height: 200,
@@ -104,7 +109,7 @@ export class DetailCusComponent implements OnInit {
         radialBar: {
           hollow: {
             margin: 0,
-            size: '65%',
+            size: '70%',
           },
           dataLabels: {
             name: {
@@ -120,8 +125,8 @@ export class DetailCusComponent implements OnInit {
               fontWeight: '700',
               offsetY: -20,
               show: true,
-              formatter: function (val: number) {
-                return val;
+              formatter: function (_val: number, opts: any) {
+                return opts.globals.labels[1];
               },
             },
           },
@@ -135,7 +140,7 @@ export class DetailCusComponent implements OnInit {
       stroke: {
         lineCap: 'round',
       },
-      labels: ['ยอดคงเหลือ'],
+      labels: ['ยอดคงเหลือ', this.mainData.creditbal],
     };
   }
 }

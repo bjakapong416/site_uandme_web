@@ -56,8 +56,6 @@ export class UserService {
 
 
 
-
-
   errorHandler(error: any) {
     let errorMessage = '';
     if(error.error instanceof ErrorEvent) {

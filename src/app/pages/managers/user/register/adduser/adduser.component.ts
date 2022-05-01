@@ -66,7 +66,7 @@ export class AdduserComponent implements OnInit {
         formValue.role = pos.toString(); 
       }
     }
-    
+  
     this.addUserService.signup(formValue);
 
 

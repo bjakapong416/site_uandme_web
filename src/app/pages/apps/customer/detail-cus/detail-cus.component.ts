@@ -91,6 +91,7 @@ export class DetailCusComponent implements OnInit {
     const baseColor = getCSSVariableValue('--bs-' + 'success');
     const lightColor = getCSSVariableValue('--bs-light-' + 'success');
     const labelColor = getCSSVariableValue('--bs-gray-700');
+    const labelColor2 = getCSSVariableValue('--bs-gray-400');
 
     return {
       series: [this.mainData.creditbal],
@@ -107,14 +108,17 @@ export class DetailCusComponent implements OnInit {
           },
           dataLabels: {
             name: {
-              show: false,
+              show: true,
               fontWeight: '700',
+              color: labelColor2,
+              fontSize: '12px',
+              offsetY: 12,
             },
             value: {
               color: labelColor,
-              fontSize: '30px',
+              fontSize: '20px',
               fontWeight: '700',
-              offsetY: 12,
+              offsetY: -20,
               show: true,
               formatter: function (val: number) {
                 return val;
@@ -131,7 +135,7 @@ export class DetailCusComponent implements OnInit {
       stroke: {
         lineCap: 'round',
       },
-      labels: ['Progress'],
+      labels: ['ยอดคงเหลือ'],
     };
   }
 }

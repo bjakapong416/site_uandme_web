@@ -93,7 +93,7 @@
     </div>
     <div class="card-body">
       <div class="row mb-7">
-        <div class="col-4">
+        <div class="col-3">
           <apx-chart
             [series]="chartOptions.series"
             [chart]="chartOptions.chart"
@@ -107,10 +107,11 @@
             [tooltip]="chartOptions.tooltip"
             [colors]="chartOptions.colors"
             [markers]="chartOptions.markers"
+            [labels]="chartOptions.labels"
             [plotOptions]="chartOptions.plotOptions"
           ></apx-chart>
         </div>
-        <div class="col-8">
+        <div class="col-9 align-self-center">
           <div class="row mb-5">
             <label class="col-lg-2 fw-bold text-muted">ยอดที่ใช้</label>
             <div class="col-lg-10">
@@ -137,40 +138,29 @@
       </div>
 
       <div class="row mb-7">
-        <label class="col-lg-4 fw-bold text-muted">ชื่อผู้ต่อติด</label>
-        <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">{{ mainData?.telnum }}</span>
-        </div>
-      </div>
-
-      <div class="row mb-7">
-        <label class="col-lg-4 fw-bold text-muted">เขตการขาย</label>
-        <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">{{ mainData?.areades }}</span>
-        </div>
-      </div>
-
-      <div class="row mb-7">
-        <label class="col-lg-4 fw-bold text-muted">รายละเอียดที่อยู่</label>
-        <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">{{
-            mainData?.addr01 +
-              " " +
-              mainData?.addr02 +
-              " " +
-              mainData?.addr02 +
-              " " +
-              mainData?.zipcod
-          }}</span>
-        </div>
-      </div>
-
-      <div class="row mb-7">
-        <label class="col-lg-4 fw-bold text-muted"
-          >รายละเอียดที่อยู่ (ที่อยู่จัดส่งสินค้า)</label
+        <label class="col-lg-4 fw-bolder text-end align-self-center"
+          >ชื่อผู้ต่อติด</label
         >
-        <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">{{
+        <div class="col-lg-8 bg-secondary rounded py-2 px-3 w-500px">
+          <span class="fs-6 text-dark">{{ mainData?.telnum }}</span>
+        </div>
+      </div>
+
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bolder text-end align-self-center"
+          >เขตการขาย</label
+        >
+        <div class="col-lg-8 bg-secondary rounded py-2 px-3 w-500px">
+          <span class="fs-6 text-dark">{{ mainData?.areades }}</span>
+        </div>
+      </div>
+
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bolder text-end align-self-center"
+          >รายละเอียดที่อยู่</label
+        >
+        <div class="col-lg-8 bg-secondary rounded py-2 px-3 w-500px">
+          <span class="fs-6 text-dark">{{
             mainData?.addr01 +
               " " +
               mainData?.addr02 +
@@ -183,9 +173,28 @@
       </div>
 
       <div class="row mb-7">
-        <label class="col-lg-4 fw-bold text-muted">* หมายเหตุ</label>
-        <div class="col-lg-8">
-          <span class="fw-bolder fs-6 text-dark">{{ mainData?.remark }}</span>
+        <label class="col-lg-4 fw-bolder text-end align-self-center"
+          >รายละเอียดที่อยู่ <br />(ที่อยู่จัดส่งสินค้า)</label
+        >
+        <div class="col-lg-8 bg-secondary rounded py-2 px-3 w-500px">
+          <span class="fs-6 text-dark">{{
+            mainData?.addr01 +
+              " " +
+              mainData?.addr02 +
+              " " +
+              mainData?.addr02 +
+              " " +
+              mainData?.zipcod
+          }}</span>
+        </div>
+      </div>
+
+      <div class="row mb-7">
+        <label class="col-lg-4 fw-bolder text-end">* หมายเหตุ</label>
+        <div
+          class="col-lg-8 bg-light-warning rounded py-2 px-3 w-500px h-100px"
+        >
+          <span class="fs-6 text-dark">{{ mainData?.remark }}</span>
         </div>
       </div>
     </div>

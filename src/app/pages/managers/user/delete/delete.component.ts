@@ -50,16 +50,14 @@ export class DeleteComponent implements OnInit {
 
   saveSettings() {
     this.isLoading$.next(true);
-    
     this.deleteService.delete(this.userid);
     
-
     setTimeout(() => {
+      window.location.reload();
       this.isLoading$.next(false);
       this.cdr.detectChanges();
     }, 1500);
-    window.location.reload();
-
+    
   }
 
 

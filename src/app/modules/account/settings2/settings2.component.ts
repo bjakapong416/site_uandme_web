@@ -4,7 +4,6 @@ import { AuthService, UserType ,User  } from '../../../modules/auth';
 import { FormGroup, FormControl } from '@angular/forms';
 import { setting2sService } from './settings2.service';
 
-
 @Component({
   selector: 'app-settings2',
   templateUrl: './settings2.component.html',
@@ -47,14 +46,13 @@ export class Settings2Component implements OnInit {
   saveSettings() {
     this.isLoading$.next(true);
     let formValue = this.profileForm.value;
-
     this.settingService.editUser(formValue);  
-    this.settingService.setGetMe(this.user$?.id)
 
     setTimeout(() => {
+      this.settingService.setGetMe(this.user$?.id)
       this.isLoading$.next(false);
       this.cdr.detectChanges();
-    }, 1500);
+    }, 1000);
 
   }
 

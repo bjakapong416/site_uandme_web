@@ -6,6 +6,9 @@ import { AuthService } from 'src/app/modules/auth';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DetailBillComponent } from './detail-bill/detail-bill/detail-bill.component';
+import { AddBillComponent } from './add-bill/add-bill/add-bill.component';
 
 @Component({
   selector: 'app-bill',
@@ -35,6 +38,7 @@ export class BillComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
+    private modalService: NgbModal,
     public billService: BillService
   ) {}
 
@@ -71,8 +75,21 @@ export class BillComponent implements OnInit {
     });
   }
 
-  testConsoleLog(data: any) {
-    console.log(data);
+  //action
+  add(id: any, name: any) {
+    const modalRef = this.modalService.open(AddBillComponent, {
+      size: 'xl',
+    });
+    modalRef.componentInstance.id = id;
+    modalRef.componentInstance.name = name;
+  }
+
+  details(id: any) {
+    const modalRef = this.modalService.open(DetailBillComponent, {
+      size: 'xl',
+      windowClass: 'bg-blank',
+    });
+    modalRef.componentInstance.id = id;
   }
 }
 

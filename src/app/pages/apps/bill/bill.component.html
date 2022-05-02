@@ -89,12 +89,29 @@
       <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef>การท้วงถาม</th>
         <td mat-cell *matCellDef="let row">
-          <span class="menu-icon">
+          <div
+            title="Add bill"
+            class="btn btn-active-light-primary p-1"
+            (click)="add(row.docnum, row.cusnam)"
+          >
             <span
-              [inlineSVG]="'../assets/media/svg/icons/Communication/Write.svg'"
               class="svg-icon svg-icon-2 svg-icon-primary"
+              [inlineSVG]="'./assets/media/svg/icons/Communication/Write.svg'"
             ></span>
-          </span>
+          </div>
+
+          <div
+            title="show detail"
+            class="btn btn-active-light-primary p-1"
+            (click)="details(row.docnum)"
+          >
+            <span
+              class="svg-icon svg-icon-2 svg-icon-primary"
+              [inlineSVG]="
+                './assets/media/svg/icons/Navigation/Angle-right.svg'
+              "
+            ></span>
+          </div>
         </td>
       </ng-container>
 

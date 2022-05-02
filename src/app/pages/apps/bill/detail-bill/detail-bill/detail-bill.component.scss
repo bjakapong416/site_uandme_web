@@ -1,0 +1,44 @@
+::ng-deep .nav-line-tabs.nav-line-tabs-2x .nav-item {
+    margin: 10px 20px 0px 20px;
+  }
+  ::ng-deep .nav-tabs {
+    border-bottom:0
+  }
+  ::ng-deep .nav-line-tabs .nav-item .nav-link {
+    padding-bottom: 1rem ;
+  }
+  ::ng-deep .tab :focus-visible {
+    outline: none;
+  }
+  
+  ::ng-deep .card .card-header {
+    min-height: 50px;
+  }
+  
+  .title {
+    font-size: 20px;
+  }
+  
+  .text-green-200 {
+    background-color: #A7FFEB;
+    color: #00BFA5;
+    font-weight: 900;
+  }
+  
+  .mat-header-cell {
+    font-size: 14px;
+  }
+  
+  .mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+  }
+  
+  tr.mat-header-row {
+    background-color:  rgba(243, 246, 249, 1);
+    height: 40px !important;
+  }
+  
+  th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    border-bottom-width: 0 !important;
+  }

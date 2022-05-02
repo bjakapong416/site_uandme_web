@@ -1,25 +1,32 @@
 table { width: 100%; }
 
-:host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
-  padding-bottom: 0.5rem;
-  padding-top: 0.5rem;
-  width: 400px;
+.bg-blank {
+  .modal-content {
+    background-color: rgba(0, 0, 0, 0);
+    box-shadow: none;
+  }
 }
 
 .mat-header-cell {
-font-size: 14px;
+  font-size: 14px;
 }
 
 .mat-row .mat-cell {
-border-bottom: 1px solid transparent;
-border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
 }
 
 tr.mat-header-row {
-height: 40px !important;
+  background-color:  rgba(243, 246, 249, 1);
+  height: 40px !important;
 }
 
 th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
-border-bottom-width: 0 !important;
+  border-bottom-width: 0 !important;
 }
 
+.mat-form-field-appearance-outline .mat-form-field-infix {
+ padding-bottom: 5px;
+ padding-top: 1px;
+ width: 400px;
+}

@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BillModels } from '../../_models/bill.model';
+import { askBillModels } from '../../_models/askBill.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -24,7 +25,6 @@ export class BillService {
       catchError(this.errorHandler)
     )
   }
-
 
   async async_getAll() {
     return await this.httpClient.get<BillModels[]>(this.apiURL + '/all').pipe( )
@@ -56,6 +56,19 @@ export class BillService {
     
   delete(id: any){
     return this.httpClient.delete<BillModels>(this.apiURL + '/' + id, this.httpOptions).pipe(
+      catchError(this.errorHandler)
+    )
+  }
+
+  //PART: Bill Review
+  create_review(data: any): Observable<askBillModels> {
+    return this.httpClient.post<askBillModels>(this.apiURL + 'review/add', data).pipe(
+      catchError(this.errorHandler)
+    )
+  }  
+
+  find_review(id: any): Observable<askBillModels> {
+    return this.httpClient.get<askBillModels>(this.apiURL + 'review/' + id).pipe(
       catchError(this.errorHandler)
     )
   }

@@ -17,9 +17,6 @@ import { StockService } from '../_services/stock/stock.service';
 import { StockComponent } from './stock/stock.component';
 import { CustomerComponent } from './customer/customer.component';
 import { BillComponent } from './bill/bill.component';
-import { CrudStocksComponent } from './crud-stocks/crud-stocks.component';
-import { AddComponent } from './crud-stocks/add/add.component';
-import { EditComponent } from './crud-stocks/edit/edit.component';
 import { AddCusComponent } from './customer/add-cus/add-cus.component';
 import { DetailCusComponent } from './customer/detail-cus/detail-cus.component';
 import { ReviewCusComponent } from './customer/review-cus/review-cus.component';
@@ -30,19 +27,20 @@ import { NgApexchartsModule } from 'ng-apexcharts';
 //Pipes
 import { SharedModule } from 'src/app/shared/shared.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { DetailBillComponent } from './bill/detail-bill/detail-bill/detail-bill.component';
+import { AddBillComponent } from './bill/add-bill/add-bill/add-bill.component';
 
 @NgModule({
   declarations: [
     StockComponent,
     CustomerComponent,
     BillComponent,
-    CrudStocksComponent,
-    AddComponent,
-    EditComponent,
     AddCusComponent,
     DetailCusComponent,
     ReviewCusComponent,
     BillCusComponent,
+    DetailBillComponent,
+    AddBillComponent,
   ],
   imports: [
     CommonModule,

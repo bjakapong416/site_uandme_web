@@ -1,21 +1,37 @@
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
-            <div class="modal-title h4 w-100 text-center" id="example-modal-sizes-title-lg">
+            <div class="modal-title h4 w-100 text-center fs-5" id="example-modal-sizes-title-lg">
                 <ng-container *ngIf="mainData">
-                    แสดงความคิดเห็นต่อลูกค้า | "{{mainData.cusnam}}"
+                    แสดงความคิดเห็นต่อลูกค้า 
+                    <div class="fs-3 fw-bolder"> "{{mainData.cusnam}}" </div>
                 </ng-container>
             </div>
         </div>
 
-        <div class="modal-body">
-            <p>REVIEW AND COMMENT BOX.</p>
-        </div>
+        <form id="frmData" [formGroup]="frmData" (ngSubmit)="saveSettings()" novalidate="novalidate">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col fv-row">
+                        <textarea rows="8" class="form-control form-control-lg form-control-solid" formControlName="review"
+                            [ngClass]="{'is-invalid': frmData.controls['review'].invalid, 'is-valid': frmData.controls['review'].valid}" style="overflow:auto; resize:none">
+                        </textarea>
+                    </div>
+                </div>
+            </div>
 
-        <div class="modal-footer">
-            <button type="button" class="btn btn-light btn-elevate mr-2" (click)="modal.dismiss('Close click')"> ยกเลิก </button>
-            <button type="submit" class="btn btn-primary"> บันทึก </button>
-            <!--button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid"> บันทึก </button-->
-        </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" [disabled]="isLoading" (click)="modal.dismiss('Close click')"> <ng-container>ยกเลิก</ng-container> </button>
+
+                <!-- Seperate Space -->
+                &nbsp;
+
+                <button type="submit" class="btn btn-primary" [disabled]="frmData.invalid">
+                <ng-container *ngIf="!isLoading">บันทึก</ng-container>
+                <ng-container *ngIf="isLoading"><span clas="indicator-progress" [style.display]="'block'"> โปรดรอสักครู่ ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span></ng-container>
+                </button>
+                <!--button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid"> บันทึก </button-->
+            </div>
+        </form>
     </div>
 </div>

@@ -1,5 +1,9 @@
 <div class="card m-5">
-  <div class="card-body pt-9 pb-0">
+  <div class="modal-header">
+    <div class="btn-close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    </div>
+  </div>
+  <div class="card-body pt-0 pb-0">
     <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
       <div class="me-7 mb-4">
         <div
@@ -19,7 +23,7 @@
           <div class="d-flex flex-column">
             <div class="d-flex align-items-center mb-2">
               <div class="text-gray-800 fs-2 fw-bolder me-1">
-                {{ mainData?.cuscod }}
+                {{ mainData?.cuscod }} | {{ mainData?.cusnam }}
               </div>
               <span
                 [inlineSVG]="'./assets/media/svg/icons/General/Bookmark.svg'"
@@ -49,7 +53,7 @@
                 พนักงานขาย
               </div>
               <div class="fs-5 fw-bolder me-1 ps-2">
-                {{ mainData?.cusnam }}
+                {{ mainData?.slmdes }}
               </div>
             </div>
           </div>

@@ -137,10 +137,10 @@ export class DashboardComponent implements OnInit {
   }
 
   getChartOptionsPie() {
-    const baseColor = getCSSVariableValue('--bs-' + 'primary');
-    const labelColor = getCSSVariableValue('--bs-gray-500');
+    const labelColor = getCSSVariableValue('--bs-gray-400');
+    const test = [2000, 2000, 500];
     return {
-      series: [3000, 1250, 250],
+      series: [2000, 2000, 500],
       chart: {
         type: 'donut',
         height: 200,
@@ -149,9 +149,9 @@ export class DashboardComponent implements OnInit {
         enabled: false,
       },
       labels: [
-        'ลูกค้าความเสี่ยงต่ำ',
-        'ลูกค้าความเสี่ยงปานกลาง',
-        'ลูกค้าความเสี่ยงสูง',
+        `ลูกค้าความเสี่ยงต่ำ ${test[0]}`,
+        `ลูกค้าความเสี่ยงปานกลาง  ${test[1]}`,
+        `ลูกค้าความเสี่ยงสูง  ${test[2]}`,
       ],
       colors: ['#50CD89', '#FFA800', '#F64E60'],
       legend: {

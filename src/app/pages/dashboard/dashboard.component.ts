@@ -149,10 +149,16 @@ export class DashboardComponent implements OnInit {
         enabled: false,
       },
       labels: [
-        'ลูกค้าความเสี่ยงสูง',
         'ลูกค้าความเสี่ยงต่ำ',
         'ลูกค้าความเสี่ยงปานกลาง',
+        'ลูกค้าความเสี่ยงสูง',
       ],
+      colors: ['#50CD89', '#FFA800', '#F64E60'],
+      legend: {
+        fontSize: '14px',
+        color: labelColor,
+        fontFamily: 'Prompt, "Helvetica Neue", sans-serif',
+      },
       responsive: [
         {
           breakpoint: 480,

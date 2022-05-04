@@ -48,6 +48,15 @@ export class CustomerComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
   }
 
+  createFilter() {
+    let filterFunction = function (data: any, filter: string): boolean {
+      //let searchTerms = JSON.parse(filter);
+      let searchStr = (data.cuscod + data.cusnam + data.telnum + data.areades + data.creditamt + data.creditbal + 'high').toLowerCase();
+      return searchStr.indexOf(filter.toLowerCase()) != -1;
+    };
+    return filterFunction;
+  }
+
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -61,7 +70,7 @@ export class CustomerComponent implements OnInit {
     this.customerService.getAll().subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
-      console.log(this.dataSource);
+      this.dataSource.filterPredicate = this.createFilter();
 
       this.dataSource.filteredData.forEach((element: any, index) => {
         if (index < 3) element.isChecked = true;

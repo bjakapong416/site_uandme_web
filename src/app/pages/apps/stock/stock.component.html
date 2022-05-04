@@ -1,10 +1,26 @@
 <div class="card mb-5">
   <div class="card-body">
     <p class="fs-4 fw-bolder">ค้นหาสินค้าคงเหลือ</p>
+
+    <mat-form-field *ngFor="let filter of filterSelectObj" style="margin-right: 15px;">
+      <mat-label>Filter {{filter.name}}</mat-label>
+      <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+        (change)="filterChange(filter.columnProp,$event)">
+        <option value="">-- Select {{filter.name}} --</option>
+        <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+      </select>
+    </mat-form-field>
+    
     <mat-form-field appearance="outline">
-      <input
+      <!-- <input
         matInput
         (keyup)="applyFilter($event)"
+        placeholder="รหัส ชื่อสินค้า อื่นๆ"
+        #input
+      /> -->
+      <input
+        matInput
+        (keyup)="filterChange('all', $event)"
         placeholder="รหัส ชื่อสินค้า อื่นๆ"
         #input
       />

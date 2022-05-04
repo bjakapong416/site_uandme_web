@@ -13,7 +13,7 @@ import { MatTableDataSource } from '@angular/material/table';
 })
 export class StockComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  filterValues: any = {};
+  filterValues: any = {"all":"","unitnam":"","itemgrp":""};
   filterSelectObj: any = [];
 
   displayedColumns: string[] = [
@@ -96,7 +96,7 @@ export class StockComponent implements OnInit {
         o.options = this.getFilterObject(data, o.columnProp);
       });
 
-      this.dataSourceFilters.filterPredicate = this.createFilter();
+      this.dataSource.filterPredicate = this.NEW_createFilter();
       console.log(this.dataSource.filteredData);
     });
   }
@@ -106,6 +106,21 @@ export class StockComponent implements OnInit {
       this.mainDatas$ = this.mainDatas$.filter((item) => item.itemno !== id);
       console.log('Post deleted successfully!');
     });
+  }
+
+  NEW_createFilter() {
+    let filterFunction = function (data: any, filter: string): boolean {
+      let qty_Status = '';
+      if(data.qty == 0) {
+        qty_Status = 'Soldout'
+      } else if(data.qty < 10) {
+        qty_Status = 'low stock'
+      }
+      let searchTerms = JSON.parse(filter);
+      let searchStr = (data.itemno + data.itemdes + data.itemgrp + data.qty + qty_Status + data.unitnam + data.whdes + data.itemno).toLowerCase();
+      return searchStr.indexOf(searchTerms.all.toLowerCase()) != -1 && data.unitnam.toLowerCase().indexOf(searchTerms.unitnam) !== -1 && data.itemgrp.toLowerCase().indexOf(searchTerms.itemgrp) !== -1;
+    };
+    return filterFunction;
   }
 
   //Filter
@@ -164,7 +179,7 @@ export class StockComponent implements OnInit {
   // Called on Filter change
   filterChange(filter: any, event: any) {
     //let filterValues = {}
-    this.filterValues[filter.columnProp] = event.target.value
+    this.filterValues[filter] = event.target.value
       .trim()
       .toLowerCase();
     this.dataSource.filter = JSON.stringify(this.filterValues);

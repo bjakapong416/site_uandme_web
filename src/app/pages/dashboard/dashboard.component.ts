@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockService } from './../_services/stock/stock.service';
 import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
-import { left } from '@popperjs/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,34 +9,39 @@ import { left } from '@popperjs/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(public stockService: StockService) {}
+  constructor(public stockService: StockService) {
+    this.summaryStockData$ = stockService
+      .getSummaryStock()
+      .subscribe((data) => {
+        this.summaryStockData = data;
+        this.summaryStockData.forEach((element: any) => {
+          this.sumStock.push(element.sum);
+          this.typeStock.push(element.itemgrp);
+          this.sumTotal = this.sumTotal + element.sum;
+        });
+      });
+  }
   chartOptionsBar: any = {};
   chartOptionsPie: any = {};
+  summaryStockData$: Subscription;
   summaryStockData: any;
   sumStock: any = [];
   typeStock: any = [];
   sumTotal: number = 0;
 
-  async ngOnInit(): Promise<void> {
-    this.fetchSumaryStockData();
-    this.chartOptionsBar = this.getChartOptionsBar();
-    this.chartOptionsPie = this.getChartOptionsPie();
+  ngOnInit() {
+    this.setChartOptionsBar();
+    this.setChartOptionsPie();
   }
 
-  async fetchSumaryStockData() {
-    const data = await this.stockService.getSummaryStock().toPromise();
-    this.summaryStockData = data;
-    this.summaryStockData.forEach((element: any) => {
-      this.sumStock.push(element.sum);
-      this.typeStock.push(element.itemgrp);
-      this.sumTotal = this.sumTotal + element.sum;
-    });
+  ngOnDestroy() {
+    this.summaryStockData$.unsubscribe();
   }
 
-  getChartOptionsBar() {
+  setChartOptionsBar(): void {
     const baseColor = getCSSVariableValue('--bs-' + 'primary');
     const labelColor = getCSSVariableValue('--bs-gray-700');
-    return {
+    this.chartOptionsBar = {
       series: [
         {
           name: 'จำนวน',
@@ -135,10 +140,10 @@ export class DashboardComponent implements OnInit {
     };
   }
 
-  getChartOptionsPie() {
-    const labelColor = getCSSVariableValue('--bs-gray-700');
+  setChartOptionsPie(): void {
+    const labelColor = getCSSVariableValue('--bs-gray-400');
     const test = [2000, 2000, 500];
-    return {
+    this.chartOptionsPie = {
       series: [2000, 2000, 500],
       chart: {
         type: 'donut',
@@ -160,18 +165,13 @@ export class DashboardComponent implements OnInit {
       },
       responsive: [
         {
-          breakpoint: 1000,
+          breakpoint: 480,
           options: {
             chart: {
-              width: '100%',
-              height: 300,
+              width: 100,
             },
             legend: {
-              show: true,
               position: 'bottom',
-              horizontalAlign: 'center',
-              fontSize: '14px',
-              fontWeight: 400,
             },
           },
         },
@@ -189,7 +189,7 @@ export class DashboardComponent implements OnInit {
             minAngleToShowLabel: 10,
           },
           donut: {
-            size: '70%',
+            size: '65%',
             background: 'transparent',
             labels: {
               show: true,
@@ -204,6 +204,7 @@ export class DashboardComponent implements OnInit {
               },
               value: {
                 show: true,
+                fontSize: '22px',
                 fontWeight: 400,
                 fontFamily: 'Prompt, "Helvetica Neue", sans-serif',
                 offsetY: -20,

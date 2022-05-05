@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StockService } from './../_services/stock/stock.service';
 import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
+import { left } from '@popperjs/core';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,12 +17,10 @@ export class DashboardComponent implements OnInit {
   typeStock: any = [];
   sumTotal: number = 0;
 
-  ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.fetchSumaryStockData();
     this.chartOptionsBar = this.getChartOptionsBar();
     this.chartOptionsPie = this.getChartOptionsPie();
-
-    console.log(this.sumTotal);
   }
 
   async fetchSumaryStockData() {
@@ -137,7 +136,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getChartOptionsPie() {
-    const labelColor = getCSSVariableValue('--bs-gray-400');
+    const labelColor = getCSSVariableValue('--bs-gray-700');
     const test = [2000, 2000, 500];
     return {
       series: [2000, 2000, 500],
@@ -161,13 +160,18 @@ export class DashboardComponent implements OnInit {
       },
       responsive: [
         {
-          breakpoint: 480,
+          breakpoint: 1000,
           options: {
             chart: {
-              width: 100,
+              width: '100%',
+              height: 300,
             },
             legend: {
+              show: true,
               position: 'bottom',
+              horizontalAlign: 'center',
+              fontSize: '14px',
+              fontWeight: 400,
             },
           },
         },
@@ -185,7 +189,7 @@ export class DashboardComponent implements OnInit {
             minAngleToShowLabel: 10,
           },
           donut: {
-            size: '65%',
+            size: '70%',
             background: 'transparent',
             labels: {
               show: true,
@@ -200,7 +204,6 @@ export class DashboardComponent implements OnInit {
               },
               value: {
                 show: true,
-                fontSize: '22px',
                 fontWeight: 400,
                 fontFamily: 'Prompt, "Helvetica Neue", sans-serif',
                 offsetY: -20,

@@ -141,7 +141,7 @@ export class DashboardComponent implements OnInit {
   }
 
   setChartOptionsPie(): void {
-    const labelColor = getCSSVariableValue('--bs-gray-400');
+    const labelColor = getCSSVariableValue('--bs-gray-700');
     const test = [2000, 2000, 500];
     this.chartOptionsPie = {
       series: [2000, 2000, 500],
@@ -165,13 +165,16 @@ export class DashboardComponent implements OnInit {
       },
       responsive: [
         {
-          breakpoint: 480,
+          breakpoint: 1000,
           options: {
             chart: {
-              width: 100,
+              width: '100%',
+              height: 300,
             },
             legend: {
               position: 'bottom',
+              fontSize: '14px',
+              fontWeight: 400,
             },
           },
         },
@@ -204,7 +207,6 @@ export class DashboardComponent implements OnInit {
               },
               value: {
                 show: true,
-                fontSize: '22px',
                 fontWeight: 400,
                 fontFamily: 'Prompt, "Helvetica Neue", sans-serif',
                 offsetY: -20,

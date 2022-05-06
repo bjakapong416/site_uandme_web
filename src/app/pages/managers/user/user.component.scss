@@ -42,11 +42,6 @@ table { width: 100%; }
     background-color: white;
   }
 
-  :host ::ng-deep .mat-form-field-wrapper {
-    padding: 0;
-    background-color: white;
-  }
-  
   :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
    padding-bottom: 0.5rem;
    padding-top: 0.5rem;

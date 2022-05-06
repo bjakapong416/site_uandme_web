@@ -31,6 +31,7 @@ import { DeleteComponent } from './user/delete/delete.component';
     ManagersRoutingModule,
     SharedModule,
     WidgetsModule,
+    FormsModule,
     ReactiveFormsModule,
   ],
 })

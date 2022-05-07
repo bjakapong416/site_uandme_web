@@ -93,7 +93,7 @@ export class DetailCusComponent implements OnInit {
     const baseColor = getCSSVariableValue('--bs-' + 'success');
     const lightColor = getCSSVariableValue('--bs-light-' + 'success');
     const labelColor = getCSSVariableValue('--bs-gray-700');
-    const labelColor2 = getCSSVariableValue('--bs-gray-400');
+    const labelColor2 = getCSSVariableValue('--bs-gray-600');
     const series =
       this.mainData.creditamt !== 0
         ? (this.mainData.creditbal * 100) / this.mainData.creditamt
@@ -105,6 +105,16 @@ export class DetailCusComponent implements OnInit {
         height: 200,
         type: 'radialBar',
       },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              height: 200,
+            },
+          },
+        },
+      ],
       plotOptions: {
         radialBar: {
           hollow: {

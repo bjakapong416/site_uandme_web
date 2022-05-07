@@ -14,6 +14,8 @@ import {
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdduserComponent } from './register/adduser/adduser.component';
 import { DeleteComponent } from './delete/delete.component';
+import { EdituserComponent } from './edituser/edituser.component';
+
 
 @Component({
   selector: 'app-user',
@@ -152,4 +154,23 @@ export class UserComponent implements OnInit {
     modalRef.componentInstance.emp_id = emp_id;
     modalRef.componentInstance.role = role;
   }
+
+
+  FUNC_EditUser(id: any, fullname: string, emp_id: string, role: string , email: string , password: string, phone: string) {
+    const modalRef = this.modalService.open(EdituserComponent, {
+      size: 'x1',
+      centered: true,
+    });
+    modalRef.componentInstance.uid = id;
+    modalRef.componentInstance.ufullname = fullname;
+    modalRef.componentInstance.uemp_id = emp_id;
+    modalRef.componentInstance.urole = role;
+    modalRef.componentInstance.uemail = email;
+    modalRef.componentInstance.upassword = password;
+    modalRef.componentInstance.uphone = phone;    
+  }
+
+
+
+
 }

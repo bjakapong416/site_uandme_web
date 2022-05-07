@@ -167,8 +167,10 @@
             </span> -->
 
           <a
-            href="#"
             class="btn btn-icon btn-bg-light btn-active-color-primary btn-sm me-1"
+            (click)="
+              FUNC_EditUser(row.id, row.fullname, row.employee_id, row.role, row.email, row.password, row.phone)
+            "
           >
             <span
               [inlineSVG]="'./assets/media/icons/duotune/art/art005.svg'"

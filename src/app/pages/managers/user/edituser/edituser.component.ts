@@ -8,18 +8,24 @@ import {
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { BehaviorSubject, Subscription } from 'rxjs';
 
-import { addUserService } from './adduser.service';
+import { addUserService } from '../register/adduser/adduser.service'; 
 import Swal from 'sweetalert2';
 
-@Component({
-  selector: 'app-adduser',
-  templateUrl: './adduser.component.html',
-  styleUrls: ['./adduser.component.scss'],
-})
-export class AdduserComponent implements OnInit {
-  @Input() id: number;
 
-  // profileForm: FormGroup;
+@Component({
+  selector: 'app-edituser',
+  templateUrl: './edituser.component.html',
+  styleUrls: ['./edituser.component.scss']
+})
+export class EdituserComponent implements OnInit {
+  @Input() uid: number;
+  @Input() uemp_id: string;
+  @Input() ufullname: string;
+  @Input() urole: string;
+  @Input() uemail: string;
+  @Input() upassword: string;
+  @Input() uphone: string;
+
 
   roles: any[] = ['Sale', 'Co-Sale', 'CEO'];
 
@@ -27,7 +33,17 @@ export class AdduserComponent implements OnInit {
   isLoading: boolean;
   private unsubscribe: Subscription[] = [];
 
+
+  constructor(
+    private fb: FormBuilder,
+    public modal: NgbActiveModal,
+    private cdr: ChangeDetectorRef,
+    public addUserService: addUserService
+  ) { }
+
+
   profileForm = new FormGroup({
+    id : new FormControl(null),
     email: new FormControl(null, [Validators.required, Validators.email]),
     password: new FormControl(null, Validators.minLength(4)),
     fullname: new FormControl(''),
@@ -36,27 +52,10 @@ export class AdduserComponent implements OnInit {
     role: new FormControl(''),
   });
 
-  constructor(
-    private fb: FormBuilder,
-    public modal: NgbActiveModal,
-    private cdr: ChangeDetectorRef,
-    public addUserService: addUserService
-  ) {
-    const loadingSubscr = this.isLoading$
-      .asObservable()
-      .subscribe((res) => (this.isLoading = res));
-    this.unsubscribe.push(loadingSubscr);
-  }
 
   ngOnInit(): void {
-    // this.profileForm = this.fb.group({
-    //   email: ['', Validators.required, Validators.email],
-    //   password: ['', Validators.required],
-    //   fullname: ['', Validators.required],
-    //   employee_id: ['', Validators.required],
-    //   phone: ['', Validators.required],
-    //   role: ['', Validators.required],
-    // });
+    this.profileForm.patchValue({id:this.uid ,email:this.uemail ,fullname:this.ufullname , employee_id:this.uemp_id , phone:this.uphone , role:this.urole})
+    
   }
 
   saveSettings() {
@@ -69,9 +68,10 @@ export class AdduserComponent implements OnInit {
         formValue.role = pos.toString();
       }
     }
-
-    this.addUserService.signup(formValue);
-    this.handleSaveMember();
+    console.log(formValue);
+    
+    // this.addUserService.signup(formValue);
+    // this.handleSaveMember();
 
     setTimeout(() => {
       this.isLoading$.next(false);
@@ -82,21 +82,6 @@ export class AdduserComponent implements OnInit {
   // Close modal
   public decline() {
     this.modal.close(false);
-  }
-
-  checkIfMatchingPasswords(
-    passwordKey: string,
-    passwordConfirmationKey: string
-  ) {
-    return (group: FormGroup) => {
-      let passwordInput = group.controls[passwordKey],
-        passwordConfirmationInput = group.controls[passwordConfirmationKey];
-      if (passwordInput.value !== passwordConfirmationInput.value) {
-        return passwordConfirmationInput.setErrors({ notEquivalent: true });
-      } else {
-        return passwordConfirmationInput.setErrors(null);
-      }
-    };
   }
 
   handleSaveMember() {
@@ -112,5 +97,6 @@ export class AdduserComponent implements OnInit {
     });
   }
 
-  
+
+
 }

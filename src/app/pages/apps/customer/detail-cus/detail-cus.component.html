@@ -1,7 +1,12 @@
 <div class="card m-5">
-  <div class="modal-header">
-    <div class="btn-close" data-dismiss="modal" aria-label="Close" (click)="modal.dismiss('Cross click')">
-    </div>
+  <div class="w-100">
+    <div
+      class="btn-close m-3"
+      data-dismiss="modal"
+      aria-label="Close"
+      (click)="modal.dismiss('Cross click')"
+      style="float: right"
+    ></div>
   </div>
   <div class="card-body pt-0 pb-0">
     <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
@@ -21,7 +26,7 @@
           class="d-flex justify-content-between align-items-start flex-wrap mb-2"
         >
           <div class="d-flex flex-column">
-            <div class="d-flex align-items-center mb-2">
+            <div class="d-flex align-items-center">
               <div class="text-gray-800 fs-2 fw-bolder me-1">
                 {{ mainData?.cuscod }} | {{ mainData?.cusnam }}
               </div>
@@ -31,17 +36,14 @@
               ></span>
             </div>
 
-            <div class="d-flex flex-wrap fw-bold fs-4 text-gray-500 my-4 pe-2">
+            <div class="d-flex flex-wrap fw-bold fs-4 text-gray-800 my-4 pe-2">
               <p class="d-flex align-items-center me-5 mb-2">
                 เลขประจำตัวผูเสียภาษี {{ mainData?.taxid }}
               </p>
             </div>
           </div>
-
           <div class="d-flex my-4">
-            <div class="btn btn-sm btn-success me-3 h1 w-150px text-green-200">
-              Low
-            </div>
+            <div class="badge badge-light-success h1 me-3 w-150px">Low</div>
           </div>
         </div>
         <div
@@ -62,7 +64,9 @@
             <div class="d-flex fs-5 align-self-end pe-4">
               วันที่บิลล่าสุด {{ mainData?.lastsale | date: "shortDate" }}
             </div>
-            <div class="d-flex flex-wrap pe-4 align-self-end">
+            <div
+              class="d-flex flex-wrap pe-4 align-self-start align-self-lg-end"
+            >
               <div class="fw-bold fs-8 my-4 bg-secondary px-2 border rounded">
                 วันที่วางบิล ทุกวันที่ 30
               </div>
@@ -90,14 +94,14 @@
   </div>
 </div>
 
-<div class="card m-5 h-700px">
+<div class="card m-5 h-auto h-xl-700px">
   <div *ngIf="selectedTab == 'detail'">
     <div class="card-header">
       <p class="title my-2 py-2 align-items-center">รายละเอียดลูกค้า</p>
     </div>
     <div class="card-body">
       <div class="row mb-7">
-        <div class="col-3">
+        <div class="col-12 col-sm-6 col-lg-3">
           <apx-chart
             [series]="chartOptions.series"
             [chart]="chartOptions.chart"
@@ -106,6 +110,7 @@
             [dataLabels]="chartOptions.dataLabels"
             [stroke]="chartOptions.stroke"
             [legend]="chartOptions.legend"
+            [responsive]="chartOptions.responsive"
             [fill]="chartOptions.fill"
             [states]="chartOptions.states"
             [tooltip]="chartOptions.tooltip"
@@ -115,34 +120,40 @@
             [plotOptions]="chartOptions.plotOptions"
           ></apx-chart>
         </div>
-
-        <div class="col-9 align-self-center">
-          <div class="row mb-5">
-            <div class="col-lg-10">
-              <span class="fw-bolder fs-6 text-dark">{{ mainData?.paytrm | number }} วัน</span> 
-              <p class="fw-bold text-muted">เครดิต</p>
-            </div>
+        <!-- <div class="row mb-5">
+          <div class="col-lg-10">
+            <span class="fw-bolder fs-6 text-dark"
+              >{{ mainData?.paytrm | number }} วัน</span
+            >
+            <p class="fw-bold text-muted">เครดิต</p>
           </div>
-
+        </div> -->
+        <div class="col-12 col-sm-6 col-lg-9 align-self-center">
           <div class="row mb-5">
-            <label class="col-lg-2 fw-bold text-muted">ยอดที่ใช้</label>
-            <div class="col-lg-10">
+            <label class="col-4 col-sm-5 col-lg-2 fw-bold text-gray-800"
+              >ยอดที่ใช้</label
+            >
+            <div class="col-8 col-sm-7 col-lg-10">
               <span class="fw-bolder fs-6 text-dark">{{
                 creditused | number
               }}</span>
             </div>
           </div>
           <div class="row mb-5">
-            <label class="col-lg-2 fw-bold text-muted">ยอดคงเหลือ</label>
-            <div class="col-lg-10">
+            <label class="col-4 col-sm-5 col-lg-2 fw-boldtext-gray-800"
+              >ยอดคงเหลือ</label
+            >
+            <div class="col-8 col-sm-7 col-lg-10">
               <span class="fw-bolder fs-6 text-dark">{{
                 mainData?.creditbal | number
               }}</span>
             </div>
           </div>
           <div class="row mb-5">
-            <label class="col-lg-2 fw-bold text-muted">วงเงินอนุมัติ</label>
-            <div class="col-lg-10">
+            <label class="col-4 col-sm-5 col-lg-2 fw-bold text-gray-800"
+              >วงเงินอนุมัติ</label
+            >
+            <div class="col-8 col-sm-7 col-lg-10">
               <span class="fw-bolder fs-6 text-dark">{{
                 mainData?.creditamt | number
               }}</span>
@@ -152,7 +163,8 @@
       </div>
 
       <div class="row mb-7">
-        <label class="col-lg-4 fw-bolder text-end align-self-center"
+        <label
+          class="col-lg-4 fw-bolder text-start text-xl-end align-self-center"
           >ชื่อผู้ต่อติด</label
         >
         <div class="col-lg-8 bg-light rounded py-2 px-3 w-500px">
@@ -161,7 +173,8 @@
       </div>
 
       <div class="row mb-7">
-        <label class="col-lg-4 fw-bolder text-end align-self-center"
+        <label
+          class="col-lg-4 fw-bolder text-start text-xl-end align-self-center"
           >เขตการขาย</label
         >
         <div class="col-lg-8 bg-light rounded py-2 px-3 w-500px">
@@ -170,7 +183,8 @@
       </div>
 
       <div class="row mb-7">
-        <label class="col-lg-4 fw-bolder text-end align-self-center"
+        <label
+          class="col-lg-4 fw-bolder text-start text-xl-end align-self-center"
           >รายละเอียดที่อยู่</label
         >
         <div class="col-lg-8 bg-light rounded py-2 px-3 w-500px">
@@ -187,7 +201,8 @@
       </div>
 
       <div class="row mb-7">
-        <label class="col-lg-4 fw-bolder text-end align-self-center"
+        <label
+          class="col-lg-4 fw-bolder text-start text-xl-end align-self-center"
           >รายละเอียดที่อยู่ <br />(ที่อยู่จัดส่งสินค้า)</label
         >
         <div class="col-lg-8 bg-light rounded py-2 px-3 w-500px">
@@ -204,7 +219,9 @@
       </div>
 
       <div class="row mb-7">
-        <label class="col-lg-4 fw-bolder text-end">* หมายเหตุ</label>
+        <label class="col-lg-4 fw-bolder text-start text-xl-end"
+          >* หมายเหตุ</label
+        >
         <div
           class="col-lg-8 bg-light-warning rounded py-2 px-3 w-500px h-100px"
         >
@@ -217,31 +234,35 @@
     <div class="card-header">
       <p class="title my-2 py-2 align-items-center">รีวิวลูกค้า</p>
     </div>
-    <div class="card-body">
-      <div *ngFor="let item of reviewData">
-        <div class="d-flex fs-5 py-5 justify-content-between">
-          <div class="d-flex">
-            <div
-              class="bg-light-success fs-2 w-auto rounded-circle text-success fw-bolder text-center w-50px h-50px p-5 me-4"
-            >
-              {{ item?.shortName }}
+    <div class="">
+      <div class="card-body h-xl-650px overflow-auto">
+        <div *ngFor="let item of reviewData">
+          <div class="d-flex fs-5 py-5 justify-content-between">
+            <div class="d-flex">
+              <div
+                class="bg-light-success fs-2 w-auto rounded-circle text-success fw-bolder text-center w-50px h-50px p-5 me-4"
+              >
+                {{ item?.shortName }}
+              </div>
+              <div class="align-self-center fw-bolder">
+                {{ item?.fullname || "USER" }} <br />
+                <span class="text-muted fs-8">
+                  <ng-container *ngIf="item.role == '777'">
+                    Admin
+                  </ng-container>
+                  <ng-container *ngIf="item.role == '0'"> Sale </ng-container>
+                </span>
+              </div>
             </div>
-            <div class="align-self-center fw-bolder">
-              {{ item?.fullname || "USER" }} <br />
-              <span class="text-muted fs-8">
-                <ng-container *ngIf="item.role == '777'"> Admin </ng-container>
-                <ng-container *ngIf="item.role == '0'"> Sale </ng-container>
-              </span>
+            <div class="w-500px fs-6 text-center align-self-end text-gray-600">
+              <em> "{{ item?.review }}"</em>
+            </div>
+            <div class="fs-8 text-gray-500">
+              {{ item?.timestemp | date: "dd/MM/yyyy hh:mm a" }}
             </div>
           </div>
-          <div class="w-500px fs-6 text-center align-self-end text-gray-600">
-            <em> "{{ item?.review }}"</em>
-          </div>
-          <div class="fs-8 text-gray-500">
-            {{ item?.timestemp | date: "dd/MM/yyyy hh:mm a" }}
-          </div>
+          <hr />
         </div>
-        <hr />
       </div>
     </div>
   </div>
@@ -272,52 +293,97 @@
       </table> -->
 
       <!-- begin::Header -->
-      <table mat-table [dataSource]="billDataSource" matSort>
-        <ng-container matColumnDef="name_cus">
-          <th mat-header-cell *matHeaderCellDef>ชื่อลูกค้า</th>
-          <td mat-cell *matCellDef="let row">{{ row.cusnam }}</td>
-        </ng-container>
+      <div class="overflow-auto">
+        <table mat-table [dataSource]="billDataSource" matSort>
+          <ng-container matColumnDef="name_cus">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="min-width: 100px"
+              class="text-gray-800"
+            >
+              ชื่อลูกค้า
+            </th>
+            <td mat-cell *matCellDef="let row">{{ row.cusnam }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="doc_id">
-          <th mat-header-cell *matHeaderCellDef>เลขที่เอกสาร</th>
-          <td mat-cell *matCellDef="let row">{{ row.docnum }}</td>
-        </ng-container>
+          <ng-container matColumnDef="doc_id">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="min-width: 100px"
+              class="text-gray-800"
+            >
+              เลขที่เอกสาร
+            </th>
+            <td mat-cell *matCellDef="let row">{{ row.docnum }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="doc_date">
-          <th mat-header-cell *matHeaderCellDef>วันที่เอกสาร</th>
-          <td mat-cell *matCellDef="let row">{{ row.docdat }}</td>
-        </ng-container>
+          <ng-container matColumnDef="doc_date">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="min-width: 100px"
+              class="text-gray-800"
+            >
+              วันที่เอกสาร
+            </th>
+            <td mat-cell *matCellDef="let row">{{ row.docdat }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="name_sale">
-          <th mat-header-cell *matHeaderCellDef>พนักงานขาย</th>
-          <td mat-cell *matCellDef="let row">{{ row.slmdes }}</td>
-        </ng-container>
+          <ng-container matColumnDef="name_sale">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="min-width: 100px"
+              class="text-gray-800"
+            >
+              พนักงานขาย
+            </th>
+            <td mat-cell *matCellDef="let row">{{ row.slmdes }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="price">
-          <th mat-header-cell *matHeaderCellDef>ยอดค้างชำระ</th>
-          <td mat-cell *matCellDef="let row">{{ row.balamt }}</td>
-        </ng-container>
+          <ng-container matColumnDef="price">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="min-width: 100px"
+              class="text-gray-800"
+            >
+              ยอดค้างชำระ
+            </th>
+            <td mat-cell *matCellDef="let row">{{ row.balamt }}</td>
+          </ng-container>
 
-        <ng-container matColumnDef="status_cus">
-          <th mat-header-cell *matHeaderCellDef>สถานะ</th>
-          <td mat-cell *matCellDef="let row" class="fw-bolder text-danger">
-            ค้างจ่าย
-          </td>
-        </ng-container>
+          <ng-container matColumnDef="status_cus">
+            <th
+              mat-header-cell
+              *matHeaderCellDef
+              style="min-width: 100px"
+              class="text-gray-800"
+            >
+              สถานะ
+            </th>
+            <td mat-cell *matCellDef="let row" class="fw-bolder text-danger">
+              ค้างจ่าย
+            </td>
+          </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="billColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: billColumns"></tr>
+          <tr mat-header-row *matHeaderRowDef="billColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: billColumns"></tr>
 
-        <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-          <td class="mat-cell" colspan="4" class="fs-3 fw-bolder text-info">
-            ไม่พบยอดบิลที่ค้างจ่าย
-          </td>
-        </tr>
-      </table>
+          <!-- Row shown when there is no matching data. -->
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="4" class="fs-3 fw-bolder text-info">
+              ไม่พบยอดบิลที่ค้างจ่าย
+            </td>
+          </tr>
+        </table>
+      </div>
       <mat-paginator
         [pageSizeOptions]="[10, 25, 50, 100]"
         showFirstLastButtons
+        hidePageSize="true"
       ></mat-paginator>
     </div>
   </div>

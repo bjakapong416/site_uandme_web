@@ -105,6 +105,16 @@ export class DetailCusComponent implements OnInit {
         height: 200,
         type: 'radialBar',
       },
+      responsive: [
+        {
+          breakpoint: 480,
+          options: {
+            chart: {
+              height: 200,
+            },
+          },
+        },
+      ],
       plotOptions: {
         radialBar: {
           hollow: {

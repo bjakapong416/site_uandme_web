@@ -74,13 +74,13 @@
 <div class="card-header border-0 pt-5">
   <div class="d-flex flex-wrap mb-3">
     <div class="me-10 mb-4">
-      <p class="fs-3 mb-0 fw-bold">รายละเอียดลูกค้า</p>
-      <p class="fs-8 fw-bold text-gray-500">
+      <p class="fs-2 mb-0 fw-bolder m-1">รายละเอียดลูกค้า</p>
+      <p class="fs-6 fw-bold text-gray-600 m-1">
         รายการลูกค้า {{ dataSource.filteredData.length }} รายชื่อ
       </p>
     </div>
-    
-    <mat-form-field appearance="outline">
+
+    <mat-form-field appearance="outline" class="w-50">
       <input
         matInput
         (keyup)="applyFilter($event)"
@@ -91,10 +91,10 @@
     </mat-form-field>
   </div>
 
-  <div>
+  <div class="overflow-auto">
     <table mat-table [dataSource]="dataSource" matSort>
       <ng-container matColumnDef="check_box">
-        <th mat-header-cell *matHeaderCellDef></th>
+        <th mat-header-cell *matHeaderCellDef style="min-width: 100px"></th>
         <td mat-cell *matCellDef="let row">
           <input
             type="checkbox"
@@ -106,7 +106,13 @@
       </ng-container>
 
       <ng-container matColumnDef="name_cus">
-        <th mat-header-cell *matHeaderCellDef>ชื่อลูกค้า</th>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="min-width: 300px; text-overflow: ellipsis"
+        >
+          ชื่อลูกค้า
+        </th>
         <td mat-cell *matCellDef="let row">
           {{ row.cuscod }}
           <p class="text-muted mb-0">{{ row.cusnam }}</p>
@@ -114,34 +120,46 @@
       </ng-container>
 
       <ng-container matColumnDef="tel">
-        <th mat-header-cell *matHeaderCellDef>เบอร์ติดต่อ</th>
-        <td mat-cell *matCellDef="let row">{{ row.telnum }}</td>
+        <th mat-header-cell *matHeaderCellDef style="min-width: 200px">
+          เบอร์ติดต่อ
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.telnum }}
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="area">
-        <th mat-header-cell *matHeaderCellDef>เขต</th>
+        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">เขต</th>
         <td mat-cell *matCellDef="let row">{{ row.areades }}</td>
       </ng-container>
 
       <ng-container matColumnDef="finan">
-        <th mat-header-cell *matHeaderCellDef>วงเงินอนุมัติ</th>
+        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">
+          วงเงินอนุมัติ
+        </th>
         <td mat-cell *matCellDef="let row">{{ row.creditamt }}</td>
       </ng-container>
 
       <ng-container matColumnDef="balance">
-        <th mat-header-cell *matHeaderCellDef>ยอดคงเหลือ</th>
+        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">
+          ยอดคงเหลือ
+        </th>
         <td mat-cell *matCellDef="let row">{{ row.creditbal }}</td>
       </ng-container>
 
       <ng-container matColumnDef="status_cus">
-        <th mat-header-cell *matHeaderCellDef>สถานะ</th>
+        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">
+          สถานะ
+        </th>
         <td mat-cell *matCellDef="let row">
           <span class="badge badge-light-success fs-8 fw-bolder">Low</span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef>Action</th>
+        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">
+          Action
+        </th>
         <td mat-cell *matCellDef="let row">
           <div
             title="Add review"
@@ -179,6 +197,10 @@
         </td>
       </tr>
     </table>
-    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
   </div>
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    showFirstLastButtons
+    hidePageSize="true"
+  ></mat-paginator>
 </div>

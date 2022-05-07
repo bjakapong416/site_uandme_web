@@ -39,17 +39,38 @@
           รายการลูกค้า {{ dataSource.filteredData.length | number }} รายชื่อ
         </p>
       </div>
+    </div>
 
-      <mat-form-field appearance="outline" class="w-100">
+    <div class="d-flex flex-wrap">
+      <!-- <mat-form-field appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input matInput
+               [matDatepicker]="picker"
+               (dateInput)="filterChange('date', $event)">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+
+      <mat-form-field style="margin-right: 15px">
+        <input #pickDate matInput [matDatepicker]="pickerSearch" placeholder="Choose a date" [value]="pickDateValue" (dateInput)="filterChange('date', $event)"> 
+        <button *ngIf="pickDateValue" matSuffix mat-icon-button aria-label="Clear" (click)="pickDateValue=''; filterChange('date', $event)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-datepicker-toggle matSuffix [for]="pickerSearch"></mat-datepicker-toggle>
+        <mat-datepicker #pickerSearch startView="multi-year" (monthSelected)="setMonthYear($event, pickerSearch)"></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="w-50">
         <input
           matInput
-          (keyup)="applyFilter($event)"
+          (keyup)="filterChange('all', $event)"
           placeholder="ค้นหา"
           #input
         />
         <mat-icon matPrefix>search</mat-icon>
       </mat-form-field>
     </div>
+
     <div class="overflow-auto">
       <table mat-table [dataSource]="dataSource" matSort>
         <ng-container matColumnDef="name_cus">

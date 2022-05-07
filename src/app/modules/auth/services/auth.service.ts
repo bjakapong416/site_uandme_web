@@ -64,6 +64,33 @@ export class AuthService implements OnDestroy {
     return this.http.post(this.Apiurl + '/signup',val);
   }
 
+  login2(employee_id: string, password: string): Observable<UserP> {
+    this.isLoadingSubject.next(true);
+    return this.http.post<any>(this.Apiurl + '/login/signin', { employee_id, password })
+        .pipe(map(user => {
+
+            // login successful if there's a jwt token in the response
+            if (user && user.token) {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.clear();
+                localStorage.setItem('currentUser$', JSON.stringify(user));
+                
+                // console.log(localStorage.getItem(user.token));
+                this.currentUserSubject.next(user);
+
+            }
+            return user as User;
+        }),
+        catchError((err) => {
+          console.error('err', err);
+          return of(undefined);
+        }),
+        finalize(() => this.isLoadingSubject.next(false))
+        );
+
+  }
+
+
 
   login1(email: string, password: string): Observable<UserP> {
     this.isLoadingSubject.next(true);
@@ -77,7 +104,6 @@ export class AuthService implements OnDestroy {
                 localStorage.setItem('currentUser$', JSON.stringify(user));
                 
                 // console.log(localStorage.getItem(user.token));
-
                 this.currentUserSubject.next(user);
 
             }

@@ -14,14 +14,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LoginAsideComponent implements OnInit {
 
   // KeenThemes mock, change it to:
+  // defaultAuth: any = {
+  //   email: 'admin@demo.com',
+  //   password: 'demo',
+  // };
   defaultAuth: any = {
-    email: 'admin@demo.com',
+    employee_id: '0',
     password: 'demo',
   };
-  // defaultAuth: any = {
-  //   email: '',
-  //   password: '',
-  // };
 
   loginForm: FormGroup;
   hasError: boolean;
@@ -58,14 +58,35 @@ export class LoginAsideComponent implements OnInit {
     return this.loginForm.controls;
   }
 
+  // initForm() {
+  //   this.loginForm = this.fb.group({
+  //     email: [
+  //       this.defaultAuth.email,
+  //       Validators.compose([
+  //         Validators.required,
+  //         Validators.email,
+  //         Validators.minLength(3),
+  //         Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
+  //       ]),
+  //     ],
+  //     password: [
+  //       this.defaultAuth.password,
+  //       Validators.compose([
+  //         Validators.required,
+  //         Validators.minLength(3),
+  //         Validators.maxLength(100),
+  //       ]),
+  //     ],
+  //   });
+  // }
+
   initForm() {
     this.loginForm = this.fb.group({
-      email: [
-        this.defaultAuth.email,
+      employee_id: [
+        this.defaultAuth.employee_id,
         Validators.compose([
           Validators.required,
-          Validators.email,
-          Validators.minLength(3),
+          Validators.minLength(1),
           Validators.maxLength(320), // https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
         ]),
       ],
@@ -79,6 +100,7 @@ export class LoginAsideComponent implements OnInit {
       ],
     });
   }
+
 
   submit() {
 
@@ -97,8 +119,27 @@ export class LoginAsideComponent implements OnInit {
         }
       });
     this.unsubscribe.push(loginSubscr);
-
   }
+
+  submit2() {
+
+    this.hasError = false;
+    const loginSubscr = this.authService
+      .login2(this.f.employee_id.value, this.f.password.value)
+      .pipe(first())
+      .subscribe((user: User | undefined) => {
+
+        console.log(user);
+        
+        if (user) {
+          this.router.navigate([this.returnUrl]);
+        } else {
+          this.hasError = true;
+        }
+      });
+    this.unsubscribe.push(loginSubscr);
+  }
+
 
   ngOnDestroy() {
     this.unsubscribe.forEach((sb) => sb.unsubscribe());

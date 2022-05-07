@@ -11,13 +11,13 @@
             "
           >
           <div
-          class="cursor-pointer symbol symbol-50px symbol-circle"
+          class="cursor-pointer symbol symbol-50px symbol-circle "
           [ngClass]="toolbarUserAvatarHeightClass"
           data-kt-menu-attach="parent"
           data-kt-menu-placement="bottom-end"
           data-kt-menu-flip="bottom"
         >
-            <div class="symbol-label fs-1 fw-bold text-danger" > 
+            <div class="symbol-label fs-1 fw-bold bg-info text-inverse-info" > 
               {{user$.fullname | shortName}}
             </div>
           </div>
@@ -325,7 +325,7 @@
               routerLink="/crafted/account/overview2"
               routerLinkActive="active"
             >
-              Overview
+              โปรไฟล์
             </a>
           </li>
           <li class="nav-item">
@@ -334,7 +334,7 @@
               routerLink="/crafted/account/settings2"
               routerLinkActive="active"
             >
-              Settings
+              ตั้งค่าข้อมูล
             </a>
           </li>
         </ul>

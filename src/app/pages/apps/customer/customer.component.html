@@ -56,13 +56,13 @@
               class="d-flex justify-content-between align-items-start my-5 border-bottom-dashed border-secondary"
             >
               <p class="fw-bolder m-0">วงเงินอนุมัติ</p>
-              <p class="text-gray-800 m-0">{{ item?.creditamt }}</p>
+              <p class="text-gray-800 m-0">{{ item?.creditamt | number }}</p>
             </div>
             <div
               class="d-flex justify-content-between align-items-start my-5 border-bottom-dashed border-secondary"
             >
               <p class="fw-bolder m-0">ยอดคงเหลือ</p>
-              <p class="text-gray-800 m-0">{{ item?.creditbal }}</p>
+              <p class="text-gray-800 m-0">{{ item?.creditbal | number }}</p>
             </div>
           </div>
         </div>
@@ -76,7 +76,7 @@
     <div class="me-10 mb-4">
       <p class="fs-2 mb-0 fw-bolder m-1">รายละเอียดลูกค้า</p>
       <p class="fs-6 fw-bold text-gray-600 m-1">
-        รายการลูกค้า {{ dataSource.filteredData.length }} รายชื่อ
+        รายการลูกค้า {{ dataSource.filteredData.length | number }} รายชื่อ
       </p>
     </div>
 
@@ -109,55 +109,94 @@
         <th
           mat-header-cell
           *matHeaderCellDef
-          style="min-width: 300px; text-overflow: ellipsis"
+          style="min-width: 250px"
+          class="text-gray-800"
         >
           ชื่อลูกค้า
         </th>
         <td mat-cell *matCellDef="let row">
-          {{ row.cuscod }}
-          <p class="text-muted mb-0">{{ row.cusnam }}</p>
+          <p class="fs-4 m-0">{{ row.cuscod }}</p>
+          <p class="fs-6 text-gray-600">{{ row.cusnam }}</p>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="tel">
-        <th mat-header-cell *matHeaderCellDef style="min-width: 200px">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="min-width: 200px"
+          class="text-gray-800"
+        >
           เบอร์ติดต่อ
         </th>
         <td mat-cell *matCellDef="let row">
-          {{ row.telnum }}
+          <p class="fs-4 m-0">{{ row.telnum }}</p>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="area">
-        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">เขต</th>
-        <td mat-cell *matCellDef="let row">{{ row.areades }}</td>
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="min-width: 100px"
+          class="text-gray-800"
+        >
+          เขต
+        </th>
+        <td mat-cell *matCellDef="let row">
+          <p class="fs-4 m-0">{{ row.areades }}</p>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="finan">
-        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="min-width: 100px"
+          class="text-gray-800"
+        >
           วงเงินอนุมัติ
         </th>
-        <td mat-cell *matCellDef="let row">{{ row.creditamt }}</td>
+        <td mat-cell *matCellDef="let row">
+          <p class="fs-4 m-0">{{ row.creditamt | number }}</p>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="balance">
-        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="min-width: 100px"
+          class="text-gray-800"
+        >
           ยอดคงเหลือ
         </th>
-        <td mat-cell *matCellDef="let row">{{ row.creditbal }}</td>
+        <td mat-cell *matCellDef="let row">
+          <p class="fs-4 m-0">{{ row.creditbal | number }}</p>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="status_cus">
-        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="min-width: 100px"
+          class="text-gray-800"
+        >
           สถานะ
         </th>
         <td mat-cell *matCellDef="let row">
-          <span class="badge badge-light-success fs-8 fw-bolder">Low</span>
+          <span class="badge badge-light-success fs-6 fw-bolder">Low</span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="action">
-        <th mat-header-cell *matHeaderCellDef style="min-width: 100px">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          style="min-width: 100px"
+          class="text-gray-800"
+        >
           Action
         </th>
         <td mat-cell *matCellDef="let row">

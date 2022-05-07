@@ -48,9 +48,9 @@
 
 <div class="card-header border-0 pt-5">
   <div class="me-10 mb-4">
-    <p class="fs-2 mb-0 fw-bolder m-1">รายละเอียดลูกค้า</p>
+    <p class="fs-2 mb-0 fw-bolder m-1">รายละเอียดสินค้า</p>
     <p class="fs-6 fw-bold text-gray-600 m-1">
-      มีสินค้าทั้งหมด {{ dataSource.filteredData.length }} รายการ
+      มีสินค้าทั้งหมด {{ dataSource.filteredData.length | number }} รายการ
     </p>
   </div>
   <div class="overflow-auto">
@@ -73,8 +73,8 @@
           ชื่อสินค้า
         </th>
         <td mat-cell *matCellDef="let row">
-          {{ row.itemdes }}
-          <p class="mb-0 fs-7 text-gray-600">{{ row.itemno }}</p>
+          <p class="fs-4 m-0">{{ row.itemdes }}</p>
+          <p class="fs-6 text-gray-600">{{ row.itemno }}</p>
         </td>
       </ng-container>
 
@@ -87,7 +87,9 @@
         >
           ประเภทสินค้า
         </th>
-        <td mat-cell *matCellDef="let row">{{ row.itemgrp }}</td>
+        <td mat-cell *matCellDef="let row">
+          <p class="fs-4 m-0">{{ row.itemgrp }}</p>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="qty">
@@ -100,7 +102,7 @@
           สินค้าคงเหลือ
         </th>
         <td mat-cell *matCellDef="let row">
-          {{ row.qty }}
+          <p class="fs-4 m-0">{{ row.qty }}</p>
           <span
             class="badge badge-2 badge-inline"
             [class.badge-light-danger]="row.qty == 0"
@@ -121,7 +123,9 @@
         >
           หน่วย
         </th>
-        <td mat-cell *matCellDef="let row">{{ row.unitnam }}</td>
+        <td mat-cell *matCellDef="let row">
+          <p class="fs-4 m-0">{{ row.unitnam }}</p>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="where">
@@ -133,7 +137,9 @@
         >
           Stock
         </th>
-        <td mat-cell *matCellDef="let row">{{ row.whdes }}</td>
+        <td mat-cell *matCellDef="let row">
+          <p class="fs-4 m-0">{{ row.whdes }}</p>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="action">

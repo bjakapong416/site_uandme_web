@@ -1,31 +1,46 @@
 <div class="card mb-5">
   <div class="card-body">
-    <p class="fs-3 fw-bolder">ค้นหาสินค้าคงเหลือ</p>
+    <p class="fs-2 fw-bolder">ค้นหาสินค้าคงเหลือ</p>
+    <div class="row">
+      <mat-form-field
+        *ngFor="let filter of filterSelectObj"
+        style="margin-right: 15px"
+        appearance="outline"
+        class="col-md-12 col-lg-3"
+      >
+        <mat-label>Filter {{ filter.name }}</mat-label>
+        <select
+          matNativeControl
+          name="{{ filter.columnProp }}"
+          [(ngModel)]="filter.modelValue"
+          (change)="filterChange(filter.columnProp, $event)"
+        >
+          <option value="">-- Select {{ filter.name }} --</option>
+          <option [value]="item" *ngFor="let item of filter.options">
+            {{ item }}
+          </option>
+        </select>
+      </mat-form-field>
 
-    <mat-form-field *ngFor="let filter of filterSelectObj" style="margin-right: 15px;">
-      <mat-label>Filter {{filter.name}}</mat-label>
-      <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
-        (change)="filterChange(filter.columnProp,$event)">
-        <option value="">-- Select {{filter.name}} --</option>
-        <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
-      </select>
-    </mat-form-field>
-    
-    <mat-form-field appearance="outline">
-      <!-- <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="รหัส ชื่อสินค้า อื่นๆ"
-        #input
-      /> -->
-      <input
-        matInput
-        (keyup)="filterChange('all', $event)"
-        placeholder="รหัส ชื่อสินค้า อื่นๆ"
-        #input
-      />
-      <mat-icon matPrefix>search</mat-icon>
-    </mat-form-field>
+      <div class="col-md-12 col-lg-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <!-- <input
+            matInput
+            (keyup)="applyFilter($event)"
+            placeholder="รหัส ชื่อสินค้า อื่นๆ"
+            #input
+          /> -->
+          <input
+            matInput
+            (keyup)="filterChange('all', $event)"
+            placeholder="รหัส ชื่อสินค้า อื่นๆ"
+            #input
+            class="w-full"
+          />
+          <mat-icon matPrefix>search</mat-icon>
+        </mat-form-field>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -33,14 +48,14 @@
 
 <div class="card-header border-0 pt-5">
   <div class="me-10 mb-4">
-    <p class="fs-3 mb-0 fw-bold">รายละเอียดลูกค้า</p>
-    <p class="fs-8 fw-bold text-gray-500">
+    <p class="fs-2 mb-0 fw-bolder m-1">รายละเอียดลูกค้า</p>
+    <p class="fs-6 fw-bold text-gray-600 m-1">
       มีสินค้าทั้งหมด {{ dataSource.filteredData.length }} รายการ
     </p>
   </div>
-
-  <table mat-table [dataSource]="dataSource" matSort>
-    <!-- <ng-container matColumnDef="id">
+  <div class="overflow-auto">
+    <table mat-table [dataSource]="dataSource" matSort>
+      <!-- <ng-container matColumnDef="id">
       <th mat-header-cell *matHeaderCellDef>ID</th>
       <td mat-cell *matCellDef="let row">
         {{ row.itemno }}
@@ -48,95 +63,139 @@
       </td>
     </ng-container> -->
 
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>ชื่อสินค้า</th>
-      <td mat-cell *matCellDef="let row">
-        {{ row.itemdes }}
-        <p class="text-muted mb-0 fs-7">{{ row.itemno }}</p>
-      </td>
-    </ng-container>
-
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>ประเภทสินค้า</th>
-      <td mat-cell *matCellDef="let row">{{ row.itemgrp }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="qty">
-      <th mat-header-cell *matHeaderCellDef>สินค้่าคงเหลือ</th>
-      <td mat-cell *matCellDef="let row">
-        {{ row.qty }}
-        <span
-          class="badge badge-2 badge-inline"
-          [class.badge-light-danger]="row.qty == 0"
-          [class.badge-light-warning]="row.qty < 10"
+      <ng-container matColumnDef="name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-gray-800"
+          style="min-width: 300px"
         >
-          <ng-container *ngIf="row.qty == 0">Sold out</ng-container>
-          <ng-container *ngIf="row.qty < 10">Low stock</ng-container>
-        </span>
-      </td>
-    </ng-container>
+          ชื่อสินค้า
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.itemdes }}
+          <p class="mb-0 fs-7 text-gray-600">{{ row.itemno }}</p>
+        </td>
+      </ng-container>
 
-    <ng-container matColumnDef="unit">
-      <th mat-header-cell *matHeaderCellDef>หน่วย</th>
-      <td mat-cell *matCellDef="let row">{{ row.unitnam }}</td>
-    </ng-container>
+      <ng-container matColumnDef="type">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-gray-800"
+          style="min-width: 100px"
+        >
+          ประเภทสินค้า
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.itemgrp }}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="where">
-      <th mat-header-cell *matHeaderCellDef>Stock</th>
-      <td mat-cell *matCellDef="let row">{{ row.whdes }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="action">
-      <th mat-header-cell *matHeaderCellDef>Action</th>
-
-      <td mat-cell *matCellDef="let row">
-        <span class="menu-icon">
+      <ng-container matColumnDef="qty">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-gray-800"
+          style="min-width: 100px"
+        >
+          สินค้าคงเหลือ
+        </th>
+        <td mat-cell *matCellDef="let row">
+          {{ row.qty }}
           <span
-            [inlineSVG]="'../assets/media/svg/icons/Communication/Write.svg'"
-            class="svg-icon svg-icon-2 svg-icon-primary"
-          ></span>
-        </span>
-
-        <span class="svg-icon svg-icon-primary svg-icon-2x"
-          ><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Navigation/Angle-right.svg--><svg
-            xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
-            width="24px"
-            height="24px"
-            viewBox="0 0 24 24"
-            version="1.1"
+            class="badge badge-2 badge-inline"
+            [class.badge-light-danger]="row.qty == 0"
+            [class.badge-light-warning]="row.qty < 10"
           >
-            <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-              <polygon points="0 0 24 0 24 24 0 24" />
-              <path
-                d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
-                fill="#000000"
-                fill-rule="nonzero"
-                transform="translate(12.000003, 11.999999) rotate(-270.000000) translate(-12.000003, -11.999999) "
-              />
-            </g>
-          </svg>
-        </span>
-      </td>
-    </ng-container>
+            <ng-container *ngIf="row.qty == 0">Sold out</ng-container>
+            <ng-container *ngIf="row.qty < 10">Low stock</ng-container>
+          </span>
+        </td>
+      </ng-container>
 
-    <!-- <ng-container [matColumnDef]="dColumns" *ngFor="let DispColumn of dColumns">
+      <ng-container matColumnDef="unit">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-gray-800"
+          style="min-width: 100px"
+        >
+          หน่วย
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.unitnam }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="where">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-gray-800"
+          style="min-width: 200px"
+        >
+          Stock
+        </th>
+        <td mat-cell *matCellDef="let row">{{ row.whdes }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="action">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          class="text-gray-800"
+          style="min-width: 100px"
+        >
+          Action
+        </th>
+
+        <td mat-cell *matCellDef="let row">
+          <span class="menu-icon">
+            <span
+              [inlineSVG]="'../assets/media/svg/icons/Communication/Write.svg'"
+              class="svg-icon svg-icon-2 svg-icon-primary"
+            ></span>
+          </span>
+
+          <span class="svg-icon svg-icon-primary svg-icon-2x"
+            ><!--begin::Svg Icon | path:/var/www/preview.keenthemes.com/metronic/releases/2021-05-14-112058/theme/html/demo1/dist/../src/media/svg/icons/Navigation/Angle-right.svg--><svg
+              xmlns="http://www.w3.org/2000/svg"
+              xmlns:xlink="http://www.w3.org/1999/xlink"
+              width="24px"
+              height="24px"
+              viewBox="0 0 24 24"
+              version="1.1"
+            >
+              <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <polygon points="0 0 24 0 24 24 0 24" />
+                <path
+                  d="M6.70710678,15.7071068 C6.31658249,16.0976311 5.68341751,16.0976311 5.29289322,15.7071068 C4.90236893,15.3165825 4.90236893,14.6834175 5.29289322,14.2928932 L11.2928932,8.29289322 C11.6714722,7.91431428 12.2810586,7.90106866 12.6757246,8.26284586 L18.6757246,13.7628459 C19.0828436,14.1360383 19.1103465,14.7686056 18.7371541,15.1757246 C18.3639617,15.5828436 17.7313944,15.6103465 17.3242754,15.2371541 L12.0300757,10.3841378 L6.70710678,15.7071068 Z"
+                  fill="#000000"
+                  fill-rule="nonzero"
+                  transform="translate(12.000003, 11.999999) rotate(-270.000000) translate(-12.000003, -11.999999) "
+                />
+              </g>
+            </svg>
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- <ng-container [matColumnDef]="dColumns" *ngFor="let DispColumn of dColumns">
         <th mat-header-cell *matHeaderCellDef>{{ DispColumn }}</th>
         <td mat-cell *matCellDef="let row">{{ row[fColumn] }}</td>
       </ng-container> -->
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 
-    <!-- Row shown when there is no matching data. -->
-    <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">
-        No data matching the filter "{{ input.value }}"
-      </td>
-    </tr>
-  </table>
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">
+          No data matching the filter "{{ input.value }}"
+        </td>
+      </tr>
+    </table>
+  </div>
   <mat-paginator
     [pageSizeOptions]="[10, 25, 50, 100]"
     showFirstLastButtons
+    hidePageSize="true"
   ></mat-paginator>
 </div>

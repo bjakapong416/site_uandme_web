@@ -84,18 +84,17 @@ table { width: 100%; }
 }
 */
 :host ::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
-    padding-bottom: 0.5rem;
     padding-top: 0.5rem;
-    width: 400px;
 }
 
 .mat-header-cell {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .mat-row .mat-cell {
   border-bottom: 1px solid transparent;
   border-top: 1px solid transparent;
+  font-size: 15px;
 }
 
 tr.mat-header-row {

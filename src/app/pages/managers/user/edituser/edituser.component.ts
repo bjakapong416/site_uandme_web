@@ -27,7 +27,7 @@ export class EdituserComponent implements OnInit {
   @Input() uphone: string;
 
 
-  roles: any[] = ['Sale', 'Co-Sale', 'CEO'];
+  roles: any[] = ['Sale'];
 
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading: boolean;
@@ -68,10 +68,10 @@ export class EdituserComponent implements OnInit {
         formValue.role = pos.toString();
       }
     }
-    console.log(formValue);
-    
-    // this.addUserService.signup(formValue);
-    // this.handleSaveMember();
+
+
+    this.addUserService.editUserbyAdmin1(formValue);    
+    this.handleSaveMember();
 
     setTimeout(() => {
       this.isLoading$.next(false);

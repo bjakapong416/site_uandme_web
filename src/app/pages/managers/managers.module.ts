@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ConfirmationDialogComponent } from './user/register/confirmation-dialog/confirmation-dialog.component';
 import { DeleteComponent } from './user/delete/delete.component';
 import { EdituserComponent } from './user/edituser/edituser.component';
+import { ConfigCusComponent } from './customer/config-cus/config-cus.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { EdituserComponent } from './user/edituser/edituser.component';
     ConfirmationDialogComponent,
     DeleteComponent,
     EdituserComponent,
+    ConfigCusComponent,
   ],
   imports: [
     CommonModule,

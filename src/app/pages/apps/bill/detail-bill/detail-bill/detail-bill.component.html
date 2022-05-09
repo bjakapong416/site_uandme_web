@@ -29,7 +29,7 @@
   
               <div class="d-flex flex-wrap fw-bolder h1 text-danger my-4 pe-2">
                 <p class="d-flex align-items-center me-4 mb-2">
-                  ยอดค้างชำระ {{ mainData?.totamt }} บาท
+                  ยอดค้างชำระ {{ mainData?.totamt | number }} บาท
                 </p>
               </div>
             </div>
@@ -101,7 +101,7 @@
                 </span>
               </div>
             </div>
-            <div class="w-500px fs-6 text-center align-self-end text-gray-600">
+            <div class="w-500px fs-6 text-center align-self-end text-danger">
               <em> "{{ item?.review }}"</em>
             </div>
             <div class="fs-8 text-gray-500">

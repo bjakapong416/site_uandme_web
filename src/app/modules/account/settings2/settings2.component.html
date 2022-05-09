@@ -83,10 +83,10 @@
             class="btn btn-primary"
             [disabled]="isLoading"
           >
-            <ng-container *ngIf="!isLoading">Save Changes</ng-container>
+            <ng-container *ngIf="!isLoading">บันทึกการแก้ไข</ng-container>
             <ng-container *ngIf="isLoading">
               <span clas="indicator-progress" [style.display]="'block'">
-                Please wait...{{ " " }}
+                โปรดรอสักครู่ ...{{ " " }}
                 <span
                   class="spinner-border spinner-border-sm align-middle ms-2"
                 ></span>

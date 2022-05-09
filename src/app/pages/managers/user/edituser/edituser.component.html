@@ -123,7 +123,7 @@
             [disabled]="isLoading"
             (click)="decline()"
           >
-            <ng-container>Cancel</ng-container>
+            <ng-container>ยกเลิก</ng-container>
           </button>
   
           <!-- Seperate Space -->
@@ -134,10 +134,10 @@
             class="btn btn-primary"
             [disabled]="profileForm.invalid"
           >
-            <ng-container *ngIf="!isLoading">Save Changes</ng-container>
+            <ng-container *ngIf="!isLoading">บักทึกการแก้ไข</ng-container>
             <ng-container *ngIf="isLoading">
               <span clas="indicator-progress" [style.display]="'block'">
-                Please wait...{{ " " }}
+                โปรดรอสักครู่ ...{{ " " }}
                 <span
                   class="spinner-border spinner-border-sm align-middle ms-2"
                 ></span>

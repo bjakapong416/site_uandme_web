@@ -67,12 +67,12 @@ export class StockComponent implements OnInit {
     // Object to create Filter for
     this.filterSelectObj = [
       {
-        name: 'Type',
+        name: 'เลือกประเภทสินค้า',
         columnProp: 'itemgrp',
         options: [],
       },
       {
-        name: 'Unit',
+        name: 'เลือกหน่วยสินค้า',
         columnProp: 'unitnam',
         options: [],
       },

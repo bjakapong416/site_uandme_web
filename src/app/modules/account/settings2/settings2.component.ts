@@ -19,11 +19,9 @@ export class Settings2Component implements OnInit {
   profileForm = new FormGroup({
     id: new FormControl(''),
     fullname: new FormControl(''),
-    employee_id: new FormControl(''),
+    email: new FormControl(''),
     phone: new FormControl('')
   });
-
-
 
 
   constructor(private cdr: ChangeDetectorRef,public settingService: setting2sService) { 
@@ -37,7 +35,7 @@ export class Settings2Component implements OnInit {
     const userProfiles = localStorage.getItem('currentUser$')
     if(userProfiles != null){
       this.user$ = JSON.parse(userProfiles) as User ;
-      this.profileForm.patchValue({id:this.user$.id ,fullname:this.user$.fullname , employee_id:this.user$.employee_id , phone:this.user$.phone})
+      this.profileForm.patchValue({id:this.user$.id ,fullname:this.user$.fullname , email:this.user$.email,  phone:this.user$.phone})
     }
   }
 

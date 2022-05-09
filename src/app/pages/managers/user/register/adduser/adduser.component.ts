@@ -21,7 +21,7 @@ export class AdduserComponent implements OnInit {
 
   // profileForm: FormGroup;
 
-  roles: any[] = ['Sale', 'Co-Sale', 'CEO'];
+  roles: any[] = ['Sale'];
 
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading: boolean;

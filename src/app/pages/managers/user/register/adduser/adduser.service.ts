@@ -39,6 +39,19 @@ export class addUserService {
       
     }
 
+    editUserbyAdmin1(val:any){
+      const body = val;
+      console.log(body);
+      
+      this.httpClient.put<any>(this.apiURL + '/editUserbyAdmin', body).subscribe(res =>{
+
+      }, (error) => {
+        console.error('error caught in component')
+
+      } );
+
+    }
+
 
     errorHandler(error: any) {
     let errorMessage = '';

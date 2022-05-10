@@ -1,4 +1,6 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
+import { StockModels } from 'src/app/pages/_models/stock.model';
+import { StockService } from 'src/app/pages/_services/stock/stock.service';
 import { LayoutService } from '../../../../../layout';
 
 export type NotificationsTabsType =
@@ -15,141 +17,32 @@ export class NotificationsInnerComponent implements OnInit {
     'menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px';
   @HostBinding('attr.data-kt-menu') dataKtMenu = 'true';
 
-  activeTabId: NotificationsTabsType = 'kt_topbar_notifications_2';
-  alerts: Array<AlertModel> = defaultAlerts;
-  logs: Array<LogModel> = defaultLogs;
-  constructor() {}
+  activeTabId: NotificationsTabsType = 'kt_topbar_notifications_1';
+  limitlow: number = 10;
+  mainDatas$: StockModels[] = [];
+  Data$: StockModels[] = [];
+  count_LS:number = 0;
+  count_SO:number = 0;
+  constructor(public stockService: StockService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.FUNC_getData();
+  }
 
   setActiveTabId(tabId: NotificationsTabsType) {
     this.activeTabId = tabId;
   }
+
+  FUNC_getData() {
+    this.stockService.getAll().subscribe((data: any) => {
+      this.mainDatas$ = data;
+      data.forEach((element: any) => {
+        // if(element.qty == 0) this.count_SO++;
+        // else if(element.qty < 10) this.count_LS++;
+        if(element.qty < this.limitlow)
+          this.Data$.push(element);
+      });
+      //console.log(this.mainDatas$);
+    });
+  }
 }
-
-interface AlertModel {
-  title: string;
-  description: string;
-  time: string;
-  icon: string;
-  state: 'primary' | 'danger' | 'warning' | 'success' | 'info';
-}
-
-const defaultAlerts: Array<AlertModel> = [
-  {
-    title: 'Project Alice',
-    description: 'Phase 1 development',
-    time: '1 hr',
-    icon: 'icons/duotune/technology/teh008.svg',
-    state: 'primary',
-  },
-  {
-    title: 'HR Confidential',
-    description: 'Confidential staff documents',
-    time: '2 hrs',
-    icon: 'icons/duotune/general/gen044.svg',
-    state: 'danger',
-  },
-  {
-    title: 'Company HR',
-    description: 'Corporeate staff profiles',
-    time: '5 hrs',
-    icon: 'icons/duotune/finance/fin006.svg',
-    state: 'warning',
-  },
-  {
-    title: 'Project Redux',
-    description: 'New frontend admin theme',
-    time: '2 days',
-    icon: 'icons/duotune/files/fil023.svg',
-    state: 'success',
-  },
-  {
-    title: 'Project Breafing',
-    description: 'Product launch status update',
-    time: '21 Jan',
-    icon: 'icons/duotune/maps/map001.svg',
-    state: 'primary',
-  },
-  {
-    title: 'Banner Assets',
-    description: 'Collection of banner images',
-    time: '21 Jan',
-    icon: 'icons/duotune/general/gen006.svg',
-    state: 'info',
-  },
-  {
-    title: 'Icon Assets',
-    description: 'Collection of SVG icons',
-    time: '20 March',
-    icon: 'icons/duotune/art/art002.svg',
-    state: 'warning',
-  },
-];
-
-interface LogModel {
-  code: string;
-  state: 'success' | 'danger' | 'warning';
-  message: string;
-  time: string;
-}
-
-const defaultLogs: Array<LogModel> = [
-  { code: '200 OK', state: 'success', message: 'New order', time: 'Just now' },
-  { code: '500 ERR', state: 'danger', message: 'New customer', time: '2 hrs' },
-  {
-    code: '200 OK',
-    state: 'success',
-    message: 'Payment process',
-    time: '5 hrs',
-  },
-  {
-    code: '300 WRN',
-    state: 'warning',
-    message: 'Search query',
-    time: '2 days',
-  },
-  {
-    code: '200 OK',
-    state: 'success',
-    message: 'API connection',
-    time: '1 week',
-  },
-  {
-    code: '200 OK',
-    state: 'success',
-    message: 'Database restore',
-    time: 'Mar 5',
-  },
-  {
-    code: '300 WRN',
-    state: 'warning',
-    message: 'System update',
-    time: 'May 15',
-  },
-  {
-    code: '300 WRN',
-    state: 'warning',
-    message: 'Server OS update',
-    time: 'Apr 3',
-  },
-  {
-    code: '300 WRN',
-    state: 'warning',
-    message: 'API rollback',
-    time: 'Jun 30',
-  },
-  {
-    code: '500 ERR',
-    state: 'danger',
-    message: 'Refund process',
-    time: 'Jul 10',
-  },
-  {
-    code: '500 ERR',
-    state: 'danger',
-    message: 'Withdrawal process',
-    time: 'Sep 10',
-  },
-  { code: '500 ERR', state: 'danger', message: 'Mail tasks', time: 'Dec 10' },
-];

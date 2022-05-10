@@ -42,13 +42,23 @@ export class CustomerComponent implements OnInit {
 
   ngOnInit(): void {
     this.FUNC_getData();
+    
   }
 
 
   createFilter() {
     let filterFunction = function (data: any, filter: string): boolean {
-      //let searchTerms = JSON.parse(filter);
-      let searchStr = (data.cuscod + data.cusnam + data.telnum + data.areades + data.creditamt + data.creditbal + 'high').toLowerCase();
+      let textSearch = '';
+      for (var key in data) {
+        if(key == 'cusstatus') {
+          if(data[key] == '0') textSearch+='ต่ำ';
+          else if(data[key] == '1') textSearch+='กลาง';
+          else if(data[key] == '2') textSearch+='สูง';
+        } else {
+          textSearch += data[key];
+        }
+      }
+      let searchStr = (textSearch).toLowerCase();
       return searchStr.indexOf(filter.toLowerCase()) != -1;
     };
     return filterFunction;
@@ -78,7 +88,7 @@ export class CustomerComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = this.createFilter();
-
+      console.log(data);
       this.dataSource.filteredData.forEach((element: any, index) => {
         if (index < 3) element.isChecked = true;
         else element.isChecked = false;
@@ -86,10 +96,6 @@ export class CustomerComponent implements OnInit {
 
       this.fetchSelectedItems();
     });
-  }
-
-  changeSelection() {
-    this.fetchSelectedItems();
   }
 
   fetchSelectedItems() {

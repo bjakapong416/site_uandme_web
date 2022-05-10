@@ -6,13 +6,26 @@
         <div class="d-flex flex-wrap flex-sm-nowrap mb-3">
           <div class="me-7 mb-4">
             <div
+              class="cursor-pointer symbol symbol-60px symbol-lg-100px position-relative "
+              data-kt-menu-attach="parent"
+              data-kt-menu-placement="bottom-end"
+              data-kt-menu-flip="bottom"
+            >
+              <div class="symbol-label fs-1 fw-bold text-inverse-info" [ngStyle]="{'background-color':  item?.circleColor }"> 
+                {{item?.cusnam | shortName | shortName}}
+              </div>
+              <div
+                class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"
+              ></div>
+            </div>
+            <!-- <div
               class="symbol symbol-60px symbol-lg-100px symbol-fixed position-relative"
             >
               <img src="./assets/media/avatars/300-1.jpg" alt="Metronic" />
               <div
                 class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"
               ></div>
-            </div>
+            </div> -->
           </div>
 
           <div class="flex-grow-1">
@@ -33,10 +46,10 @@
               </div>
 
               <div class="d-flex">
-                <div
-                  class="badge badge-light-success me-3 h1 w-100px text-green-200 fw-bolder"
-                >
-                  Low
+                <div class="badge me-3 h1 w-100px fw-bolder" [class.badge-light-success]="item?.cusstatus == '0'" [class.badge-light-warning]="item?.cusstatus == '1'" [class.badge-light-danger]="item?.cusstatus == '2'">
+                  <ng-container *ngIf="item?.cusstatus == '0'">ต่ำ</ng-container>
+                  <ng-container *ngIf="item?.cusstatus == '1'">กลาง</ng-container>
+                  <ng-container *ngIf="item?.cusstatus == '2'">สูง</ng-container>
                 </div>
               </div>
             </div>
@@ -186,7 +199,11 @@
           สถานะ
         </th>
         <td mat-cell *matCellDef="let row">
-          <span class="badge badge-light-success fs-6 fw-bolder">Low</span>
+          <span class="badge fs-6 fw-bolder" style="min-width: 70px" [class.badge-light-success]="row.cusstatus == '0'" [class.badge-light-warning]="row.cusstatus == '1'" [class.badge-light-danger]="row.cusstatus == '2'">
+            <ng-container *ngIf="row.cusstatus == '0'">ต่ำ</ng-container>
+            <ng-container *ngIf="row.cusstatus == '1'">กลาง</ng-container>
+            <ng-container *ngIf="row.cusstatus == '2'">สูง</ng-container>
+          </span>
         </td>
       </ng-container>
 
@@ -214,7 +231,7 @@
           <div
             title="Add review"
             class="btn btn-active-light-primary p-1"
-            (click)="details(row.cuscod)"
+            (click)="details(row.cuscod, row.circleColor)"
           >
             <span
               class="svg-icon svg-icon-2 svg-icon-primary"

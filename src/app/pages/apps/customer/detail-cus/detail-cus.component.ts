@@ -18,6 +18,7 @@ import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
 })
 export class DetailCusComponent implements OnInit {
   @Input() id: number;
+  @Input() circleColor: any;
   mainData: CustomerModels;
   reviewData: ReviewModels[] = [];
   selectedTab: string;

@@ -14,7 +14,9 @@
         <div
           class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative"
         >
-          <img src="./assets/media/avatars/300-1.jpg" alt="Metronic" />
+          <div class="symbol-label fs-1 fw-bold text-inverse-info" [ngStyle]="{'background-color':  circleColor }"> 
+            {{mainData?.cusnam || "" | shortName | shortName}}
+          </div>
           <div
             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"
           ></div>
@@ -42,8 +44,12 @@
               </p>
             </div>
           </div>
-          <div class="d-flex my-4">
-            <div class="badge badge-light-success h1 me-3 w-150px">Low</div>
+          <div class="d-flex">
+            <div class="badge me-3 h1 w-150px fw-bolder" [class.badge-light-success]="mainData?.cusstatus == '0'" [class.badge-light-warning]="mainData?.cusstatus == '1'" [class.badge-light-danger]="mainData?.cusstatus == '2'">
+              <ng-container *ngIf="mainData?.cusstatus == '0'"> ต่ำ </ng-container>
+              <ng-container *ngIf="mainData?.cusstatus == '1'"> กลาง </ng-container>
+              <ng-container *ngIf="mainData?.cusstatus == '2'"> สูง </ng-container>
+            </div>
           </div>
         </div>
         <div
@@ -131,7 +137,7 @@
 
         <div class="col-12 col-sm-6 col-lg-9 align-self-center">
           <div class="row mb-5">
-            <label class="col-4 col-sm-5 col-lg-2 fw-bold text-gray-800"
+            <label class="col-4 col-sm-5 col-lg-2 fs-6 fw-bold text-gray-800"
               >ยอดที่ใช้</label
             >
             <div class="col-8 col-sm-7 col-lg-10">
@@ -141,7 +147,7 @@
             </div>
           </div>
           <div class="row mb-5">
-            <label class="col-4 col-sm-5 col-lg-2 fw-boldtext-gray-800"
+            <label class="col-4 col-sm-5 col-lg-2 fs-6 fw-boldtext-gray-800"
               >ยอดคงเหลือ</label
             >
             <div class="col-8 col-sm-7 col-lg-10">
@@ -151,7 +157,7 @@
             </div>
           </div>
           <div class="row mb-5">
-            <label class="col-4 col-sm-5 col-lg-2 fw-bold text-gray-800"
+            <label class="col-4 col-sm-5 col-lg-2 fs-6 fw-bold text-gray-800"
               >วงเงินอนุมัติ</label
             >
             <div class="col-8 col-sm-7 col-lg-10">
@@ -163,9 +169,9 @@
         </div>
       </div>
 
-      <div class="row mb-7">
+      <div class="row mb-5">
         <label
-          class="col-lg-4 fw-bolder text-start text-lg-end align-self-center"
+          class="col-lg-4 fs-6 fw-bolder text-start text-lg-end align-self-center"
           >ชื่อผู้ต่อติด</label
         >
         <div class="col-lg-8 bg-light rounded py-2 px-3 w-xl-500px">
@@ -173,9 +179,9 @@
         </div>
       </div>
 
-      <div class="row mb-7">
+      <div class="row mb-5">
         <label
-          class="col-lg-4 fw-bolder text-start text-lg-end align-self-center"
+          class="col-lg-4 fs-6 fw-bolder text-start text-lg-end align-self-center"
           >เขตการขาย</label
         >
         <div class="col-lg-8 bg-light rounded py-2 px-3 w-xl-500px">
@@ -183,9 +189,9 @@
         </div>
       </div>
 
-      <div class="row mb-7">
+      <div class="row mb-5">
         <label
-          class="col-lg-4 fw-bolder text-start text-lg-end align-self-center"
+          class="col-lg-4 fs-6 fw-bolder text-start text-lg-end align-self-center"
           >รายละเอียดที่อยู่</label
         >
         <div class="col-lg-8 bg-light rounded py-2 px-3 w-xl-500px">
@@ -201,26 +207,30 @@
         </div>
       </div>
 
-      <div class="row mb-7">
+      <div class="row mb-5">
         <label
-          class="col-lg-4 fw-bolder text-start text-lg-end align-self-center"
+          class="col-lg-4 fs-6 fw-bolder text-start text-lg-end align-self-center"
           >รายละเอียดที่อยู่ <br />(ที่อยู่จัดส่งสินค้า)</label
         >
         <div class="col-lg-8 bg-light rounded py-2 px-3 w-xl-500px">
           <span class="fs-6 text-dark">{{
-            mainData?.addr01 +
-              " " +
-              mainData?.addr02 +
-              " " +
-              mainData?.addr02 +
-              " " +
-              mainData?.zipcod
+            mainData?.highlight
           }}</span>
         </div>
       </div>
 
-      <div class="row mb-7">
-        <label class="col-lg-4 fw-bolder text-start text-lg-end"
+      <div class="row mb-5">
+        <label
+          class="col-lg-4 fs-6 fw-bolder text-start text-lg-end align-self-center"
+          >แผนที่</label
+        >
+        <div class="col-lg-8 bg-light rounded py-2 px-3 w-xl-500px">
+          <a class="fs-6" href="{{ mainData?.maplink }}"> เปิดดูแผนที่ </a>
+        </div>
+      </div>
+
+      <div class="row mb-5">
+        <label class="col-lg-4 fs-6 fw-bolder text-start text-lg-end"
           >* หมายเหตุ</label
         >
         <div

@@ -89,7 +89,6 @@ export class BillComponent implements OnInit {
     if(filter == 'date') {
       let date = event.target.value;
       this.filterValues[filter] = this.pipe.transform(date, 'yyyy-MM') || '';
-      console.log('YES!!');
     } else {
       this.filterValues[filter] = event.target.value
         .trim()
@@ -112,7 +111,7 @@ export class BillComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = this.NEW_createFilter();
-      console.log(this.dataSource);
+      //console.log(this.dataSource);
     });
   }
 
@@ -130,7 +129,7 @@ export class BillComponent implements OnInit {
       for (var key in data) {
         textSearch += data[key];
       }
-      console.log(filter);
+      //console.log(filter);
       let searchStr = textSearch.toLowerCase();
       return searchStr.indexOf(searchTerms.all.toLowerCase()) != -1 && data.docdat.toLowerCase().indexOf(searchTerms.date) !== -1;
     };

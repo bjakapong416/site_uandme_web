@@ -20,4 +20,8 @@ export class CustomerModels {
     creditamt: number;
     creditbal: number;
     audttime: Date;
+    cusstatus?: string;
+    maplink?: string;
+    highlight?: string;
+    img?: string;
 }

@@ -1,5 +1,9 @@
 table { width: 100%; }
 
+th {
+    font-weight: bold;
+  }
+
 .example-form {
     min-width: 150px;
     max-width: 500px;
@@ -105,3 +109,10 @@ th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
   border-bottom-width: 0 !important;
 }
    
+
+.bg-blank {
+    .modal-content {
+      background-color: rgba(0, 0, 0, 0);
+      box-shadow: none;
+    }
+  }

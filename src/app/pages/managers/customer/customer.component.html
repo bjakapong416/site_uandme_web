@@ -6,11 +6,20 @@
           รายการลูกค้า {{ dataSource.filteredData.length | number }} รายชื่อ
         </p>
       </div>
+
+      <mat-form-field style="margin-right: 15px">
+        <input #pickDate matInput [matDatepicker]="pickerSearch" placeholder="Choose a date" [value]="pickDateValue" (dateInput)="filterChange('date', $event)"> 
+        <button *ngIf="pickDateValue" matSuffix mat-icon-button aria-label="Clear" (click)="pickDateValue=''; filterChange('date', $event)">
+          <mat-icon>close</mat-icon>
+        </button>
+        <mat-datepicker-toggle matSuffix [for]="pickerSearch"></mat-datepicker-toggle>
+        <mat-datepicker #pickerSearch startView="multi-year" (yearSelected)="setYear($event, pickerSearch)"></mat-datepicker>
+      </mat-form-field>
   
       <mat-form-field appearance="outline" class="w-50">
         <input
           matInput
-          (keyup)="applyFilter($event)"
+          (keyup)="filterChange('all', $event)"
           placeholder="ค้นหา รหัสลูกค้า, ชื่อลูกค้า"
           #input
         />

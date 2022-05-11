@@ -1,0 +1,28 @@
+th {
+    font-weight: bold;
+  }
+
+  .mat-header-cell {
+    font-size: 16px;
+  }
+  
+  .mat-row .mat-cell {
+    border-bottom: 1px solid transparent;
+    border-top: 1px solid transparent;
+    font-size: 15px;
+  }
+  
+  tr.mat-header-row {
+    background-color:  rgba(243, 246, 249, 1);
+    height: 40px !important;
+  }
+  
+  th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    border-bottom-width: 0 !important;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-infix {
+   padding-bottom: 10px;
+   padding-top: 10px;
+  }
+  

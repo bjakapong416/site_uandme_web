@@ -247,6 +247,15 @@
     </div>
     <div class="">
       <div class="card-body h-xl-650px overflow-auto">
+        <ng-container *ngIf="reviewData.length == 0">
+          <div class="d-flex fs-5 py-5 justify-content-between">
+            <div class="d-flex">
+              <div class="fs-3 fw-bolder text-info">
+                ไม่มีการรีวิวของลูกค้าเจ้านี้
+              </div>
+            </div>
+          </div>
+        </ng-container>
         <div *ngFor="let item of reviewData">
           <div class="d-flex fs-5 py-5 justify-content-between">
             <div class="d-flex">
@@ -363,7 +372,7 @@
             >
               ยอดค้างชำระ
             </th>
-            <td mat-cell *matCellDef="let row">{{ row.balamt }}</td>
+            <td mat-cell *matCellDef="let row">{{ row.balamt | number }}</td>
           </ng-container>
 
           <ng-container matColumnDef="status_cus">

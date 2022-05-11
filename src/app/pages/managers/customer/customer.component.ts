@@ -11,12 +11,46 @@ import { ViewEncapsulation } from '@angular/core';
 
 import { ConfigCusComponent } from './config-cus/config-cus.component';
 
+import { MatDatepicker } from '@angular/material/datepicker';
+import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
+
+export const PICK_FORMATS = {
+  parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
+  display: {
+      dateInput: 'input',
+      monthYearLabel: {year: 'numeric', month: 'short'},
+      dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
+      monthYearA11yLabel: {year: 'numeric', month: 'long'}
+  }
+};
+
+class PickDateAdapter extends NativeDateAdapter {
+  format(date: Date, displayFormat: Object): string {
+      if (displayFormat === 'input') {
+          return formatDate(date,'yyyy',this.locale);
+      } else {
+          return date.toDateString();
+      }
+  }
+}
+
+
+
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.scss']
+  styleUrls: ['./customer.component.scss'],
+  providers: [
+    {provide: DateAdapter, useClass: PickDateAdapter},
+    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
+  ]
 })
 export class CustomerComponent implements OnInit {
+  pipe = new DatePipe('en-US');
+  filterValues: any = {"all":"","date":""};
+  pickDateValue: any;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = [
@@ -48,6 +82,7 @@ export class CustomerComponent implements OnInit {
 
   createFilter() {
     let filterFunction = function (data: any, filter: string): boolean {
+      let searchTerms = JSON.parse(filter);
       let textSearch = '';
       for (var key in data) {
         if(key == 'cusstatus') {
@@ -59,7 +94,7 @@ export class CustomerComponent implements OnInit {
         }
       }
       let searchStr = (textSearch).toLowerCase();
-      return searchStr.indexOf(filter.toLowerCase()) != -1;
+      return searchStr.indexOf(searchTerms.all.toLowerCase()) != -1 && data.lastsale.toLowerCase().indexOf(searchTerms.date) !== -1;
     };
     return filterFunction;
   }
@@ -72,6 +107,23 @@ export class CustomerComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  // Called on Filter change
+  filterChange(filter: any, event: any) {
+    //let filterValues = {}
+    if(filter == 'date') {
+      let date = event.target.value;
+      this.filterValues[filter] = this.pipe.transform(date, 'yyyy') || '';
+    } else {
+      this.filterValues[filter] = event.target.value
+        .trim()
+        .toLowerCase();
+    }
+    this.dataSource.filter = JSON.stringify(this.filterValues);
+  }
+
+
+
 
   FUNC_EditCus(id: any) {
     const modalRef = this.modalService.open(ConfigCusComponent, {
@@ -106,5 +158,13 @@ export class CustomerComponent implements OnInit {
     );
   }
 
+
+  setYear(event: Event, datepicker: MatDatepicker<any>) {
+    let date = event.toString();
+    this.pickDateValue = event;
+    this.filterValues['date'] = this.pipe.transform(date, 'yyyy') || '';
+    this.dataSource.filter = JSON.stringify(this.filterValues);
+    datepicker.close();
+  }
 
 }

@@ -121,10 +121,10 @@
           <span
             class="badge badge-2 badge-inline"
             [class.badge-light-danger]="row.qty == 0"
-            [class.badge-light-warning]="row.qty < 10"
+            [class.badge-light-warning]="row.qty <= currLimit"
           >
             <ng-container *ngIf="row.qty == 0">Sold out</ng-container>
-            <ng-container *ngIf="row.qty < 10">Low stock</ng-container>
+            <ng-container *ngIf="row.qty <= currLimit">Low stock</ng-container>
           </span>
         </td>
       </ng-container>

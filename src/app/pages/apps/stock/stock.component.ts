@@ -70,6 +70,9 @@ export class StockComponent implements OnInit {
     public limitService: LimitService,
     public stockService: StockService
   ) {
+    this.limitService.getAll().subscribe((data: any)=>{
+      this.currLimit = data.limitlow;
+    });
     // Object to create Filter for
     this.filterSelectObj = [
       {
@@ -120,11 +123,13 @@ export class StockComponent implements OnInit {
 
   NEW_createFilter() {
     let currlimit = this.currLimit;
+    console.log(this.currLimit);
+    console.log(currlimit);
     let filterFunction = function (data: any, filter: string): boolean {
       let qty_Status = '';
       if(data.qty == 0) {
         qty_Status = 'Soldout'
-      } else if(data.qty < currlimit) {
+      } else if(data.qty <= currlimit) {
         qty_Status = 'low stock'
       }
       let searchTerms = JSON.parse(filter);

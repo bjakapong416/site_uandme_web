@@ -24,7 +24,11 @@ export class NotificationsInnerComponent implements OnInit {
   Data$: StockModels[] = [];
   count_LS:number = 0;
   count_SO:number = 0;
-  constructor(public stockService: StockService, public limitService: LimitService) {}
+  constructor(public stockService: StockService, public limitService: LimitService) {
+    this.limitService.getAll().subscribe((data: any)=>{
+      this.currLimit = data.limitlow;
+    });
+  }
 
   ngOnInit(): void {
     this.FUNC_getData();
@@ -44,7 +48,7 @@ export class NotificationsInnerComponent implements OnInit {
       data.forEach((element: any) => {
         // if(element.qty == 0) this.count_SO++;
         // else if(element.qty < 10) this.count_LS++;
-        if(element.qty < this.currLimit)
+        if(element.qty <= this.currLimit)
           this.Data$.push(element);
       });
       //console.log(this.mainDatas$);

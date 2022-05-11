@@ -22,8 +22,8 @@ export class LimitService {
     return this.httpClient.get<any>(this.apiURL + '/getitems').pipe(catchError(this.errorHandler));
   }
 
-  update(data: any): Observable<any> {
-    return this.httpClient.post<any>(this.apiURL + '/setitems', data).pipe(catchError(this.errorHandler));
+  update(val: any) {
+    return this.httpClient.post<any>(this.apiURL + '/setitems?num=' + val, null).subscribe();
   }
 
   errorHandler(error: any) {

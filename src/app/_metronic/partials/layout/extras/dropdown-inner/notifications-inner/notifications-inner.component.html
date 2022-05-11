@@ -15,10 +15,10 @@
         <div class="d-flex flex-stack py-4">
           <div class="d-flex align-items-center">
             <div class="symbol symbol-35px me-4">
-              <span class="badge badge-2 badge-inline fs-6" [class.badge-light-danger]="row.qty == 0" [class.badge-light-warning]="row.qty < currLimit">
+              <span class="badge badge-2 badge-inline fs-6" [class.badge-light-danger]="row.qty == 0" [class.badge-light-warning]="row.qty <= currLimit">
                 <p class="fs-4"> {{ row.qty }} </p>
                 <ng-container *ngIf="row.qty == 0">Sold out</ng-container>
-                <ng-container *ngIf="row.qty < currLimit">Low stock</ng-container>
+                <ng-container *ngIf="row.qty <= currLimit">Low stock</ng-container>
               </span>
             </div>
 

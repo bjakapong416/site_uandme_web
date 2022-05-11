@@ -30,8 +30,7 @@ export class AddLimitstockComponent implements OnInit {
 
   saveSettings() {
     this.isLoading$.next(true);
-    let formValue = this.frmData.value;
-    this.limitService.update(formValue);
+    this.limitService.update(this.frmData.value.limitLow);
     this.handleSaveMember();
 
     setTimeout(() => {

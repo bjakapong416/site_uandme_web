@@ -1,12 +1,14 @@
 <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
         <div class="modal-header">
-            <div class="modal-title h4 w-100 text-center fs-5" id="example-modal-sizes-title-lg">
-                <ng-container *ngIf="mainData">
-                    แสดงความคิดเห็นต่อลูกค้า 
-                    <div class="fs-3 fw-bolder"> "{{mainData.cusnam}}" </div>
-                </ng-container>
-            </div>
+            
+        </div>
+
+        <div class="modal-title h4 w-100 text-center fs-4 m-0" id="example-modal-sizes-title-lg">
+            <ng-container *ngIf="mainData">
+                แสดงความคิดเห็นต่อลูกค้า 
+                <div class="fs-3 fw-bolder"> "{{mainData.cusnam}}" </div>
+            </ng-container>
         </div>
 
         <form id="frmData" [formGroup]="frmData" (ngSubmit)="saveSettings()" novalidate="novalidate">

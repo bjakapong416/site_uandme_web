@@ -20,13 +20,16 @@ export class CustomerService {
   constructor(private httpClient: HttpClient) { }
 
   getAll(): Observable<CustomerModels[]> {
-    return this.httpClient.get<CustomerModels[]>(this.apiURL + '/limit/5').pipe(
+    //return this.httpClient.get<CustomerModels[]>(this.apiURL + '/limit/5').pipe(
+    return this.httpClient.get<CustomerModels[]>(this.apiURL + '/all').pipe(
       catchError(this.errorHandler)
     )
   }
 
-  async async_getAll() {
-    return await this.httpClient.get<CustomerModels[]>(this.apiURL + '/all').pipe( )
+  riskCount() {
+    return this.httpClient.get(this.apiURL + '/get/risk').pipe(
+      catchError(this.errorHandler)
+    )
   }
     
   create(data: any): Observable<CustomerModels> {

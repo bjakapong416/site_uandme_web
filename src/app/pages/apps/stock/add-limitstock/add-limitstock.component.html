@@ -1,0 +1,34 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-header">
+            <div class="modal-title h4 w-100 text-center fs-5" id="example-modal-sizes-title-lg">
+                ปรับ Limit Item ใหม่ 
+                <div class="fs-3 fw-bolder"> ค่า Limit ล่าสุด = "{{currLimit}}" </div>
+            </div>
+        </div>
+
+        <form id="frmData" [formGroup]="frmData" (ngSubmit)="saveSettings()" novalidate="novalidate">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col fv-row">
+                        <input class="form-control form-control-lg form-control-solid" formControlName="limitLow"
+                            [ngClass]="{'is-invalid': frmData.controls['limitLow'].invalid, 'is-valid': frmData.controls['limitLow'].valid}" style="overflow:auto; resize:none">
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" [disabled]="isLoading" (click)="modal.dismiss('Close click')"> <ng-container>ยกเลิก</ng-container> </button>
+
+                <!-- Seperate Space -->
+                &nbsp;
+
+                <button type="submit" class="btn btn-primary" [disabled]="frmData.invalid">
+                <ng-container *ngIf="!isLoading">บันทึก</ng-container>
+                <ng-container *ngIf="isLoading"><span clas="indicator-progress" [style.display]="'block'"> โปรดรอสักครู่ ... <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span></ng-container>
+                </button>
+                <!--button type="submit" class="btn btn-primary btn-elevate" (click)="save()" [disabled]="formGroup.invalid"> บันทึก </button-->
+            </div>
+        </form>
+    </div>
+</div>

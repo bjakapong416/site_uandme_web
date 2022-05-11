@@ -8,6 +8,7 @@ import { ReviewCusComponent } from './customer/review-cus/review-cus.component';
 import { BillCusComponent } from './customer/bill-cus/bill-cus.component';
 import { DetailBillComponent } from './bill/detail-bill/detail-bill/detail-bill.component';
 import { AddBillComponent } from './bill/add-bill/add-bill/add-bill.component';
+import { AddLimitstockComponent } from './stock/add-limitstock/add-limitstock.component';
 
 import { StockComponent } from './stock/stock.component';
 import { StockResolver } from '../_services/stock/stock.resolver';
@@ -15,6 +16,7 @@ import { StockResolver } from '../_services/stock/stock.resolver';
 
 const routes: Routes = [
   { path: 'stock', component: StockComponent, resolve: { StockResolver: StockResolver } },
+  { path: 'stock/addlimit', component: AddLimitstockComponent },
   { path: 'customer', component: CustomerComponent},
   { path: 'customer/:cusId', component: DetailCusComponent},
   { path: 'customer/:cusId/add', component: AddCusComponent},

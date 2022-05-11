@@ -29,6 +29,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DetailBillComponent } from './bill/detail-bill/detail-bill/detail-bill.component';
 import { AddBillComponent } from './bill/add-bill/add-bill/add-bill.component';
+import { AddLimitstockComponent } from './stock/add-limitstock/add-limitstock.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AddBillComponent } from './bill/add-bill/add-bill/add-bill.component';
     BillCusComponent,
     DetailBillComponent,
     AddBillComponent,
+    AddLimitstockComponent,
   ],
   imports: [
     CommonModule,

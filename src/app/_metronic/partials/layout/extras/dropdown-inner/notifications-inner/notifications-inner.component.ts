@@ -1,6 +1,7 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
 import { StockModels } from 'src/app/pages/_models/stock.model';
 import { StockService } from 'src/app/pages/_services/stock/stock.service';
+import { LimitService } from 'src/app/pages/_services/stock/LimitStock.services';
 import { LayoutService } from '../../../../../layout';
 
 export type NotificationsTabsType =
@@ -18,12 +19,12 @@ export class NotificationsInnerComponent implements OnInit {
   @HostBinding('attr.data-kt-menu') dataKtMenu = 'true';
 
   activeTabId: NotificationsTabsType = 'kt_topbar_notifications_1';
-  limitlow: number = 10;
+  currLimit: any;
   mainDatas$: StockModels[] = [];
   Data$: StockModels[] = [];
   count_LS:number = 0;
   count_SO:number = 0;
-  constructor(public stockService: StockService) {}
+  constructor(public stockService: StockService, public limitService: LimitService) {}
 
   ngOnInit(): void {
     this.FUNC_getData();
@@ -34,12 +35,16 @@ export class NotificationsInnerComponent implements OnInit {
   }
 
   FUNC_getData() {
+    this.limitService.getAll().subscribe((data: any)=>{
+      this.currLimit = data.limitlow;
+    });
+    
     this.stockService.getAll().subscribe((data: any) => {
       this.mainDatas$ = data;
       data.forEach((element: any) => {
         // if(element.qty == 0) this.count_SO++;
         // else if(element.qty < 10) this.count_LS++;
-        if(element.qty < this.limitlow)
+        if(element.qty < this.currLimit)
           this.Data$.push(element);
       });
       //console.log(this.mainDatas$);

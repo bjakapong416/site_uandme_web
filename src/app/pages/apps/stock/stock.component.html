@@ -47,12 +47,27 @@
 <!-- begin::Header -->
 
 <div class="card-header border-0 pt-5">
-  <div class="me-10 mb-4">
-    <p class="fs-2 mb-0 fw-bolder m-1">รายละเอียดสินค้า</p>
-    <p class="fs-6 fw-bold text-gray-600 m-1">
-      มีสินค้าทั้งหมด {{ dataSource.filteredData.length | number }} รายการ
-    </p>
+  <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap w-100">
+      <div class="me-10 mb-4">
+        <p class="fs-2 mb-0 fw-bolder m-1">รายละเอียดสินค้า</p>
+        <p class="fs-6 fw-bold text-gray-600 m-1"> มีสินค้าทั้งหมด {{ dataSource.filteredData.length | number }} รายการ </p>
+      </div>
+
+      <div class="flex-grow-1">
+      </div>
+      
+      <div
+        class="btn btn-success btn-sm cursor-pointer w-auto align-self-center fs-5"
+        data-bs-toggle="modal"
+        data-bs-target="#kt_modal_create_project"
+        (click)="LimitItems()"
+      >
+        ปรับลิมิตสินค้า
+      </div>
+    </div>
   </div>
+  
   <div class="overflow-auto">
     <table mat-table [dataSource]="dataSource" matSort>
       <!-- <ng-container matColumnDef="id">

@@ -5,6 +5,9 @@ import { StockService } from '../../_services/stock/stock.service';
 import { AuthService } from 'src/app/modules/auth';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { AddLimitstockComponent } from './add-limitstock/add-limitstock.component';
+import { LimitService } from '../../_services/stock/LimitStock.services';
 
 @Component({
   selector: 'app-stock',
@@ -44,6 +47,7 @@ export class StockComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource();
   dataSourceFilters = new MatTableDataSource();
+  currLimit: any;
   dataLength = 0;
 
   p: number = 1;
@@ -62,6 +66,8 @@ export class StockComponent implements OnInit {
     private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
+    private modalService: NgbModal,
+    public limitService: LimitService,
     public stockService: StockService
   ) {
     // Object to create Filter for
@@ -88,6 +94,10 @@ export class StockComponent implements OnInit {
   }
 
   FUNC_getData() {
+    this.limitService.getAll().subscribe((data: any)=>{
+      this.currLimit = data.limitlow;
+    });
+
     this.stockService.getAll().subscribe((data: any) => {
       this.dataSource = new MatTableDataSource(data);
       this.dataSourceFilters = new MatTableDataSource(data);
@@ -109,11 +119,12 @@ export class StockComponent implements OnInit {
   }
 
   NEW_createFilter() {
+    let currlimit = this.currLimit;
     let filterFunction = function (data: any, filter: string): boolean {
       let qty_Status = '';
       if(data.qty == 0) {
         qty_Status = 'Soldout'
-      } else if(data.qty < 10) {
+      } else if(data.qty < currlimit) {
         qty_Status = 'low stock'
       }
       let searchTerms = JSON.parse(filter);
@@ -194,6 +205,13 @@ export class StockComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  LimitItems() {
+    const modalRef = this.modalService.open(AddLimitstockComponent, {
+      size: 'xl',
+    });
+    modalRef.componentInstance.currLimit = this.currLimit;
   }
 
   testConsoleLog(data: any) {

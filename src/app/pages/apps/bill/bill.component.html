@@ -6,7 +6,7 @@
       class="card bg-light-success my-5 mx-10 w-350px"
       iconColor="success"
       color="white"
-      title="5000"
+      title="{{ (countBillData - countMoreOnce) | number }}"
       description="ยังไม่มีการท้วงถาม"
     ></app-stats-widget5>
 
@@ -15,7 +15,7 @@
       class="card bg-light-warning my-5 mx-10 w-350px"
       iconColor="warning"
       color="white"
-      title="2000"
+      title="{{ countMoreOnce | number }}"
       description="การท้วงถามมากกว่า 1 ครั้ง"
     ></app-stats-widget5>
 
@@ -24,7 +24,7 @@
       class="card bg-light-danger my-5 mx-10 w-350px"
       iconColor="danger"
       color="white"
-      title="7000"
+      title="{{ countBillData | number }}"
       description="ยอดบิลค้างชำระ"
     ></app-stats-widget5>
   </div>

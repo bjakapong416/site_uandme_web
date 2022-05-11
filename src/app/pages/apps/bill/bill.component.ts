@@ -13,6 +13,8 @@ import { AddBillComponent } from './add-bill/add-bill/add-bill.component';
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 export const PICK_FORMATS = {
   parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
@@ -50,6 +52,8 @@ export class BillComponent implements OnInit {
   filterValues: any = {"all":"","date":""};
   @Input() chartColor: string = '';
   @Input() chartHeight: string;
+  countBillData: any;
+  countMoreOnce: any;
   chartOptions: any = {};
   pickDateValue: any;
 
@@ -71,6 +75,7 @@ export class BillComponent implements OnInit {
     private authService: AuthService,
     private router: Router,
     private modalService: NgbModal,
+    private httpClient: HttpClient,
     public billService: BillService
   ) {}
 
@@ -95,6 +100,7 @@ export class BillComponent implements OnInit {
         .toLowerCase();
     }
     this.dataSource.filter = JSON.stringify(this.filterValues);
+    console.log(this.dataSource.filteredData);
   }
 
   applyFilter(event: Event) {
@@ -111,7 +117,12 @@ export class BillComponent implements OnInit {
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
       this.dataSource.filterPredicate = this.NEW_createFilter();
+      this.countBillData = this.dataSource.filteredData.length;
       //console.log(this.dataSource);
+    });
+
+    this.httpClient.get(`${environment.apiUrl}` + '/getAskbill').subscribe((res: any)=>{
+      this.countMoreOnce = res.count;
     });
   }
 

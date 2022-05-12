@@ -19,15 +19,21 @@ export class configCusService {
 
     editCus(val:any){
       const body = val;
-      
+
+      // Update Customer config
       this.httpClient.put<any>(this.apiURL + '/customer/edit', body).subscribe(res =>{
-        
       }, (error) => {
         console.error('error caught in component')
+      } );
 
+      // Post Logs
+      this.httpClient.post<any>(this.apiURL + '/customer/setLog', body).subscribe(res =>{
+      }, (error) => {
+        console.error('error caught in component')
       } );
 
     }
+
 
 
     errorHandler(error: any) {

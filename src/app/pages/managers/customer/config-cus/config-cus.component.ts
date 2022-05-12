@@ -20,7 +20,7 @@ import Swal from 'sweetalert2';
 export class ConfigCusComponent implements OnInit {
   @Input() uid: any;
 
-  risk2: any[] = ['Low' , 'Medium' , 'High'];
+  risk2: any[] = ['ต่ำ' , 'กลาง' , 'สูง'];
 
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading: boolean;
@@ -41,7 +41,7 @@ export class ConfigCusComponent implements OnInit {
     cusstatus: new FormControl(null),
     maplink: new FormControl(null, Validators.minLength(4)),
     highlight: new FormControl(null, Validators.minLength(4)),
-
+    billdate: new FormControl(null),
   });
 
 
@@ -61,11 +61,12 @@ export class ConfigCusComponent implements OnInit {
         formValue.cusstatus = pos.toString();
       }
     }
-     
+         
+    this.configService.editCus(formValue); 
 
-    
-    this.configService.editCus(formValue);    
     this.handleSaveMember();
+
+
 
     setTimeout(() => {
       this.isLoading$.next(false);

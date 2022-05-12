@@ -9,16 +9,23 @@ th {
   .mat-row .mat-cell {
     border-bottom: 1px solid transparent;
     border-top: 1px solid transparent;
-    font-size: 15px;
   }
   
   tr.mat-header-row {
     background-color:  rgba(243, 246, 249, 1);
     height: 40px !important;
   }
-  
+
   th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
     border-bottom-width: 0 !important;
+  }
+
+  td.mat-cell{
+    width: 200px;
+  }
+
+  th.mat-header-cell,td.mat-cell{
+    padding: 0 10px;
   }
   
   .mat-form-field-appearance-outline .mat-form-field-infix {

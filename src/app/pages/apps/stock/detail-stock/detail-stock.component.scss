@@ -1,0 +1,24 @@
+.modal-dialog {
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin-top: 0;
+    margin-bottom: 0; 
+}
+
+.modal-header {
+    border-bottom: none;
+    background-image: url('../../../../../assets/media/customs/detailstock.jpeg');
+    height: 260px;
+    background-size: cover;
+    background-repeat: round;
+   
+    .close {
+      background: none;
+      border: none;
+      float: right;
+      font-size: 40px;
+      line-height: 20px;
+      padding: 0;
+    }
+  }

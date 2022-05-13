@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddLimitstockComponent } from './add-limitstock/add-limitstock.component';
 import { LimitService } from '../../_services/stock/LimitStock.services';
+import { DetailStockComponent } from './detail-stock/detail-stock.component';
 
 @Component({
   selector: 'app-stock',
@@ -217,6 +218,17 @@ export class StockComponent implements OnInit {
       size: 'xl',
     });
     modalRef.componentInstance.currLimit = this.currLimit;
+  }
+
+  details(s_id: any, s_name: any, s_qty:any, s_unit:any) {
+    const modalRef = this.modalService.open(DetailStockComponent, {
+      size: 'x1',
+    });
+
+    modalRef.componentInstance.id = s_id;
+    modalRef.componentInstance.name = s_name;
+    modalRef.componentInstance.qty = s_qty;
+    modalRef.componentInstance.unit = s_unit;
   }
 
   testConsoleLog(data: any) {

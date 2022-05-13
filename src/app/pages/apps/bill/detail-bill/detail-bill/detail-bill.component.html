@@ -66,7 +66,7 @@
           <div class="d-flex flex-column">
             <div class="d-flex flex-wrap pe-4 align-self-end">
               <div class="fw-bold fs-8 px-2 border rounded">
-                วันที่บิลล่าสุด {{ mainData?.duedat }}
+                วันที่บิลล่าสุด {{ mainData?.duedat | date: "dd/MM/YYYY" }}
               </div>
             </div>
           </div>
@@ -104,6 +104,15 @@
     </div>
     <div class="card-body h-650px overflow-auto">
       <div class="overflow-auto">
+        <ng-container *ngIf="askData.length == 0">
+          <div class="d-flex fs-5 py-5 justify-content-between">
+            <div class="d-flex">
+              <div class="fs-3 fw-bolder text-info">
+                ไม่มีการท้วงถามของบิลนี้
+              </div>
+            </div>
+          </div>
+        </ng-container>
         <div *ngFor="let item of askData; index as i">
           <div class="d-flex fs-5 py-5 justify-content-between">
             <div class="d-flex">

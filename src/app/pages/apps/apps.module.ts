@@ -30,6 +30,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { DetailBillComponent } from './bill/detail-bill/detail-bill/detail-bill.component';
 import { AddBillComponent } from './bill/add-bill/add-bill/add-bill.component';
 import { AddLimitstockComponent } from './stock/add-limitstock/add-limitstock.component';
+import { DetailStockComponent } from './stock/detail-stock/detail-stock.component';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { AddLimitstockComponent } from './stock/add-limitstock/add-limitstock.co
     DetailBillComponent,
     AddBillComponent,
     AddLimitstockComponent,
+    DetailStockComponent,
   ],
   imports: [
     CommonModule,

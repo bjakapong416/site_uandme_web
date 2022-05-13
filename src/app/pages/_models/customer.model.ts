@@ -24,4 +24,5 @@ export class CustomerModels {
     maplink?: string;
     highlight?: string;
     img?: string;
+    billdate?:string;
 }

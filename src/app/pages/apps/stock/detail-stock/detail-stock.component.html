@@ -1,0 +1,59 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="w-100" style="position: absolute; top: 0;">
+            <div
+              class="btn-close m-6"
+              data-dismiss="modal"
+              aria-label="Close"
+              (click)="modal.dismiss('Cross click')"
+              style="float: right"
+            ></div>
+        </div>
+        <div class="modal-header">
+            
+        </div>
+
+        <div class="modal-title h4 w-100 fs-4 m-0" id="example-modal-sizes-title-lg">
+            <div class="text-center">
+                <span
+                    class="svg-icon svg-icon-3x svg-icon-warning"
+                    [inlineSVG]="'./assets/media/svg/icons/Code/Compiling.svg'"
+                ></span>
+            </div>
+        </div>
+
+        <div class="modal-body">
+            <div class="row">
+                <div class="col fv-row text-center">
+                    <p class="h2 fw-bolder m-0"> {{ id }} </p>
+                    <p class="h3 text-muted"> {{ name }} </p>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="row">
+                <div class="col fv-row text-center">
+                    <p class="h2 fw-bolder m-0"> คงเหลือ {{ qty }} {{ unit }} </p>
+                </div>
+            </div>
+            <!-- <div class="row">
+                <span
+                    class="svg-icon svg-icon-1 svg-icon-warning col-lg-1"
+                    [inlineSVG]="'./assets/media/svg/icons/Code/Compiling.svg'"
+                ></span>
+                <div class="col-lg-11">
+                    <p class="h2 fw-bolder m-0"> {{ id }} </p>
+                    <p class="h3 text-muted"> {{ name }} </p>
+                </div>
+            </div>
+
+            <div class="row">
+                <span class="col-lg-1"></span>
+                <div class="col-lg-11">
+                    <p class="h2 fw-bolder m-0"> คงเหลือ {{ qty }} {{ unit }} </p>
+                </div>
+            </div> -->
+        </div>
+    </div>
+</div>

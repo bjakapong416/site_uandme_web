@@ -113,13 +113,13 @@
         </ng-container>
         <div *ngFor="let item of askData; index as i">
           <div class="d-flex fs-5 py-5 justify-content-between">
-            <div class="d-flex">
+            <div class="d-flex flex-wrap">
               <div
-                class="bg-light-success fs-2 w-auto rounded-circle text-success fw-bolder text-center w-50px h-50px p-5 me-4"
+                class="bg-light-success fs-2 rounded-circle text-success fw-bolder text-center w-50px h-50px p-5 me-4"
               >
                 {{ item?.fullname || "USER" | shortName | shortName }}
               </div>
-              <div class="align-self-center fw-bolder d-none d-sm-block">
+              <div class="align-self-center fw-bolder">
                 {{ item?.fullname || "USER" }} <br />
                 <span class="text-muted fs-8">
                   <ng-container *ngIf="item.role == '777'">

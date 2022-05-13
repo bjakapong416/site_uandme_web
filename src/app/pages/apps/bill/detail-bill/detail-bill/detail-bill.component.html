@@ -105,12 +105,10 @@
     <div class="card-body h-650px overflow-auto">
       <div class="overflow-auto">
         <ng-container *ngIf="askData.length == 0">
-          <div class="d-flex fs-5 py-5 justify-content-between">
-            <div class="d-flex">
-              <div class="fs-3 fw-bolder text-info">
-                ไม่มีการท้วงถามของบิลนี้
-              </div>
-            </div>
+          <div
+            class="fs-3 fw-bolder text-gray-600 container d-flex align-items-center justify-content-center"
+          >
+            ไม่มีการท้วงถามของบิลนี้
           </div>
         </ng-container>
         <div *ngFor="let item of askData; index as i">

@@ -14,8 +14,11 @@
         <div
           class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative"
         >
-          <div class="symbol-label fs-1 fw-bold text-inverse-info" [ngStyle]="{'background-color':  circleColor }"> 
-            {{mainData?.cusnam || "" | shortName | shortName}}
+          <div
+            class="symbol-label fs-1 fw-bold text-inverse-info"
+            [ngStyle]="{ 'background-color': circleColor }"
+          >
+            {{ mainData?.cusnam || "" | shortName | shortName }}
           </div>
           <div
             class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-white h-20px w-20px"
@@ -45,10 +48,21 @@
             </div>
           </div>
           <div class="d-flex">
-            <div class="badge me-3 h1 w-150px fw-bolder" [class.badge-light-success]="mainData?.cusstatus == '0'" [class.badge-light-warning]="mainData?.cusstatus == '1'" [class.badge-light-danger]="mainData?.cusstatus == '2'">
-              <ng-container *ngIf="mainData?.cusstatus == '0'"> ต่ำ </ng-container>
-              <ng-container *ngIf="mainData?.cusstatus == '1'"> กลาง </ng-container>
-              <ng-container *ngIf="mainData?.cusstatus == '2'"> สูง </ng-container>
+            <div
+              class="badge me-3 h1 w-150px fw-bolder"
+              [class.badge-light-success]="mainData?.cusstatus == '0'"
+              [class.badge-light-warning]="mainData?.cusstatus == '1'"
+              [class.badge-light-danger]="mainData?.cusstatus == '2'"
+            >
+              <ng-container *ngIf="mainData?.cusstatus == '0'">
+                ต่ำ
+              </ng-container>
+              <ng-container *ngIf="mainData?.cusstatus == '1'">
+                กลาง
+              </ng-container>
+              <ng-container *ngIf="mainData?.cusstatus == '2'">
+                สูง
+              </ng-container>
             </div>
           </div>
         </div>
@@ -213,9 +227,7 @@
           >รายละเอียดที่อยู่ <br />(ที่อยู่จัดส่งสินค้า)</label
         >
         <div class="col-lg-8 bg-light rounded py-2 px-3 w-xl-500px">
-          <span class="fs-6 text-dark">{{
-            mainData?.highlight
-          }}</span>
+          <span class="fs-6 text-dark">{{ mainData?.highlight }}</span>
         </div>
       </div>
 
@@ -248,12 +260,10 @@
     <div class="">
       <div class="card-body h-xl-650px overflow-auto">
         <ng-container *ngIf="reviewData.length == 0">
-          <div class="d-flex fs-5 py-5 justify-content-between">
-            <div class="d-flex">
-              <div class="fs-3 fw-bolder text-info">
-                ไม่มีการรีวิวของลูกค้าเจ้านี้
-              </div>
-            </div>
+          <div
+            class="fs-3 fw-bolder text-gray-600 container d-flex align-items-center justify-content-center"
+          >
+            ไม่มีการรีวิวของลูกค้าเจ้านี้
           </div>
         </ng-container>
         <div *ngFor="let item of reviewData">

@@ -137,7 +137,9 @@ export class DetailCusComponent implements OnInit {
               offsetY: -20,
               show: true,
               formatter: function (_val: number, opts: any) {
-                return opts.globals.labels[1];
+                const str = opts.globals.labels[1].toString().split('.');
+                str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                return str.join('.');
               },
             },
           },

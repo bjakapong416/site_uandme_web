@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CustomerService } from './../_services/customer/customer.service';
 import { StockService } from './../_services/stock/stock.service';
 import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
 import { Subscription } from 'rxjs';
@@ -9,7 +10,10 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor(public stockService: StockService) {
+  constructor(
+    public stockService: StockService,
+    public customerService: CustomerService
+  ) {
     this.summaryStockData$ = stockService
       .getSummaryStock()
       .subscribe((data) => {
@@ -20,6 +24,24 @@ export class DashboardComponent implements OnInit {
           this.sumTotal = this.sumTotal + element.sum;
         });
       });
+
+    this.customerRiskData$ = customerService.riskCount().subscribe((data) => {
+      this.customerRiskData = data;
+      this.customerRiskData = this.customerRiskData.sort((a: any, b: any) =>
+        a.cusstatus === null
+          ? 1
+          : b.cusstatus === null
+          ? -1
+          : a.cusstatus === b.cusstatus
+          ? 0
+          : a.cusstatus < b.cusstatus
+          ? -1
+          : 1
+      );
+      this.customerRiskData.forEach((element: any) => {
+        this.sumCustomer.push(element.count);
+      });
+    });
   }
   chartOptionsBar: any = {};
   chartOptionsPie: any = {};
@@ -28,6 +50,10 @@ export class DashboardComponent implements OnInit {
   sumStock: any = [];
   typeStock: any = [];
   sumTotal: number = 0;
+  customerRiskData$: Subscription;
+  customerRiskData: any = [];
+  sumCustomer: any = [];
+  updateFlag: boolean = false;
 
   ngOnInit() {
     this.setChartOptionsBar();
@@ -36,10 +62,11 @@ export class DashboardComponent implements OnInit {
 
   ngOnDestroy() {
     this.summaryStockData$.unsubscribe();
+    this.customerRiskData$.unsubscribe();
   }
 
   setChartOptionsBar(): void {
-    const baseColor = getCSSVariableValue('--bs-' + 'primary');
+    const baseColor = getCSSVariableValue('--bs-primary');
     const labelColor = getCSSVariableValue('--bs-gray-700');
     this.chartOptionsBar = {
       series: [
@@ -121,7 +148,9 @@ export class DashboardComponent implements OnInit {
         },
         y: {
           formatter: function (val: number) {
-            return val + ' รายการ';
+            const str = val.toString().split('.');
+            str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return str.join('.') + ' รายการ';
           },
         },
       },
@@ -141,10 +170,9 @@ export class DashboardComponent implements OnInit {
   }
 
   setChartOptionsPie(): void {
-    const labelColor = getCSSVariableValue('--bs-gray-700');
-    const test = [2000, 2000, 500];
+    const labelColor = getCSSVariableValue('--bs-gray-900');
     this.chartOptionsPie = {
-      series: [2000, 2000, 500],
+      series: this.sumCustomer,
       chart: {
         type: 'donut',
         height: 200,
@@ -153,11 +181,12 @@ export class DashboardComponent implements OnInit {
         enabled: false,
       },
       labels: [
-        `ลูกค้าความเสี่ยงต่ำ ${test[0]}`,
-        `ลูกค้าความเสี่ยงปานกลาง  ${test[1]}`,
-        `ลูกค้าความเสี่ยงสูง  ${test[2]}`,
+        `ลูกค้าความเสี่ยงต่ำ`,
+        `ลูกค้าความเสี่ยงปานกลาง`,
+        `ลูกค้าความเสี่ยงสูง`,
+        `ยังไมไ่ด้ระบุ`,
       ],
-      colors: ['#50CD89', '#FFA800', '#F64E60'],
+      colors: ['#50CD89', '#FFA800', '#F64E60', '#999999'],
       legend: {
         fontSize: '14px',
         color: labelColor,
@@ -192,7 +221,7 @@ export class DashboardComponent implements OnInit {
             minAngleToShowLabel: 10,
           },
           donut: {
-            size: '65%',
+            size: '75%',
             background: 'transparent',
             labels: {
               show: true,
@@ -218,14 +247,18 @@ export class DashboardComponent implements OnInit {
                 show: true,
                 showAlways: true,
                 label: 'ลูกค้าทั้งหมด',
-                fontSize: '14px',
+                fontSize: '12px',
                 fontFamily: 'Prompt, "Helvetica Neue", sans-serif',
                 fontWeight: 400,
                 color: labelColor,
                 formatter: function (w: any) {
-                  return w.globals.seriesTotals.reduce((a: any, b: any) => {
-                    return a + b;
-                  }, 0);
+                  const sumWithInitial = w.globals.seriesTotals.reduce(
+                    (a: any, b: any) => a + b,
+                    0
+                  );
+                  const str = sumWithInitial.toString().split('.');
+                  str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                  return str.join('.');
                 },
               },
             },

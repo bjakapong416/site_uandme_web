@@ -9,7 +9,7 @@
               >จำนวนสินค้าทั้งหมด | แยกตามประเภทสินค้า</span
             >
             <span class="text-gray-400 fw-bold"
-              >สินค้าทั้งหมด {{ sumTotal | number }} รายการ</span
+              >สินค้าทั้งหมด {{ ((sumTotal | async) ?? 0) | number }} รายการ</span
             >
           </div>
         </div>
@@ -76,7 +76,7 @@
           class="card bg-light-success my-5 mx-10 w-100 w-xl-350px"
           iconColor="success"
           color="white"
-          title="{{ countBillData - countMoreOnce | number }}"
+          title="{{ (((countBillData | async) ?? 0) - ((countMoreOnce | async) ?? 0)) | number }}"
           description="ยังไม่มีการท้วงถาม"
         ></app-stats-widget5>
 
@@ -85,7 +85,7 @@
           class="card bg-light-warning my-5 mx-10 fs-1 w-100 w-xl-350px"
           iconColor="warning"
           color="white"
-          title="{{ countMoreOnce | number }}"
+          title="{{ ((countMoreOnce | async) ?? 0) | number }}"
           description="การท้วงถามมากกว่า 1 ครั้ง"
         ></app-stats-widget5>
 
@@ -94,7 +94,7 @@
           class="card bg-light-danger my-5 mx-10 w-100 w-xl-350px"
           iconColor="danger"
           color="white"
-          title="{{ countBillData | number }}"
+          title="{{ ((countBillData | async) ?? 0) | number }}"
           description="ยอดบิลค้างชำระ"
         ></app-stats-widget5>
       </div>

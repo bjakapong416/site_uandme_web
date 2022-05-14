@@ -29,6 +29,10 @@ export class BillService {
   async async_getAll() {
     return await this.httpClient.get<BillModels[]>(this.apiURL + '/all').pipe( )
   }
+
+  getAskBill(): Observable<any> {
+    return this.httpClient.get(`${environment.apiUrl}` + '/getAskbill');
+  }
     
   create(data: any): Observable<BillModels> {
     return this.httpClient.post<BillModels>(this.apiURL + '/', JSON.stringify(data), this.httpOptions).pipe(

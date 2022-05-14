@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerService } from './../_services/customer/customer.service';
 import { StockService } from './../_services/stock/stock.service';
 import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
-import { Subscription } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { Observable,  Subscription } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { BillService } from './../_services/bill/bill.service';
 
@@ -19,16 +19,6 @@ export class DashboardComponent implements OnInit {
     public billService: BillService,
     private httpClient: HttpClient
   ) {
-    this.summaryStockData$ = stockService
-      .getSummaryStock()
-      .subscribe((data) => {
-        this.summaryStockData = data;
-        this.summaryStockData.forEach((element: any) => {
-          this.sumStock.push(element.sum);
-          this.typeStock.push(element.itemgrp);
-          this.sumTotal = this.sumTotal + element.sum;
-        });
-      });
 
     this.customerRiskData$ = customerService.riskCount().subscribe((data) => {
       this.customerRiskData = data;
@@ -50,35 +40,54 @@ export class DashboardComponent implements OnInit {
   }
   chartOptionsBar: any = {};
   chartOptionsPie: any = {};
-  summaryStockData$: Subscription;
+  summaryStockData$: Observable<any>;
   summaryStockData: any;
   sumStock: any = [];
   typeStock: any = [];
-  sumTotal: number = 0;
+  sumTotal: Observable<number>;
   customerRiskData$: Subscription;
   customerRiskData: any = [];
   sumCustomer: any = [];
   updateFlag: boolean = false;
-  countBillData: any = 0;
-  countMoreOnce: any = 0;
+  countBillData$: Observable<any>;
+  countBillData: Observable<number>;
+  countMoreOnce: Observable<number>;
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
+    this.summaryStockData$ = this.stockService.getSummaryStock();
+
+    this.summaryStockData$.subscribe((item: any)=>{
+      this.summaryStockData = item;
+      this.summaryStockData.forEach((element: any) => {
+        this.sumStock.push(element.sum);
+        this.typeStock.push(element.itemgrp);
+      });
+    });
+
+    this.sumTotal = this.summaryStockData$.pipe(
+      map((item: any) => item.map((i: any) => i.sum).reduce((oldVal: number, newVal: number) => oldVal + newVal, 0))
+    );
+
     this.setChartOptionsBar();
     this.setChartOptionsPie();
-    await this.getBillData();
+    this.getBillData();
   }
 
-  async getBillData() {
-    this.countBillData = (await this.billService.getAll().toPromise()).length;
+  getBillData() {
+    this.countBillData$ = this.billService.getAll();
 
-    const tempCount = await this.httpClient
-      .get(`${environment.apiUrl}` + '/getAskbill')
-      .toPromise();
-    this.countMoreOnce = Object.values(tempCount)[0];
+    this.countBillData = this.countBillData$.pipe(
+      map((item: any) => item.length)
+    );
+    
+    const tempCount = this.billService.getAskBill();
+
+    this.countMoreOnce = tempCount.pipe(
+      map((item: any) => item.count)
+    );
   }
 
   ngOnDestroy() {
-    this.summaryStockData$.unsubscribe();
     this.customerRiskData$.unsubscribe();
   }
 

@@ -3,6 +3,9 @@ import { CustomerService } from './../_services/customer/customer.service';
 import { StockService } from './../_services/stock/stock.service';
 import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
 import { Subscription } from 'rxjs';
+import { environment } from 'src/environments/environment';
+import { HttpClient } from '@angular/common/http';
+import { BillService } from './../_services/bill/bill.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +15,9 @@ import { Subscription } from 'rxjs';
 export class DashboardComponent implements OnInit {
   constructor(
     public stockService: StockService,
-    public customerService: CustomerService
+    public customerService: CustomerService,
+    public billService: BillService,
+    private httpClient: HttpClient
   ) {
     this.summaryStockData$ = stockService
       .getSummaryStock()
@@ -54,10 +59,22 @@ export class DashboardComponent implements OnInit {
   customerRiskData: any = [];
   sumCustomer: any = [];
   updateFlag: boolean = false;
+  countBillData: any = 0;
+  countMoreOnce: any = 0;
 
-  ngOnInit() {
+  async ngOnInit(): Promise<void> {
     this.setChartOptionsBar();
     this.setChartOptionsPie();
+    await this.getBillData();
+  }
+
+  async getBillData() {
+    this.countBillData = (await this.billService.getAll().toPromise()).length;
+
+    const tempCount = await this.httpClient
+      .get(`${environment.apiUrl}` + '/getAskbill')
+      .toPromise();
+    this.countMoreOnce = Object.values(tempCount)[0];
   }
 
   ngOnDestroy() {

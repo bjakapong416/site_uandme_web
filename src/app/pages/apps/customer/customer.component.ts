@@ -9,6 +9,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddCusComponent } from './add-cus/add-cus.component';
 import { DetailCusComponent } from './detail-cus/detail-cus.component';
 import { ViewEncapsulation } from '@angular/core';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+const EXCEL_TYPE =
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
@@ -18,10 +22,10 @@ import { ViewEncapsulation } from '@angular/core';
 export class CustomerComponent implements OnInit {
   public circleColor: string;
   private colors = [
-      '#EB7181', // red
-      '#468547', // green
-      '#FFD558', // yellow
-      '#3670B2', // blue
+    '#EB7181', // red
+    '#468547', // green
+    '#FFD558', // yellow
+    '#3670B2', // blue
   ];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -60,15 +64,15 @@ export class CustomerComponent implements OnInit {
     let filterFunction = function (data: any, filter: string): boolean {
       let textSearch = '';
       for (var key in data) {
-        if(key == 'cusstatus') {
-          if(data[key] == '0') textSearch+='ต่ำ';
-          else if(data[key] == '1') textSearch+='กลาง';
-          else if(data[key] == '2') textSearch+='สูง';
+        if (key == 'cusstatus') {
+          if (data[key] == '0') textSearch += 'ต่ำ';
+          else if (data[key] == '1') textSearch += 'กลาง';
+          else if (data[key] == '2') textSearch += 'สูง';
         } else {
           textSearch += data[key];
         }
       }
-      let searchStr = (textSearch).toLowerCase();
+      let searchStr = textSearch.toLowerCase();
       return searchStr.indexOf(filter.toLowerCase()) != -1;
     };
     return filterFunction;
@@ -90,7 +94,7 @@ export class CustomerComponent implements OnInit {
       this.dataSource.filterPredicate = this.createFilter();
 
       console.log(this.dataSource);
-      
+
       this.dataSource.filteredData.forEach((element: any, index) => {
         if (index < 3) element.isChecked = true;
         else element.isChecked = false;
@@ -118,7 +122,6 @@ export class CustomerComponent implements OnInit {
       size: 'xl',
     });
     modalRef.componentInstance.id = id;
-    
   }
 
   details(id: any, color: any) {
@@ -140,5 +143,67 @@ export class CustomerComponent implements OnInit {
         return value.isChecked;
       }
     );
+  }
+
+  downloadExcel() {
+    const heading = [
+      [
+        'รหัสลูกค้า',
+        'ชื่อลูกค้า',
+        'เบอร์ติดต่อ',
+        'เขต',
+        'วงเงินอนุมัติ',
+        'ยอดคงเหลือ',
+        'สถานะ',
+      ],
+    ];
+
+    const wscols = [
+      { wch: 15 },
+      { wch: 40 },
+      { wch: 40 },
+      { wch: 20 },
+      { wch: 10 },
+      { wch: 20 },
+      { wch: 20 },
+    ];
+
+    const stockData = this.handleDataStockExcel();
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(stockData);
+    XLSX.utils.sheet_add_aoa(worksheet, heading);
+    worksheet['!cols'] = wscols;
+    const workbook: XLSX.WorkBook = {
+      Sheets: { Sheet1: worksheet },
+      SheetNames: ['Sheet1'],
+    };
+
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    const data: Blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+    const fileName = 'customer.xlsx';
+    FileSaver.saveAs(data, fileName);
+  }
+
+  handleDataStockExcel() {
+    const tempData = this.dataSource.filteredData.map((item: any) => ({
+      accnum: item.accnum,
+      cusnam: item.cusnam,
+      telnum: item.telnum,
+      areades: item.areades,
+      creditamt: item.creditamt,
+      creditbal: item.creditbal,
+      cusstatus:
+        item.cusstatus == null
+          ? ''
+          : item.cusstatus === '0'
+          ? 'ต่ำ'
+          : item.cusstatus === '1'
+          ? 'กลาง'
+          : 'สูง',
+    }));
+    return tempData;
   }
 }

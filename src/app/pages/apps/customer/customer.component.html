@@ -99,23 +99,32 @@
 </div>
 
 <div class="card-header border-0 pt-5">
-  <div class="d-flex flex-wrap mb-3">
-    <div class="me-10 mb-4">
-      <p class="fs-2 mb-0 fw-bolder m-1">รายละเอียดลูกค้า</p>
-      <p class="fs-6 fw-bold text-gray-600 m-1">
-        รายการลูกค้า {{ dataSource.filteredData.length | number }} รายชื่อ
-      </p>
+  <div class="d-flex flex-wrap justify-content-between mb-3">
+    <div class="d-flex flex-wrap">
+      <div class="me-10 mb-4">
+        <p class="fs-2 mb-0 fw-bolder m-1">รายละเอียดลูกค้า</p>
+        <p class="fs-6 fw-bold text-gray-600 m-1">
+          รายการลูกค้า {{ dataSource.filteredData.length | number }} รายชื่อ
+        </p>
+      </div>
+
+      <mat-form-field appearance="outline" class="w-100 w-sm-50">
+        <input
+          matInput
+          (keyup)="applyFilter($event)"
+          placeholder="ค้นหา รหัสลูกค้า, ชื่อลูกค้า"
+          #input
+        />
+        <mat-icon matPrefix>search</mat-icon>
+      </mat-form-field>
     </div>
 
-    <mat-form-field appearance="outline" class="w-50">
-      <input
-        matInput
-        (keyup)="applyFilter($event)"
-        placeholder="ค้นหา รหัสลูกค้า, ชื่อลูกค้า"
-        #input
-      />
-      <mat-icon matPrefix>search</mat-icon>
-    </mat-form-field>
+    <div
+      class="btn btn-info btn-sm cursor-pointer align-self-start fs-5 me-2"
+      (click)="downloadExcel()"
+    >
+      ดาวน์โหลด Excel
+    </div>
   </div>
 
   <div class="overflow-auto">

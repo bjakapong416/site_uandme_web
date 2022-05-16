@@ -18,6 +18,11 @@ import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+
+const EXCEL_TYPE =
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 export const PICK_FORMATS = {
   parse: { dateInput: { month: 'short', year: 'numeric', day: 'numeric' } },
@@ -174,5 +179,60 @@ export class BillComponent implements OnInit {
     this.filterValues['date'] = this.pipe.transform(date, 'yyyy-MM') || '';
     this.dataSource.filter = JSON.stringify(this.filterValues);
     datepicker.close();
+  }
+
+  downloadExcel() {
+    const heading = [
+      [
+        'รหัส',
+        'ชื่อลูกค้า',
+        'เลขที่เอกสาร',
+        'วันที่เอกสาร',
+        'พนักงานขาย',
+        'ยอดค้างชำระ',
+        'สถานะ',
+      ],
+    ];
+
+    const wscols = [
+      { wch: 25 },
+      { wch: 40 },
+      { wch: 25 },
+      { wch: 15 },
+      { wch: 40 },
+      { wch: 20 },
+      { wch: 20 },
+    ];
+
+    const stockData = this.handleDataStockExcel();
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(stockData);
+    XLSX.utils.sheet_add_aoa(worksheet, heading);
+    worksheet['!cols'] = wscols;
+    const workbook: XLSX.WorkBook = {
+      Sheets: { Sheet1: worksheet },
+      SheetNames: ['Sheet1'],
+    };
+
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    const data: Blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+    const fileName = 'bill.xlsx';
+    FileSaver.saveAs(data, fileName);
+  }
+
+  handleDataStockExcel() {
+    const tempData = this.dataSource.filteredData.map((item: any) => ({
+      cuscod: item.cuscod,
+      cusnam: item.cusnam,
+      docnum: item.docnum,
+      docdat: item.docdat,
+      slmdes: item.slmdes,
+      totamt: item.totamt,
+      status: item.totamt > 0 ? 'ค้างจ่าย' : '',
+    }));
+    return tempData;
   }
 }

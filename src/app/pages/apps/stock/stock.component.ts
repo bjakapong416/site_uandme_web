@@ -25,17 +25,10 @@ export class StockComponent implements OnInit {
     'type',
     'qty',
     'unit',
-    'where',
+    'packqty',
+    'packunit',
+    'realqty',
     'action',
-  ];
-  dispColumns: string[] = [
-    'ID',
-    'Name',
-    'Type',
-    'Qty',
-    'Unit',
-    'Where',
-    'Action',
   ];
   fieldColumns: string[] = [
     'itemno',
@@ -43,8 +36,10 @@ export class StockComponent implements OnInit {
     'itemgrp',
     'qty',
     'unitnam',
-    'whdes',
     'itemno',
+    'packqty',
+    'packunit',
+    'realqty', //make
   ];
   dataSource = new MatTableDataSource();
   dataSourceFilters = new MatTableDataSource();
@@ -110,6 +105,11 @@ export class StockComponent implements OnInit {
         o.options = this.getFilterObject(data, o.columnProp);
       });
 
+      this.dataSource.filteredData.forEach((element: any, index) => {
+        const calQty = Math.floor(element.qty / element.packqty);
+        element.calQty = calQty;
+      });
+
       this.dataSource.filterPredicate = this.NEW_createFilter();
       console.log(this.dataSource.filteredData);
     });
@@ -124,17 +124,17 @@ export class StockComponent implements OnInit {
 
   NEW_createFilter() {
     let currlimit = this.currLimit;
-    console.log(this.currLimit);
-    console.log(currlimit);
+    // console.log(this.currLimit);
+    // console.log(currlimit);
     let filterFunction = function (data: any, filter: string): boolean {
       let qty_Status = '';
-      if(data.qty == 0) {
+      if(data.calQty == 0) {
         qty_Status = 'Soldout'
-      } else if(data.qty <= currlimit) {
+      } else if(data.calQty <= currlimit) {
         qty_Status = 'low stock'
       }
       let searchTerms = JSON.parse(filter);
-      let searchStr = (data.itemno + data.itemdes + data.itemgrp + data.qty + qty_Status + data.unitnam + data.whdes + data.itemno).toLowerCase();
+      let searchStr = (data.itemno + data.itemdes + data.itemgrp + data.qty + data.unitnam + data.whdes + data.itemno + data.packqty + data.packunit + data.calQty + qty_Status).toLowerCase();
       return searchStr.indexOf(searchTerms.all.toLowerCase()) != -1 && data.unitnam.toLowerCase().indexOf(searchTerms.unitnam) !== -1 && data.itemgrp.toLowerCase().indexOf(searchTerms.itemgrp) !== -1;
     };
     return filterFunction;

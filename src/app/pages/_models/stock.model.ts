@@ -7,6 +7,8 @@ export class StockModels {
     itemgrp: string;
     qty: number;
     unitnam: string;
+    packqty: number;
+    packunit: string;
     audttime: Date;
     cusstatus?:string;
     maplink?:string;

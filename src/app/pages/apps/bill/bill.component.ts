@@ -6,33 +6,41 @@ import { AuthService } from 'src/app/modules/auth';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DetailBillComponent } from './detail-bill/detail-bill/detail-bill.component';
 import { AddBillComponent } from './add-bill/add-bill/add-bill.component';
-import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import {
+  NativeDateAdapter,
+  DateAdapter,
+  MAT_DATE_FORMATS,
+} from '@angular/material/core';
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+
+const EXCEL_TYPE =
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 export const PICK_FORMATS = {
-  parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
+  parse: { dateInput: { month: 'short', year: 'numeric', day: 'numeric' } },
   display: {
-      dateInput: 'input',
-      monthYearLabel: {year: 'numeric', month: 'short'},
-      dateA11yLabel: {year: 'numeric', month: 'long', day: 'numeric'},
-      monthYearA11yLabel: {year: 'numeric', month: 'long'}
-  }
+    dateInput: 'input',
+    monthYearLabel: { year: 'numeric', month: 'short' },
+    dateA11yLabel: { year: 'numeric', month: 'long', day: 'numeric' },
+    monthYearA11yLabel: { year: 'numeric', month: 'long' },
+  },
 };
 
 class PickDateAdapter extends NativeDateAdapter {
   format(date: Date, displayFormat: Object): string {
-      if (displayFormat === 'input') {
-          return formatDate(date,'yyyy-MM',this.locale);
-      } else {
-          return date.toDateString();
-      }
+    if (displayFormat === 'input') {
+      return formatDate(date, 'yyyy-MM', this.locale);
+    } else {
+      return date.toDateString();
+    }
   }
 }
 
@@ -41,15 +49,14 @@ class PickDateAdapter extends NativeDateAdapter {
   templateUrl: './bill.component.html',
   styleUrls: ['./bill.component.scss'],
   providers: [
-    {provide: DateAdapter, useClass: PickDateAdapter},
-    {provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS}
-  ]
+    { provide: DateAdapter, useClass: PickDateAdapter },
+    { provide: MAT_DATE_FORMATS, useValue: PICK_FORMATS },
+  ],
 })
-
 export class BillComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   pipe = new DatePipe('en-US');
-  filterValues: any = {"all":"","date":""};
+  filterValues: any = { all: '', date: '' };
   @Input() chartColor: string = '';
   @Input() chartHeight: string;
   countBillData: any;
@@ -80,7 +87,6 @@ export class BillComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.chartOptions = getChartOptions(this.chartHeight, this.chartColor);
     this.FUNC_getData();
   }
 
@@ -91,13 +97,11 @@ export class BillComponent implements OnInit {
   // Called on Filter change
   filterChange(filter: any, event: any) {
     //let filterValues = {}
-    if(filter == 'date') {
+    if (filter == 'date') {
       let date = event.target.value;
       this.filterValues[filter] = this.pipe.transform(date, 'yyyy-MM') || '';
     } else {
-      this.filterValues[filter] = event.target.value
-        .trim()
-        .toLowerCase();
+      this.filterValues[filter] = event.target.value.trim().toLowerCase();
     }
     this.dataSource.filter = JSON.stringify(this.filterValues);
     console.log(this.dataSource.filteredData);
@@ -121,13 +125,15 @@ export class BillComponent implements OnInit {
       //console.log(this.dataSource);
     });
 
-    this.httpClient.get(`${environment.apiUrl}` + '/getAskbill').subscribe((res: any)=>{
-      this.countMoreOnce = res.count;
-    });
+    this.httpClient
+      .get(`${environment.apiUrl}` + '/getAskbill')
+      .subscribe((res: any) => {
+        this.countMoreOnce = res.count;
+      });
   }
 
   FUNC_Delete(id: string) {
-    this.billService.delete(id).subscribe((res) => {
+    this.billService.delete(id).subscribe((_res) => {
       this.mainDatas$ = this.mainDatas$.filter((item) => item.docnum !== id);
       console.log('Post deleted successfully!');
     });
@@ -142,7 +148,10 @@ export class BillComponent implements OnInit {
       }
       //console.log(filter);
       let searchStr = textSearch.toLowerCase();
-      return searchStr.indexOf(searchTerms.all.toLowerCase()) != -1 && data.docdat.toLowerCase().indexOf(searchTerms.date) !== -1;
+      return (
+        searchStr.indexOf(searchTerms.all.toLowerCase()) != -1 &&
+        data.docdat.toLowerCase().indexOf(searchTerms.date) !== -1
+      );
     };
     return filterFunction;
   }
@@ -171,127 +180,59 @@ export class BillComponent implements OnInit {
     this.dataSource.filter = JSON.stringify(this.filterValues);
     datepicker.close();
   }
-}
 
-function getChartOptions(chartHeight: string, chartColor: string) {
-  const labelColor = getCSSVariableValue('--bs-gray-800');
-  const strokeColor = getCSSVariableValue('--bs-gray-300');
-  const baseColor = getCSSVariableValue('--bs-' + chartColor);
-  const lightColor = getCSSVariableValue('--bs-light-' + chartColor);
+  downloadExcel() {
+    const heading = [
+      [
+        'รหัส',
+        'ชื่อลูกค้า',
+        'เลขที่เอกสาร',
+        'วันที่เอกสาร',
+        'พนักงานขาย',
+        'ยอดค้างชำระ',
+        'สถานะ',
+      ],
+    ];
 
-  return {
-    series: [
-      {
-        name: 'Net Profit',
-        data: [15, 25, 15, 40, 20, 50],
-      },
-    ],
-    chart: {
-      fontFamily: 'inherit',
-      type: 'area',
-      height: chartHeight,
-      toolbar: {
-        show: false,
-      },
-      zoom: {
-        enabled: false,
-      },
-      sparkline: {
-        enabled: true,
-      },
-    },
-    plotOptions: {},
-    legend: {
-      show: false,
-    },
-    dataLabels: {
-      enabled: false,
-    },
-    fill: {
-      type: 'solid',
-      opacity: 1,
-    },
-    stroke: {
-      curve: 'smooth',
-      show: true,
-      width: 3,
-      colors: [baseColor],
-    },
-    xaxis: {
-      categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
-      axisBorder: {
-        show: false,
-      },
-      axisTicks: {
-        show: false,
-      },
-      labels: {
-        show: false,
-        style: {
-          colors: labelColor,
-          fontSize: '12px',
-        },
-      },
-      crosshairs: {
-        show: false,
-        position: 'front',
-        stroke: {
-          color: strokeColor,
-          width: 1,
-          dashArray: 3,
-        },
-      },
-      tooltip: {
-        enabled: false,
-      },
-    },
-    yaxis: {
-      min: 0,
-      max: 60,
-      labels: {
-        show: false,
-        style: {
-          colors: labelColor,
-          fontSize: '12px',
-        },
-      },
-    },
-    states: {
-      normal: {
-        filter: {
-          type: 'none',
-          value: 0,
-        },
-      },
-      hover: {
-        filter: {
-          type: 'none',
-          value: 0,
-        },
-      },
-      active: {
-        allowMultipleDataPointsSelection: false,
-        filter: {
-          type: 'none',
-          value: 0,
-        },
-      },
-    },
-    tooltip: {
-      style: {
-        fontSize: '12px',
-      },
-      y: {
-        formatter: function (val: number) {
-          return '$' + val + ' thousands';
-        },
-      },
-    },
-    colors: [lightColor],
-    markers: {
-      colors: [lightColor],
-      strokeColors: [baseColor],
-      strokeWidth: 3,
-    },
-  };
+    const wscols = [
+      { wch: 25 },
+      { wch: 40 },
+      { wch: 25 },
+      { wch: 15 },
+      { wch: 40 },
+      { wch: 20 },
+      { wch: 20 },
+    ];
+
+    const stockData = this.handleDataStockExcel();
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(stockData);
+    XLSX.utils.sheet_add_aoa(worksheet, heading);
+    worksheet['!cols'] = wscols;
+    const workbook: XLSX.WorkBook = {
+      Sheets: { Sheet1: worksheet },
+      SheetNames: ['Sheet1'],
+    };
+
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    const data: Blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+    const fileName = 'bill.xlsx';
+    FileSaver.saveAs(data, fileName);
+  }
+
+  handleDataStockExcel() {
+    const tempData = this.dataSource.filteredData.map((item: any) => ({
+      cuscod: item.cuscod,
+      cusnam: item.cusnam,
+      docnum: item.docnum,
+      docdat: item.docdat,
+      slmdes: item.slmdes,
+      totamt: item.totamt,
+      status: item.totamt > 0 ? 'ค้างจ่าย' : '',
+    }));
+    return tempData;
+  }
 }

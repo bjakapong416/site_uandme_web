@@ -9,7 +9,7 @@
               >จำนวนสินค้าทั้งหมด | แยกตามประเภทสินค้า</span
             >
             <span class="text-gray-400 fw-bold"
-              >สินค้าทั้งหมด {{ sumTotal | number }} รายการ</span
+              >สินค้าทั้งหมด {{ ((sumTotal | async) ?? 0) | number }} รายการ</span
             >
           </div>
         </div>
@@ -37,7 +37,7 @@
         <div class="d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3">
           <div class="me-2">
             <span class="fw-bolder text-gray-800 d-block fs-3"
-              >จำนวนลูกค้า แยกตามสถานะ</span
+              >จำนวนลูกค้า | แยกตามสถานะ</span
             >
             <!-- <span class="text-gray-400 fw-bold">20 Overdue Tasks</span> -->
           </div>
@@ -51,7 +51,52 @@
           [plotOptions]="chartOptionsPie.plotOptions"
           [colors]="chartOptionsPie.colors"
           [legend]="chartOptionsPie.legend"
+          [noData]="chartOptionsPie.noData"
         ></apx-chart>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row gy-5 g-xl-8 mt-5">
+  <div class="col-xxl-12">
+    <div class="card mb-5 py-10">
+      <div>
+        <div class="d-flex flex-stack flex-wrap flex-grow-1 px-9 pt-9 pb-3">
+          <div class="me-2">
+            <span class="fw-bolder text-gray-800 d-block fs-3"
+              >จำนวนบิลค้างชำระทั้งหมด | แยกตามสถานะ</span
+            >
+            <!-- <span class="text-gray-400 fw-bold">20 Overdue Tasks</span> -->
+          </div>
+        </div>
+      </div>
+      <div class="card-body d-flex flex-wrap justify-content-center p-0">
+        <app-stats-widget5
+          svgIcon="./assets/media/icons/duotune/general/gen025.svg"
+          class="card bg-light-success my-5 mx-10 w-100 w-xl-350px"
+          iconColor="success"
+          color="white"
+          title="{{ (((countBillData | async) ?? 0) - ((countMoreOnce | async) ?? 0)) | number }}"
+          description="ยังไม่มีการท้วงถาม"
+        ></app-stats-widget5>
+
+        <app-stats-widget5
+          svgIcon="./assets/media/icons/duotune/ecommerce/ecm002.svg"
+          class="card bg-light-warning my-5 mx-10 fs-1 w-100 w-xl-350px"
+          iconColor="warning"
+          color="white"
+          title="{{ ((countMoreOnce | async) ?? 0) | number }}"
+          description="การท้วงถามมากกว่า 1 ครั้ง"
+        ></app-stats-widget5>
+
+        <app-stats-widget5
+          svgIcon="./assets/media/icons/duotune/graphs/gra007.svg"
+          class="card bg-light-danger my-5 mx-10 w-100 w-xl-350px"
+          iconColor="danger"
+          color="white"
+          title="{{ ((countBillData | async) ?? 0) | number }}"
+          description="ยอดบิลค้างชำระ"
+        ></app-stats-widget5>
       </div>
     </div>
   </div>

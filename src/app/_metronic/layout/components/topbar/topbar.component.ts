@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../core/layout.service';
-import { AuthService, UserType ,User  } from '../../../../modules/auth';
-
+import { LimitService } from 'src/app/pages/_services/stock/LimitStock.services';
+import { StockService } from 'src/app/pages/_services/stock/stock.service';
+import { AuthService, UserType, User } from '../../../../modules/auth';
 
 @Component({
   selector: 'app-topbar',
@@ -17,27 +18,38 @@ export class TopbarComponent implements OnInit {
 
   user$: User | null = null;
 
-  name$:string | null = null;
-
-  constructor(private layout: LayoutService) {}
+  name$: string | null = null;
+  currLimit: any;
+  mainDatas: any;
+  constructor(
+    private layout: LayoutService,
+    public limitService: LimitService,
+    public stockService: StockService
+  ) {}
 
   ngOnInit(): void {
     this.headerLeft = this.layout.getProp('header.left') as string;
 
-
     // Get user info from localstorage
-    const userProfiles = localStorage.getItem('currentUser$')
-    if(userProfiles != null){
-      this.user$ = JSON.parse(userProfiles) as User ;
+    const userProfiles = localStorage.getItem('currentUser$');
+    if (userProfiles != null) {
+      this.user$ = JSON.parse(userProfiles) as User;
 
       // Split String name
-      let text = this.user$.fullname
-      const arr = text.split("");
+      let text = this.user$.fullname;
+      const arr = text.split('');
       this.name$ = arr[0];
-
     }
+    this.FUNC_getData();
+  }
 
+  FUNC_getData() {
+    this.limitService.getAll().subscribe((data: any) => {
+      this.currLimit = data.limitlow;
+    });
 
-
+    this.stockService.getAll().subscribe((data: any) => {
+      this.mainDatas = data.length;
+    });
   }
 }

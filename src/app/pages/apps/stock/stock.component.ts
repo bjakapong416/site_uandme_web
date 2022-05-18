@@ -9,6 +9,11 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddLimitstockComponent } from './add-limitstock/add-limitstock.component';
 import { LimitService } from '../../_services/stock/LimitStock.services';
 import { DetailStockComponent } from './detail-stock/detail-stock.component';
+import * as XLSX from 'xlsx';
+import * as FileSaver from 'file-saver';
+
+const EXCEL_TYPE =
+  'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 
 @Component({
   selector: 'app-stock',
@@ -17,7 +22,7 @@ import { DetailStockComponent } from './detail-stock/detail-stock.component';
 })
 export class StockComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  filterValues: any = {"all":"","unitnam":"","itemgrp":""};
+  filterValues: any = { all: '', unitnam: '', itemgrp: '' };
   filterSelectObj: any = [];
 
   displayedColumns: string[] = [
@@ -66,7 +71,7 @@ export class StockComponent implements OnInit {
     public limitService: LimitService,
     public stockService: StockService
   ) {
-    this.limitService.getAll().subscribe((data: any)=>{
+    this.limitService.getAll().subscribe((data: any) => {
       this.currLimit = data.limitlow;
     });
     // Object to create Filter for
@@ -93,7 +98,7 @@ export class StockComponent implements OnInit {
   }
 
   FUNC_getData() {
-    this.limitService.getAll().subscribe((data: any)=>{
+    this.limitService.getAll().subscribe((data: any) => {
       this.currLimit = data.limitlow;
     });
 
@@ -196,9 +201,7 @@ export class StockComponent implements OnInit {
   // Called on Filter change
   filterChange(filter: any, event: any) {
     //let filterValues = {}
-    this.filterValues[filter] = event.target.value
-      .trim()
-      .toLowerCase();
+    this.filterValues[filter] = event.target.value.trim().toLowerCase();
     this.dataSource.filter = JSON.stringify(this.filterValues);
   }
 
@@ -220,7 +223,7 @@ export class StockComponent implements OnInit {
     modalRef.componentInstance.currLimit = this.currLimit;
   }
 
-  details(s_id: any, s_name: any, s_qty:any, s_unit:any) {
+  details(s_id: any, s_name: any, s_qty: any, s_unit: any) {
     const modalRef = this.modalService.open(DetailStockComponent, {
       size: 'x1',
     });
@@ -231,7 +234,55 @@ export class StockComponent implements OnInit {
     modalRef.componentInstance.unit = s_unit;
   }
 
-  testConsoleLog(data: any) {
-    console.log(data);
+  downloadExcel() {
+    const heading = [
+      [
+        'ชื่อสินค้า',
+        'รายละเอียดสินค้า',
+        'ประเภทสินค้า',
+        'สินค้าคงเหลือ',
+        'หน่วย',
+        'คลัง',
+      ],
+    ];
+
+    const wscols = [
+      { wch: 25 },
+      { wch: 40 },
+      { wch: 25 },
+      { wch: 15 },
+      { wch: 10 },
+      { wch: 20 },
+    ];
+
+    const stockData = this.handleDataStockExcel();
+    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(stockData);
+    XLSX.utils.sheet_add_aoa(worksheet, heading);
+    worksheet['!cols'] = wscols;
+    const workbook: XLSX.WorkBook = {
+      Sheets: { Sheet1: worksheet },
+      SheetNames: ['Sheet1'],
+    };
+
+    const excelBuffer: any = XLSX.write(workbook, {
+      bookType: 'xlsx',
+      type: 'array',
+    });
+
+    const data: Blob = new Blob([excelBuffer], { type: EXCEL_TYPE });
+    const fileName = 'stock.xlsx';
+    FileSaver.saveAs(data, fileName);
+  }
+
+  handleDataStockExcel() {
+    const tempData = this.dataSource.filteredData.map((item: any) => ({
+      itemno: item.itemno,
+      itemdes: item.itemdes,
+      itemgrp: item.itemgrp,
+      qty: item.qty,
+      unitnam: item.unitnam,
+      whdes: item.whdes,
+    }));
+    return tempData;
   }
 }

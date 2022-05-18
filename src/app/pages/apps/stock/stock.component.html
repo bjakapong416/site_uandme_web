@@ -124,7 +124,7 @@
           สินค้าหน่วยย่อย
         </th>
         <td mat-cell *matCellDef="let row">
-          <p class="fs-4 m-0">{{ row.qty }}</p>
+          <p class="fs-4 m-0">{{ row.qty | number }}</p>
         </td>
       </ng-container>
 
@@ -152,7 +152,7 @@
           สินค้าหน่วยใหญ่
         </th>
         <td mat-cell *matCellDef="let row">
-          <p class="fs-4 m-0">{{ row.packqty }}</p>
+          <p class="fs-4 m-0">{{ row.packqty | number }}</p>
         </td>
       </ng-container>
 
@@ -180,11 +180,11 @@
           สินค้าคงเหลือ
         </th>
         <td mat-cell *matCellDef="let row">
-          <p class="fs-4 m-0">{{ row.calQty }} {{ row.packunit }}</p>
+          <p class="fs-4 m-0">{{ row.calQty | number}} {{ row.packunit }}</p>
           <span
             class="badge badge-2 badge-inline"
             [class.badge-light-danger]="row.calQty == 0"
-            [class.badge-light-warning]="row.calQty <= currLimit"
+            [class.badge-light-warning]="row.calQty <= currLimit && row.calQty != 0"
           >
             <ng-container *ngIf="row.calQty == 0">Sold out</ng-container>
             <ng-container *ngIf="row.calQty <= currLimit && row.calQty != 0">Low stock</ng-container>
@@ -206,7 +206,7 @@
           <div
             title="show detail"
             class="btn btn-active-light-primary p-1"
-            (click)="details(row.itemno, row.itemdes, row.qty, row.unitnam)"
+            (click)="details(row.itemno, row.itemdes, row.qty, row.unitnam, row.calQty, row.packunit)"
           >
             <span
               class="svg-icon svg-icon-2 svg-icon-primary"

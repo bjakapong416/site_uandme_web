@@ -4,21 +4,21 @@
 >
   <div class="px-5 mt-6 mb-6 text-white"> 
     <span class="fs-2 fw-bolder"> แจ้งเตือน </span> 
-    <span class="fs-6"> | มีทั้งหมด {{ Data$.length }} สินค้า</span>
+    <span class="fs-6"> | มีทั้งหมด {{ mainDatas$.length | number }} สินค้า</span>
   </div>
 </div>
 
 <div class="tab-content">
   <div class="tab-pane fade" id="kt_topbar_notifications_1" role="tabpanel" [ngClass]="activeTabId === 'kt_topbar_notifications_1' ? 'show active' : ''">
     <div class="scroll-y mh-325px my-5 px-8">
-      <div *ngFor="let row of Data$">
+      <div *ngFor="let row of mainDatas$">
         <div class="d-flex flex-stack py-4">
           <div class="d-flex align-items-center">
             <div class="symbol symbol-35px me-4">
-              <span class="badge badge-2 badge-inline fs-6" [class.badge-light-danger]="row.qty == 0" [class.badge-light-warning]="row.qty <= currLimit">
-                <p class="fs-4"> {{ row.qty }} </p>
-                <ng-container *ngIf="row.qty == 0">Sold out</ng-container>
-                <ng-container *ngIf="row.qty <= currLimit">Low stock</ng-container>
+              <span class="badge badge-2 badge-inline fs-6" [class.badge-light-danger]="row.calQty == 0" [class.badge-light-warning]="row.calQty <= currLimit && row.calQty != 0">
+                <p class="fs-4"> {{ row.calQty | number }} </p>
+                <ng-container *ngIf="row.calQty == 0">Sold out</ng-container>
+                <ng-container *ngIf="row.calQty <= currLimit && row.calQty != 0">Low stock</ng-container>
               </span>
             </div>
 
@@ -30,8 +30,6 @@
               <div class="text-gray-400 fs-7">{{ row.itemdes }}</div>
             </div>
           </div>
-
-          <span class="badge badge-light fs-8"> > </span>
         </div>
         <hr style="margin: 0;"/>
       </div>

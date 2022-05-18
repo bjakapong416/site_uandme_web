@@ -116,6 +116,9 @@ export class DashboardComponent implements OnInit {
           borderRadius: 5,
         },
       },
+      dataLabels: {
+        enabled: false,
+      },
       stroke: {
         show: true,
         width: 2,

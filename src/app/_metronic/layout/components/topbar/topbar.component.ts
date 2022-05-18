@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutService } from '../../core/layout.service';
 import { LimitService } from 'src/app/pages/_services/stock/LimitStock.services';
-import { StockService } from 'src/app/pages/_services/stock/stock.service';
 import { AuthService, UserType, User } from '../../../../modules/auth';
 
 @Component({
@@ -20,11 +19,10 @@ export class TopbarComponent implements OnInit {
 
   name$: string | null = null;
   currLimit: any;
-  mainDatas: any;
+  noti_stats: any = 0;
   constructor(
     private layout: LayoutService,
     public limitService: LimitService,
-    public stockService: StockService
   ) {}
 
   ngOnInit(): void {
@@ -41,15 +39,15 @@ export class TopbarComponent implements OnInit {
       this.name$ = arr[0];
     }
     this.FUNC_getData();
+
+    console.log(this.noti_stats);
   }
 
   FUNC_getData() {
     this.limitService.getAll().subscribe((data: any) => {
-      this.currLimit = data.limitlow;
-    });
-
-    this.stockService.getAll().subscribe((data: any) => {
-      this.mainDatas = data.length;
+      this.limitService.getNotiTF(data.limitlow).subscribe((data2: any) => {
+        this.noti_stats = data2[0].stat;
+      });
     });
   }
 }

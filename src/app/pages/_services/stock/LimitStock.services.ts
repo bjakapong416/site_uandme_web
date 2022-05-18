@@ -26,6 +26,14 @@ export class LimitService {
     return this.httpClient.post<any>(this.apiURL + '/setitems?num=' + val, null).subscribe();
   }
 
+  getNotiTF(val: any): Observable<any> {
+    return this.httpClient.get<any>(this.apiURL + '/noti/' + val).pipe(catchError(this.errorHandler));
+  }
+
+  getNotiData(val: any): Observable<any> {
+    return this.httpClient.get<any>(this.apiURL + '/noti/stock/' + val).pipe(catchError(this.errorHandler));
+  }
+
   errorHandler(error: any) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {

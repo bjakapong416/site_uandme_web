@@ -83,7 +83,7 @@ export class StockComponent implements OnInit {
       },
       {
         name: 'เลือกหน่วยสินค้า',
-        columnProp: 'unitnam',
+        columnProp: 'packunit',
         options: [],
       },
     ];
@@ -223,7 +223,7 @@ export class StockComponent implements OnInit {
     modalRef.componentInstance.currLimit = this.currLimit;
   }
 
-  details(s_id: any, s_name: any, s_qty: any, s_unit: any) {
+  details(s_id: any, s_name: any, s_qty: any, s_unit: any, s_calQty: any, s_runit:any) {
     const modalRef = this.modalService.open(DetailStockComponent, {
       size: 'x1',
     });
@@ -232,6 +232,8 @@ export class StockComponent implements OnInit {
     modalRef.componentInstance.name = s_name;
     modalRef.componentInstance.qty = s_qty;
     modalRef.componentInstance.unit = s_unit;
+    modalRef.componentInstance.calQty = s_calQty;
+    modalRef.componentInstance.packUnit = s_runit;
   }
 
   downloadExcel() {

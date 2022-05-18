@@ -34,7 +34,7 @@
 
             <div class="row">
                 <div class="col fv-row text-center">
-                    <p class="h2 fw-bolder m-0"> คงเหลือ {{ qty }} {{ unit }} </p>
+                    <p class="m-0"> <span class="h2 fw-bolder">คงเหลือ {{ calQty | number }} {{ packUnit }}</span> <span class="h3 text-muted"> ({{ qty | number }} {{ unit }}) </span> </p>
                 </div>
             </div>
             <!-- <div class="row">

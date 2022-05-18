@@ -1,6 +1,4 @@
 import { Component, HostBinding, OnInit } from '@angular/core';
-import { StockModels } from 'src/app/pages/_models/stock.model';
-import { StockService } from 'src/app/pages/_services/stock/stock.service';
 import { LimitService } from 'src/app/pages/_services/stock/LimitStock.services';
 import { LayoutService } from '../../../../../layout';
 
@@ -20,11 +18,10 @@ export class NotificationsInnerComponent implements OnInit {
 
   activeTabId: NotificationsTabsType = 'kt_topbar_notifications_1';
   currLimit: any;
-  mainDatas$: StockModels[] = [];
-  Data$: StockModels[] = [];
+  mainDatas$: any = [];
   count_LS:number = 0;
   count_SO:number = 0;
-  constructor(public stockService: StockService, public limitService: LimitService) {
+  constructor(public limitService: LimitService) {
     this.limitService.getAll().subscribe((data: any)=>{
       this.currLimit = data.limitlow;
     });
@@ -41,17 +38,14 @@ export class NotificationsInnerComponent implements OnInit {
   FUNC_getData() {
     this.limitService.getAll().subscribe((data: any)=>{
       this.currLimit = data.limitlow;
-    });
-    
-    this.stockService.getAll().subscribe((data: any) => {
-      this.mainDatas$ = data;
-      data.forEach((element: any) => {
-        // if(element.qty == 0) this.count_SO++;
-        // else if(element.qty < 10) this.count_LS++;
-        if(element.qty <= this.currLimit)
-          this.Data$.push(element);
+      this.limitService.getNotiData(this.currLimit).subscribe((data2: any) => {
+        this.mainDatas$ = data2;
+        this.mainDatas$.forEach((element: any) => {
+          const calQty = Math.floor(element.qty / element.packqty);
+          element.calQty = calQty;
+        });
+        console.log(this.mainDatas$);
       });
-      //console.log(this.mainDatas$);
     });
   }
 }

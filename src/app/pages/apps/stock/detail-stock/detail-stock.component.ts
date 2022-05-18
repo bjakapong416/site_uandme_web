@@ -11,6 +11,8 @@ export class DetailStockComponent implements OnInit {
   @Input() name: any;
   @Input() qty: any;
   @Input() unit: any;
+  @Input() calQty: any;
+  @Input() packUnit: any;
 
   constructor(public modal: NgbActiveModal) { }
 

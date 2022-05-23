@@ -27,12 +27,12 @@ export class StockComponent implements OnInit {
 
   displayedColumns: string[] = [
     'name',
-    'type',
+    // 'type',
+    'realqty',
     'qty',
     'unit',
-    'packqty',
-    'packunit',
-    'realqty',
+    // 'packqty',
+    // 'packunit',
     'action',
   ];
   fieldColumns: string[] = [
@@ -133,14 +133,30 @@ export class StockComponent implements OnInit {
     // console.log(currlimit);
     let filterFunction = function (data: any, filter: string): boolean {
       let qty_Status = '';
-      if(data.calQty == 0) {
-        qty_Status = 'Soldout'
-      } else if(data.calQty <= currlimit) {
-        qty_Status = 'low stock'
+      if (data.calQty == 0) {
+        qty_Status = 'Soldout';
+      } else if (data.calQty <= currlimit) {
+        qty_Status = 'low stock';
       }
       let searchTerms = JSON.parse(filter);
-      let searchStr = (data.itemno + data.itemdes + data.itemgrp + data.qty + data.unitnam + data.whdes + data.itemno + data.packqty + data.packunit + data.calQty + qty_Status).toLowerCase();
-      return searchStr.indexOf(searchTerms.all.toLowerCase()) != -1 && data.unitnam.toLowerCase().indexOf(searchTerms.unitnam) !== -1 && data.itemgrp.toLowerCase().indexOf(searchTerms.itemgrp) !== -1;
+      let searchStr = (
+        data.itemno +
+        data.itemdes +
+        data.itemgrp +
+        data.qty +
+        data.unitnam +
+        data.whdes +
+        data.itemno +
+        data.packqty +
+        data.packunit +
+        data.calQty +
+        qty_Status
+      ).toLowerCase();
+      return (
+        searchStr.indexOf(searchTerms.all.toLowerCase()) != -1 &&
+        data.unitnam.toLowerCase().indexOf(searchTerms.unitnam) !== -1 &&
+        data.itemgrp.toLowerCase().indexOf(searchTerms.itemgrp) !== -1
+      );
     };
     return filterFunction;
   }
@@ -223,7 +239,14 @@ export class StockComponent implements OnInit {
     modalRef.componentInstance.currLimit = this.currLimit;
   }
 
-  details(s_id: any, s_name: any, s_qty: any, s_unit: any, s_calQty: any, s_runit:any) {
+  details(
+    s_id: any,
+    s_name: any,
+    s_qty: any,
+    s_unit: any,
+    s_calQty: any,
+    s_runit: any
+  ) {
     const modalRef = this.modalService.open(DetailStockComponent, {
       size: 'x1',
     });
@@ -241,10 +264,9 @@ export class StockComponent implements OnInit {
       [
         'ชื่อสินค้า',
         'รายละเอียดสินค้า',
-        'ประเภทสินค้า',
         'สินค้าคงเหลือ',
-        'หน่วย',
-        'คลัง',
+        'สินค้าหน่วยย่อย',
+        'หน่วยย่อย',
       ],
     ];
 
@@ -280,10 +302,9 @@ export class StockComponent implements OnInit {
     const tempData = this.dataSource.filteredData.map((item: any) => ({
       itemno: item.itemno,
       itemdes: item.itemdes,
-      itemgrp: item.itemgrp,
+      realqty: item.calQty + ' ' + item.packunit,
       qty: item.qty,
       unitnam: item.unitnam,
-      whdes: item.whdes,
     }));
     return tempData;
   }

@@ -100,7 +100,33 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="type">
+        <ng-container matColumnDef="realqty">
+          <th
+            mat-header-cell
+            *matHeaderCellDef
+            class="text-gray-800"
+            style="min-width: 200px"
+          >
+            สินค้าคงเหลือ
+          </th>
+          <td mat-cell *matCellDef="let row">
+            <p class="fs-4 m-0">{{ row.calQty | number }} {{ row.packunit }}</p>
+            <span
+              class="badge badge-2 badge-inline"
+              [class.badge-light-danger]="row.calQty == 0"
+              [class.badge-light-warning]="
+                row.calQty <= currLimit && row.calQty != 0
+              "
+            >
+              <ng-container *ngIf="row.calQty == 0">Sold out</ng-container>
+              <ng-container *ngIf="row.calQty <= currLimit && row.calQty != 0"
+                >Low stock</ng-container
+              >
+            </span>
+          </td>
+        </ng-container>
+
+        <!-- <ng-container matColumnDef="type">
           <th
             mat-header-cell
             *matHeaderCellDef
@@ -112,7 +138,7 @@
           <td mat-cell *matCellDef="let row">
             <p class="fs-4 m-0">{{ row.itemgrp }}</p>
           </td>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="qty">
           <th
@@ -142,7 +168,7 @@
           </td>
         </ng-container>
 
-        <ng-container matColumnDef="packqty">
+        <!-- <ng-container matColumnDef="packqty">
           <th
             mat-header-cell
             *matHeaderCellDef
@@ -154,9 +180,9 @@
           <td mat-cell *matCellDef="let row">
             <p class="fs-4 m-0">{{ row.packqty | number }}</p>
           </td>
-        </ng-container>
+        </ng-container> -->
 
-        <ng-container matColumnDef="packunit">
+        <!-- <ng-container matColumnDef="packunit">
           <th
             mat-header-cell
             *matHeaderCellDef
@@ -168,33 +194,7 @@
           <td mat-cell *matCellDef="let row">
             <p class="fs-4 m-0">{{ row.packunit }}</p>
           </td>
-        </ng-container>
-
-        <ng-container matColumnDef="realqty">
-          <th
-            mat-header-cell
-            *matHeaderCellDef
-            class="text-gray-800"
-            style="min-width: 100px"
-          >
-            สินค้าคงเหลือ
-          </th>
-          <td mat-cell *matCellDef="let row">
-            <p class="fs-4 m-0">{{ row.calQty | number }} {{ row.packunit }}</p>
-            <span
-              class="badge badge-2 badge-inline"
-              [class.badge-light-danger]="row.calQty == 0"
-              [class.badge-light-warning]="
-                row.calQty <= currLimit && row.calQty != 0
-              "
-            >
-              <ng-container *ngIf="row.calQty == 0">Sold out</ng-container>
-              <ng-container *ngIf="row.calQty <= currLimit && row.calQty != 0"
-                >Low stock</ng-container
-              >
-            </span>
-          </td>
-        </ng-container>
+        </ng-container> -->
 
         <ng-container matColumnDef="action">
           <th

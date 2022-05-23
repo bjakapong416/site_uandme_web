@@ -11,6 +11,10 @@ import { LimitService } from '../../_services/stock/LimitStock.services';
 import { DetailStockComponent } from './detail-stock/detail-stock.component';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { FileUploadService } from './file-upload.service';
+import {MatDialogModule} from '@angular/material/dialog';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+
 
 const EXCEL_TYPE =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -24,6 +28,15 @@ export class StockComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   filterValues: any = { all: '', unitnam: '', itemgrp: '' };
   filterSelectObj: any = [];
+
+
+    // Variable to store shortLink from api response
+    shortLink: string = "";
+    loading: boolean = false; // Flag variable
+    file: any = null; // Variable to store file
+
+
+
 
   displayedColumns: string[] = [
     'name',
@@ -69,7 +82,8 @@ export class StockComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     public limitService: LimitService,
-    public stockService: StockService
+    public stockService: StockService,
+    private fileUploadService: FileUploadService
   ) {
     this.limitService.getAll().subscribe((data: any) => {
       this.currLimit = data.limitlow;
@@ -92,6 +106,49 @@ export class StockComponent implements OnInit {
   ngOnInit(): void {
     this.FUNC_getData();
   }
+
+
+  // On file Select
+  onChange(event:any) {
+      this.file = event.target.files[0];
+  }
+
+  // OnClick of button Upload
+  onUpload() {
+      this.loading = !this.loading;
+      console.log(this.file);
+      this.fileUploadService.upload(this.file).subscribe(
+          (event: any) => {
+
+            // Open modal
+            const modalRef = this.modalService.open(FileUploadComponent, {
+              size: 'xl',
+            });
+
+              if (typeof (event) === 'object') {
+
+                  console.log("insign");
+                  
+                  // Short link via api response
+                  this.shortLink = event.link;
+
+                  this.loading = false; // Flag variable 
+              }
+          }
+      );
+  }
+
+  onDownload(){
+
+    // FileSaver.saveAs(data, fileName);
+    // this.fileUploadService.download().subscribe()
+
+    console.log("Downlaod");
+
+    this.fileUploadService.download().subscribe();
+    
+  }
+
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

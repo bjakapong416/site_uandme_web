@@ -31,6 +31,7 @@ import { DetailBillComponent } from './bill/detail-bill/detail-bill/detail-bill.
 import { AddBillComponent } from './bill/add-bill/add-bill/add-bill.component';
 import { AddLimitstockComponent } from './stock/add-limitstock/add-limitstock.component';
 import { DetailStockComponent } from './stock/detail-stock/detail-stock.component';
+import { FileUploadComponent } from './stock/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { DetailStockComponent } from './stock/detail-stock/detail-stock.componen
     AddBillComponent,
     AddLimitstockComponent,
     DetailStockComponent,
+    FileUploadComponent,
   ],
   imports: [
     CommonModule,

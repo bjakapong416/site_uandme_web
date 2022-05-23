@@ -11,6 +11,10 @@ import { DetailCusComponent } from './detail-cus/detail-cus.component';
 import { ViewEncapsulation } from '@angular/core';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+
+
+
+
 const EXCEL_TYPE =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
 @Component({

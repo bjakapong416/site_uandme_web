@@ -57,12 +57,32 @@
         </div>
 
         <div class="flex-grow-1"></div>
-        <div
+
+        <!-- <div
           class="btn btn-info btn-sm cursor-pointer w-auto align-self-center fs-5 me-2"
           (click)="downloadExcel()"
         >
           ดาวน์โหลด Excel
+        </div> -->
+
+        
+        <input class="form-control" type="file" 
+        (change)="onChange($event)">
+
+
+        <div class="text-center">
+          
+          <button (click)="onUpload()" 
+          class="btn btn-info btn-sm cursor-pointer w-auto align-self-center fs-5 me-1">
+              อัพโหลด
+          </button>
         </div>
+
+        <div>
+
+        <a class="btn btn-danger btn-sm cursor-pointer w-auto align-self-center fs-5 me-2" href="http://128.199.86.71:8000/getFile" role="button">ดาวน์โหลด</a>
+        </div>
+
 
         <div
           class="btn btn-success btn-sm cursor-pointer w-auto align-self-center fs-5"

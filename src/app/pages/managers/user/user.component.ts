@@ -15,6 +15,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AdduserComponent } from './register/adduser/adduser.component';
 import { DeleteComponent } from './delete/delete.component';
 import { EdituserComponent } from './edituser/edituser.component';
+import { SemiGuardService } from '../../_services/semiGuard.service';
 
 
 @Component({
@@ -26,6 +27,20 @@ import { EdituserComponent } from './edituser/edituser.component';
 export class UserComponent implements OnInit {
   filterValues: any = {"all":"","role":""};
   filterSelectObj: any = [];
+  roles: any[] = [ 
+    'CEO ผู้ประกอบการ',
+    'Standard',
+    'Head of Sale',
+    'Sale',
+    'Head of Co-Sale',
+    'Co-Sale',
+    'Stock',
+    'Finance 1',
+    'Finance 2',
+    'ต่างประเทศ 1',
+    'ต่างประเทศ 2',
+    'Admin System',
+  ];
 
   toolbarUserAvatarHeightClass = 'symbol-30px symbol-md-40px';
   avar$: string[] | null = null;
@@ -44,13 +59,15 @@ export class UserComponent implements OnInit {
   ];
   dataSource = new MatTableDataSource();
   mainDatas$: UserModels[] = [];
+  semiGuard: any = [];
 
   constructor(
     private route: ActivatedRoute,
     private authService: AuthService,
     private router: Router,
     public userService: UserService,
-    private modalService: NgbModal
+    private modalService: NgbModal,
+    public semiGuardService: SemiGuardService,
   ) {
     this.filterSelectObj = [
       {
@@ -62,6 +79,10 @@ export class UserComponent implements OnInit {
    }
 
   ngOnInit(): void {
+    this.semiGuard = this.semiGuardService.ActiveRole;
+    if(!this.semiGuard.mgmt_user)
+      this.router.navigate(['/dashboard']);
+      
     this.FUNC_getData();
   }
 
@@ -104,13 +125,9 @@ export class UserComponent implements OnInit {
   }
 
   NEW_createFilter() {
+    let dataRole = this.roles;
     let filterFunction = function (data: any, filter: string): boolean {
-      let job_Status = '';
-      if(data.role == 777) {
-        job_Status = 'Admin'
-      } else if(data.role == 0) {
-        job_Status = 'Sale'
-      }
+      let job_Status = dataRole[data.role];
       let searchTerms = JSON.parse(filter);
       let searchStr = (data.fullname + data.phone + data.employee_id + data.email + job_Status + data.lastlogin).toLowerCase();
       return searchStr.indexOf(searchTerms.all.toLowerCase()) != -1 && data.role.toLowerCase().indexOf(searchTerms.role) !== -1 ;

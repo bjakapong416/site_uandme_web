@@ -14,6 +14,7 @@ import * as FileSaver from 'file-saver';
 import { FileUploadService } from './file-upload.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FileUploadComponent } from './file-upload/file-upload.component';
+import { SemiGuardService } from '../../_services/semiGuard.service';
 
 
 const EXCEL_TYPE =
@@ -28,12 +29,13 @@ export class StockComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   filterValues: any = { all: '', unitnam: '', itemgrp: '' };
   filterSelectObj: any = [];
+  semiGuard: any = [];
 
 
-    // Variable to store shortLink from api response
-    shortLink: string = "";
-    loading: boolean = false; // Flag variable
-    file: any = null; // Variable to store file
+  // Variable to store shortLink from api response
+  shortLink: string = "";
+  loading: boolean = false; // Flag variable
+  file: any = null; // Variable to store file
 
 
 
@@ -83,6 +85,7 @@ export class StockComponent implements OnInit {
     private modalService: NgbModal,
     public limitService: LimitService,
     public stockService: StockService,
+    public semiGuardService: SemiGuardService,
     private fileUploadService: FileUploadService
   ) {
     this.limitService.getAll().subscribe((data: any) => {
@@ -104,6 +107,10 @@ export class StockComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.semiGuard = this.semiGuardService.ActiveRole;
+    if(!this.semiGuard.app_stock)
+      this.router.navigate(['/dashboard']);
+
     this.FUNC_getData();
   }
 

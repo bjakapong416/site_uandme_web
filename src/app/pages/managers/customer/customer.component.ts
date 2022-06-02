@@ -15,6 +15,8 @@ import { MatDatepicker } from '@angular/material/datepicker';
 import { NativeDateAdapter, DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
 import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { SemiGuardService } from '../../_services/semiGuard.service';
+import { User } from '../../../modules/auth';
 
 export const PICK_FORMATS = {
   parse: {dateInput: {month: 'short', year: 'numeric', day: 'numeric'}},
@@ -51,12 +53,14 @@ export class CustomerComponent implements OnInit {
   pipe = new DatePipe('en-US');
   filterValues: any = {"all":"","date":""};
   pickDateValue: any;
+  userProfile: User | null = null;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   displayedColumns: string[] = [
     'name_cus',
     'tel',
     'area',
+    'credit_day',
     'finan',
     'balance',
     'status_cus',
@@ -66,17 +70,27 @@ export class CustomerComponent implements OnInit {
 
   mainDatas$: CustomerModels[] = [];
   selectedItemsList: any = [];
-
+  semiGuard: any = [];
 
   constructor(
+    private router: Router,
     private modalService: NgbModal,
-    public customerService: CustomerService
-
+    public customerService: CustomerService,
+    public semiGuardService: SemiGuardService,
   ) {}
 
   ngOnInit(): void {
+    this.semiGuard = this.semiGuardService.ActiveRole;
+    if(!this.semiGuard.mgmt_cus)
+      this.router.navigate(['/dashboard']);
+
+
+    const userProfile = localStorage.getItem('currentUser$'); 
+    if(userProfile) {
+        this.userProfile = JSON.parse(userProfile) as User;
+    }
+
     this.FUNC_getData();
-    
   }
 
 
@@ -89,6 +103,8 @@ export class CustomerComponent implements OnInit {
           if(data[key] == '0') textSearch+='ต่ำ';
           else if(data[key] == '1') textSearch+='กลาง';
           else if(data[key] == '2') textSearch+='สูง';
+          else if(data[key] == '999') textSearch+='ห้ามขาย';
+          else if(data[key] == '-1') textSearch+='ปิดกิจการ';
         } else {
           textSearch += data[key];
         }
@@ -131,6 +147,7 @@ export class CustomerComponent implements OnInit {
       centered: true,
     });
     modalRef.componentInstance.uid = id;
+    modalRef.componentInstance.role = this.userProfile?.role  
   }
 
 

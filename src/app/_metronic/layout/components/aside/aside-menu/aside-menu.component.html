@@ -1,7 +1,7 @@
 <!-- Dashboard -->
 
 <!-- SVG ./assets/media/icons/duotune/art/art002.svg' -->
-<div class="menu-item">
+<div class="menu-item" *ngIf="ActiveRole.dashboard">
   <a
     class="menu-link without-sub"
     routerLink="/dashboard"
@@ -18,9 +18,8 @@
     ></a>
 </div>
 
-
 <!-- Separator -->
-<div class="menu-item">
+<div class="menu-item" *ngIf="ActiveRole.head_app">
   <div class="menu-content pt-8 pb-2">
     <span class="menu-section text-muted text-uppercase fs-8 ls-1"
       >Applications</span
@@ -29,7 +28,7 @@
 </div>
 
 <!-- Stock Page -->
-<div class="menu-item">
+<div class="menu-item" *ngIf="ActiveRole.app_stock">
   <a
     class="menu-link without-sub"
     routerLink="/apps/stock"
@@ -58,7 +57,7 @@
   >
 </div> -->
 
-<div class="menu-item">
+<div class="menu-item" *ngIf="ActiveRole.app_cus">
   <a
     class="menu-link without-sub"
     routerLink="/apps/customer"
@@ -72,7 +71,7 @@
   >
 </div>
 
-<div class="menu-item">
+<div class="menu-item" *ngIf="ActiveRole.app_bill">
   <a
     class="menu-link without-sub"
     routerLink="/apps/bill"
@@ -87,7 +86,7 @@
 </div>
 
 <!-- Separator -->
-<div class="menu-item">
+<div class="menu-item" *ngIf="ActiveRole.head_mgmt">
   <div class="menu-content pt-8 pb-2">
     <span class="menu-section text-muted text-uppercase fs-8 ls-1"
       >Managements</span
@@ -96,7 +95,7 @@
 </div>
 
 <!-- Stock Page -->
-<div class="menu-item">
+<div class="menu-item" *ngIf="ActiveRole.mgmt_cus">
   <a
     class="menu-link without-sub"
     routerLink="/managers/customer"
@@ -124,7 +123,7 @@
   >
 </div> -->
 
-<div class="menu-item">
+<div class="menu-item" *ngIf="ActiveRole.mgmt_user">
   <a
     class="menu-link without-sub"
     routerLink="/managers/user"

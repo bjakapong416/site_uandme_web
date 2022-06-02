@@ -27,7 +27,20 @@ export class EdituserComponent implements OnInit {
   @Input() uphone: string;
 
 
-  roles: any[] = ['Sale'];
+  roles: any[] = [ 
+    'CEO ผู้ประกอบการ',
+    'Standard',
+    'Head of Sale',
+    'Sale',
+    'Head of Co-Sale',
+    'Co-Sale',
+    'Stock',
+    'Finance 1',
+    'Finance 2',
+    'ต่างประเทศ 1',
+    'ต่างประเทศ 2',
+    //'Admin System',
+  ];
 
   isLoading$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   isLoading: boolean;

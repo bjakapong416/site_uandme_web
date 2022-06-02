@@ -23,8 +23,9 @@
                   (change)="filterChange(filter.columnProp, $event)"
                 >
                   <option value="">เลือกตำแหน่ง</option>
-                  <option value="777">Admin</option>
-                  <option value="0">Sale</option>
+                  <option *ngFor="let position of roles" [value]="position">
+                    {{ position }}
+                  </option>
                 </select>
               </mat-form-field>
             </div>
@@ -129,11 +130,20 @@
           ตำแหน่ง
         </th>
         <td mat-cell *matCellDef="let row">
-          <span class="dot"></span>
+          <span class="dot"> </span>
           <!-- Seperate Space -->
-
-          <ng-container *ngIf="row.role == 777">Admin</ng-container>
-          <ng-container *ngIf="row.role == 0">Sale</ng-container>
+          <ng-container *ngIf="row.role == 0"> CEO ผู้ประกอบการ</ng-container>
+          <ng-container *ngIf="row.role == 1"> Standard</ng-container>
+          <ng-container *ngIf="row.role == 2"> Head of Sale</ng-container>
+          <ng-container *ngIf="row.role == 3"> Sale</ng-container>
+          <ng-container *ngIf="row.role == 4"> Head of Co-Sale</ng-container>
+          <ng-container *ngIf="row.role == 5"> Co-Sale</ng-container>
+          <ng-container *ngIf="row.role == 6"> Stock</ng-container>
+          <ng-container *ngIf="row.role == 7"> Finance 1</ng-container>
+          <ng-container *ngIf="row.role == 8"> Finance 2</ng-container>
+          <ng-container *ngIf="row.role == 9"> ต่างประเทศ 1</ng-container>
+          <ng-container *ngIf="row.role == 10"> ต่างประเทศ 2</ng-container>
+          <ng-container *ngIf="row.role == 11"> Admin System</ng-container>
         </td>
       </ng-container>
 

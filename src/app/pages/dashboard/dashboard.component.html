@@ -77,7 +77,7 @@
           iconColor="success"
           color="white"
           title="{{ (((countBillData | async) ?? 0) - ((countMoreOnce | async) ?? 0)) | number }}"
-          description="ยังไม่มีการท้วงถาม"
+          description="ยังไม่มีการทวงถาม"
         ></app-stats-widget5>
 
         <app-stats-widget5
@@ -86,7 +86,7 @@
           iconColor="warning"
           color="white"
           title="{{ ((countMoreOnce | async) ?? 0) | number }}"
-          description="การท้วงถามมากกว่า 1 ครั้ง"
+          description="การทวงถามมากกว่า 1 ครั้ง"
         ></app-stats-widget5>
 
         <app-stats-widget5

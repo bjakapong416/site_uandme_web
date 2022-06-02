@@ -53,16 +53,14 @@
               [class.badge-light-success]="mainData?.cusstatus == '0'"
               [class.badge-light-warning]="mainData?.cusstatus == '1'"
               [class.badge-light-danger]="mainData?.cusstatus == '2'"
+              [class.badge-danger]="mainData?.cusstatus == '999'"
+              [class.badge-primary]="mainData?.cusstatus == '-1'"
             >
-              <ng-container *ngIf="mainData?.cusstatus == '0'">
-                ต่ำ
-              </ng-container>
-              <ng-container *ngIf="mainData?.cusstatus == '1'">
-                กลาง
-              </ng-container>
-              <ng-container *ngIf="mainData?.cusstatus == '2'">
-                สูง
-              </ng-container>
+              <ng-container *ngIf="mainData?.cusstatus == '0'">ต่ำ</ng-container>
+              <ng-container *ngIf="mainData?.cusstatus == '1'">กลาง</ng-container>
+              <ng-container *ngIf="mainData?.cusstatus == '2'">สูง</ng-container>
+              <ng-container *ngIf="mainData?.cusstatus == '999'">ห้ามขาย</ng-container>
+              <ng-container *ngIf="mainData?.cusstatus == '-1'">ปิดกิจการ</ng-container>
             </div>
           </div>
         </div>

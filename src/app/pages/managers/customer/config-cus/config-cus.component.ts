@@ -19,6 +19,7 @@ import Swal from 'sweetalert2';
 })
 export class ConfigCusComponent implements OnInit {
   @Input() uid: any;
+  @Input() role: any;
 
   risk2: any[] = ['ต่ำ' , 'กลาง' , 'สูง'];
 

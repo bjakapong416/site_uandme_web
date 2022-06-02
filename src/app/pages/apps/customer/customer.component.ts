@@ -9,6 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { AddCusComponent } from './add-cus/add-cus.component';
 import { DetailCusComponent } from './detail-cus/detail-cus.component';
 import { ViewEncapsulation } from '@angular/core';
+import { SemiGuardService } from '../../_services/semiGuard.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 
@@ -38,6 +39,7 @@ export class CustomerComponent implements OnInit {
     'name_cus',
     'tel',
     'area',
+    'credit_day',
     'finan',
     'balance',
     'status_cus',
@@ -47,16 +49,22 @@ export class CustomerComponent implements OnInit {
 
   mainDatas$: CustomerModels[] = [];
   selectedItemsList: any = [];
+  semiGuard: any = [];
 
   constructor(
     // private route: ActivatedRoute,
     // private authService: AuthService,
-    // private router: Router,
+    private router: Router,
     private modalService: NgbModal,
-    public customerService: CustomerService
+    public customerService: CustomerService,
+    public semiGuardService: SemiGuardService,
   ) {}
 
   ngOnInit(): void {
+    this.semiGuard = this.semiGuardService.ActiveRole;
+    if(!this.semiGuard.app_cus)
+      this.router.navigate(['/dashboard']);
+
     this.FUNC_getData();
   }
 
@@ -72,6 +80,8 @@ export class CustomerComponent implements OnInit {
           if (data[key] == '0') textSearch += 'ต่ำ';
           else if (data[key] == '1') textSearch += 'กลาง';
           else if (data[key] == '2') textSearch += 'สูง';
+          else if (data[key] == '999') textSearch += 'ห้ามขาย';
+          else if (data[key] == '-1') textSearch += 'ปิดกิจการ';
         } else {
           textSearch += data[key];
         }
@@ -206,7 +216,11 @@ export class CustomerComponent implements OnInit {
           ? 'ต่ำ'
           : item.cusstatus === '1'
           ? 'กลาง'
-          : 'สูง',
+          : item.cusstatus === '2'
+          ? 'สูง'
+          : item.cusstatus === '999'
+          ? 'ห้ามขาย'
+          : 'ปิดกิจการ',
     }));
     return tempData;
   }

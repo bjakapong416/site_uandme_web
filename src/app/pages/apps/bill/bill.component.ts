@@ -18,6 +18,7 @@ import { formatDate } from '@angular/common';
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
+import { SemiGuardService } from '../../_services/semiGuard.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 
@@ -76,6 +77,7 @@ export class BillComponent implements OnInit {
   dataSource = new MatTableDataSource();
 
   mainDatas$: BillModels[] = [];
+  semiGuard: any = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -83,10 +85,15 @@ export class BillComponent implements OnInit {
     private router: Router,
     private modalService: NgbModal,
     private httpClient: HttpClient,
-    public billService: BillService
+    public billService: BillService,
+    public semiGuardService: SemiGuardService,
   ) {}
 
   ngOnInit(): void {
+    this.semiGuard = this.semiGuardService.ActiveRole;
+    if(!this.semiGuard.app_bill)
+      this.router.navigate(['/dashboard']);
+      
     this.FUNC_getData();
   }
 

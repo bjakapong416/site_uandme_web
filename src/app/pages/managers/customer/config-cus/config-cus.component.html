@@ -29,7 +29,7 @@
       
                 <div class="col-lg-8 fv-row">
                   <mat-form-field>
-                    <select
+                    <select 
                       matNativeControl
                       formControlName="cusstatus"
                       placeholder="สถานะ"
@@ -37,6 +37,8 @@
                       <option *ngFor="let position of risk2" [value]="position">
                         {{ position }}
                       </option>
+                      <option [value]="999"> ห้ามขาย </option>
+                      <option [value]="-1"> ปิดกิจการ </option>
                     </select>
                   </mat-form-field>
                 </div>

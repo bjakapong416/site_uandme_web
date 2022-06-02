@@ -16,7 +16,7 @@ export class DetailBillComponent implements OnInit {
   mainData: BillModels;
   askData: askBillModels[] = [];
 
-  tabs = [{ title: 'การท้วงถาม', content: 'detail', active: true }];
+  tabs = [{ title: 'การทวงถาม', content: 'detail', active: true }];
 
   constructor(
     private BillService: BillService,

@@ -14,9 +14,26 @@
         <div class="fw-bolder d-flex align-items-center fs-5">
           <!-- {{ _user.firstname }} {{ _user.lastname }} -->
           {{user$.fullname}}
-          <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2"
-            >พนักงาน</span
-          >
+          <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1 ms-2">
+            <ng-container *ngIf="position == '0'"> CEO ผู้ประกอบการ</ng-container>
+            <ng-container *ngIf="position == '1'"> Standard</ng-container>
+            <ng-container *ngIf="position == '2'"> Head of Sale</ng-container>
+            <ng-container *ngIf="position == '3'"> Sale</ng-container>
+            <ng-container *ngIf="position == '4'"> Head of Co-Sale</ng-container>
+            <ng-container *ngIf="position == '5'"> Co-Sale</ng-container>
+            <ng-container *ngIf="position == '6'"> Stock</ng-container>
+            <ng-container *ngIf="position == '7'"> Finance 1</ng-container>
+            <ng-container *ngIf="position == '8'"> Finance 2</ng-container>
+            <ng-container *ngIf="position == '9'"> ต่างประเทศ 1</ng-container>
+            <ng-container *ngIf="position == '10'"> ต่างประเทศ 2</ng-container>
+            <ng-container *ngIf="position == '11'"> Admin System</ng-container>
+
+          </span>
+
+
+
+
+
         </div>
         <a class="fw-bold text-muted text-hover-primary fs-7 cursor-pointer">
           {{ user$.email }}

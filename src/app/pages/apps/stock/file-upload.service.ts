@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient , HttpHeaders } from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 
 @Injectable({
@@ -10,8 +11,9 @@ import { catchError } from 'rxjs/operators';
 export class FileUploadService {
     
   // API url
-  baseApiUrl = "http://128.199.86.71:8000"
+//   baseApiUrl = "http://128.199.86.71:8000"
 
+  readonly baseApiUrl = `${environment.apiUrl}` ;
 
   constructor(private http:HttpClient) { }
   

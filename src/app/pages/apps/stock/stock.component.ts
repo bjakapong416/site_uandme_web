@@ -15,6 +15,7 @@ import { FileUploadService } from './file-upload.service';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { SemiGuardService } from '../../_services/semiGuard.service';
+import { User } from 'src/app/modules/auth';
 
 
 const EXCEL_TYPE =
@@ -70,6 +71,10 @@ export class StockComponent implements OnInit {
   lowValue: number = 0;
   highValue: number = 10;
 
+  // Check User
+  userProfile: User | null = null;
+  checkRole : string;
+
   // used to build a slice of papers relevant at any given time
   public getPaginatorData(event: any): void {
     this.lowValue = event.pageIndex * event.pageSize;
@@ -111,6 +116,15 @@ export class StockComponent implements OnInit {
     if(!this.semiGuard.app_stock)
       this.router.navigate(['/dashboard']);
 
+
+    const userProfile = localStorage.getItem('currentUser$'); 
+    if(userProfile) {
+      this.userProfile = JSON.parse(userProfile) as User;
+      this.checkRole = this.userProfile?.role;
+    }
+
+    
+
     this.FUNC_getData();
   }
 
@@ -134,7 +148,6 @@ export class StockComponent implements OnInit {
 
               if (typeof (event) === 'object') {
 
-                  console.log("insign");
                   
                   // Short link via api response
                   this.shortLink = event.link;

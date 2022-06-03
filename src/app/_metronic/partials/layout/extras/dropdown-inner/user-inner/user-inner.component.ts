@@ -19,6 +19,7 @@ export class UserInnerComponent implements OnInit, OnDestroy {
 
   user$: User | null = null;
 
+  position : string;
 
   constructor(
     private auth: AuthService,
@@ -32,7 +33,8 @@ export class UserInnerComponent implements OnInit, OnDestroy {
 
     if(userProfiles != null){
       this.user$ = JSON.parse(userProfiles) as User ;
-    
+
+    this.position = this.user$?.role;
     }
       
 

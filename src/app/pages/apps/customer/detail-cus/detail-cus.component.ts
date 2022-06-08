@@ -26,6 +26,8 @@ export class DetailCusComponent implements OnInit {
   chartOptions: any = {};
   series: number;
 
+  usageTotal : number;
+
   @ViewChild(MatPaginator, { static: false })
   set paginator(value: MatPaginator) {
     if (this.billDataSource) {
@@ -69,6 +71,7 @@ export class DetailCusComponent implements OnInit {
     const data = await this.customerService.find(this.id).toPromise();
     this.mainData = data;
     this.creditused = data.creditamt - data.creditbal;
+    this.usageTotal = data.paytrm - this.creditused;
     // this.ReviewService.find(this.id).subscribe((data: any) => {
     //   this.reviewData = data;
     // });
@@ -95,9 +98,11 @@ export class DetailCusComponent implements OnInit {
     const lightColor = getCSSVariableValue('--bs-light-' + 'success');
     const labelColor = getCSSVariableValue('--bs-gray-700');
     const labelColor2 = getCSSVariableValue('--bs-gray-600');
+    this.usageTotal = this.mainData.paytrm - this.creditused;
     const series =
       this.mainData.creditamt !== 0
-        ? (this.mainData.creditbal * 100) / this.mainData.creditamt
+        // ? (this.mainData.creditbal * 100) / this.mainData.creditamt
+        ? (this.usageTotal * 100) / this.mainData.paytrm
         : 0;
     return {
       series: [series],
@@ -153,7 +158,7 @@ export class DetailCusComponent implements OnInit {
       stroke: {
         lineCap: 'round',
       },
-      labels: ['ยอดคงเหลือ', this.mainData.creditbal],
+      labels: ['ยอดคงเหลือ', this.usageTotal],
     };
   }
 }

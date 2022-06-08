@@ -70,7 +70,11 @@ export class DetailCusComponent implements OnInit {
   async FUNC_getDataById() {
     const data = await this.customerService.find(this.id).toPromise();
     this.mainData = data;
-    this.creditused = data.creditamt - data.creditbal;
+    // this.creditused = data.creditamt - data.creditbal;
+    this.creditused = data.creditamt;
+
+
+
     this.usageTotal = data.paytrm - this.creditused;
     // this.ReviewService.find(this.id).subscribe((data: any) => {
     //   this.reviewData = data;

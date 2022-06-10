@@ -51,6 +51,9 @@ export class CustomerComponent implements OnInit {
   selectedItemsList: any = [];
   semiGuard: any = [];
 
+
+  usageTotal : number;
+
   constructor(
     // private route: ActivatedRoute,
     // private authService: AuthService,

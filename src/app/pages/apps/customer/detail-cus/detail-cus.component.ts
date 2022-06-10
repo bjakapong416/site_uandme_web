@@ -162,7 +162,7 @@ export class DetailCusComponent implements OnInit {
       stroke: {
         lineCap: 'round',
       },
-      labels: ['ยอดคงเหลือ', this.usageTotal],
+      labels: ['ยอดคงเหลือ', this.creditused],
     };
   }
 }

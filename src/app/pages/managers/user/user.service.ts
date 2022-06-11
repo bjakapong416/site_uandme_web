@@ -12,6 +12,8 @@ import { AuthService , User } from 'src/app/modules/auth';
 @Injectable({ providedIn: 'root' })
 export class userService {
 
+
+  
     readonly apiURL = `${environment.apiUrl}`;
 
 

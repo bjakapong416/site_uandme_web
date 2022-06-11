@@ -40,8 +40,9 @@ export class AuthService implements OnDestroy {
   }
 
   // API Copnnection
-  readonly Apiurl ="http://128.199.86.71:8000";
-
+  // readonly Apiurl ="http://128.199.86.71:8000";
+  readonly Apiurl =`${environment.apiUrl}`;
+  
 
   constructor(
     private authHttpService: AuthHTTPService,

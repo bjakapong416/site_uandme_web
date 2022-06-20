@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CustomerService } from './../_services/customer/customer.service';
 import { StockService } from './../_services/stock/stock.service';
 import { getCSSVariableValue } from 'src/app/_metronic/kt/_utils';
-import { Observable,  Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { BillService } from './../_services/bill/bill.service';
@@ -19,7 +19,6 @@ export class DashboardComponent implements OnInit {
     public billService: BillService,
     private httpClient: HttpClient
   ) {
-
     this.customerRiskData$ = customerService.riskCount().subscribe((data) => {
       this.customerRiskData = data;
       this.customerRiskData = this.customerRiskData.sort((a: any, b: any) =>
@@ -56,7 +55,7 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     this.summaryStockData$ = this.stockService.getSummaryStock();
 
-    this.summaryStockData$.subscribe((item: any)=>{
+    this.summaryStockData$.subscribe((item: any) => {
       this.summaryStockData = item;
       this.summaryStockData.forEach((element: any) => {
         this.sumStock.push(element.sum);
@@ -65,7 +64,11 @@ export class DashboardComponent implements OnInit {
     });
 
     this.sumTotal = this.summaryStockData$.pipe(
-      map((item: any) => item.map((i: any) => i.sum).reduce((oldVal: number, newVal: number) => oldVal + newVal, 0))
+      map((item: any) =>
+        item
+          .map((i: any) => i.sum)
+          .reduce((oldVal: number, newVal: number) => oldVal + newVal, 0)
+      )
     );
 
     this.setChartOptionsBar();
@@ -79,12 +82,10 @@ export class DashboardComponent implements OnInit {
     this.countBillData = this.countBillData$.pipe(
       map((item: any) => item.length)
     );
-    
+
     const tempCount = this.billService.getAskBill();
 
-    this.countMoreOnce = tempCount.pipe(
-      map((item: any) => item.count)
-    );
+    this.countMoreOnce = tempCount.pipe(map((item: any) => item.count));
   }
 
   ngOnDestroy() {
@@ -144,6 +145,11 @@ export class DashboardComponent implements OnInit {
           style: {
             colors: labelColor,
             fontSize: '12px',
+          },
+          formatter: function (value: any) {
+            const str = value.toString().split('.');
+            str[0] = str[0].replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            return str.join('.');
           },
         },
       },

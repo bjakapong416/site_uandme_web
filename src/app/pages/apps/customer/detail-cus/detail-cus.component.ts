@@ -26,7 +26,7 @@ export class DetailCusComponent implements OnInit {
   chartOptions: any = {};
   series: number;
 
-  usageTotal : number;
+  usageTotal: number;
 
   @ViewChild(MatPaginator, { static: false })
   set paginator(value: MatPaginator) {
@@ -73,8 +73,6 @@ export class DetailCusComponent implements OnInit {
     // this.creditused = data.creditamt - data.creditbal;
     this.creditused = data.creditamt;
 
-
-
     this.usageTotal = data.paytrm - this.creditused;
     // this.ReviewService.find(this.id).subscribe((data: any) => {
     //   this.reviewData = data;
@@ -90,6 +88,10 @@ export class DetailCusComponent implements OnInit {
 
     this.BillService.find_cus(this.id).subscribe((data: any) => {
       this.billDataSource = new MatTableDataSource(data);
+      this.billDataSource.filteredData.sort(
+        (a: any, b: any) =>
+          new Date(b.docdat).getTime() - new Date(a.docdat).getTime()
+      );
     });
   }
 
@@ -105,8 +107,8 @@ export class DetailCusComponent implements OnInit {
     this.usageTotal = this.mainData.paytrm - this.creditused;
     const series =
       this.mainData.creditamt !== 0
-        // ? (this.mainData.creditbal * 100) / this.mainData.creditamt
-        ? (this.usageTotal * 100) / this.mainData.paytrm
+        ? // ? (this.mainData.creditbal * 100) / this.mainData.creditamt
+          (this.usageTotal * 100) / this.mainData.paytrm
         : 0;
     return {
       series: [series],

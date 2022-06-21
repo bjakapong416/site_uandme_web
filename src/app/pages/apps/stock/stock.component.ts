@@ -124,7 +124,7 @@ export class StockComponent implements OnInit {
     }
 
     
-
+    this.FUNC_Sync();
     this.FUNC_getData();
   }
 
@@ -169,6 +169,12 @@ export class StockComponent implements OnInit {
     
   }
 
+
+  FUNC_Sync(){
+    this.stockService.syncStockDB().subscribe((data: any) => {
+      console.log("Sync OK");
+    });
+  }
 
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;

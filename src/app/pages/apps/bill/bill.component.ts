@@ -21,6 +21,7 @@ import { environment } from 'src/environments/environment';
 import { SemiGuardService } from '../../_services/semiGuard.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { User } from 'src/app/modules/auth';
 
 const EXCEL_TYPE =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -65,6 +66,11 @@ export class BillComponent implements OnInit {
   chartOptions: any = {};
   pickDateValue: any;
 
+  // Check User
+  userProfile: User | null = null;
+  checkRole : string;
+
+
   displayedColumns: string[] = [
     'name_cus',
     'doc_id',
@@ -93,7 +99,16 @@ export class BillComponent implements OnInit {
     this.semiGuard = this.semiGuardService.ActiveRole;
     if(!this.semiGuard.app_bill)
       this.router.navigate(['/dashboard']);
-      
+
+
+    const userProfile = localStorage.getItem('currentUser$'); 
+    if(userProfile) {
+      this.userProfile = JSON.parse(userProfile) as User;
+      this.checkRole = this.userProfile?.role;
+    }      
+
+
+    this.FUNC_Sync();
     this.FUNC_getData();
   }
 
@@ -122,6 +137,13 @@ export class BillComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  FUNC_Sync(){
+    this.billService.syncBillDB().subscribe((data: any) => {
+      console.log("Sync OK");
+    });
+  }
+
 
   FUNC_getData() {
     this.billService.getAll().subscribe((data: any) => {

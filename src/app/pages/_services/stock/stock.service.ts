@@ -57,6 +57,10 @@ export class StockService {
       .pipe(catchError(this.errorHandler));
   }
 
+  syncStockDB(){
+    return  this.httpClient.post(this.apiURL + '/sync',null).pipe();
+  }
+
   delete(id: any) {
     return this.httpClient
       .delete<StockModels>(this.apiURL + '/' + id, this.httpOptions)

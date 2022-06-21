@@ -12,6 +12,7 @@ import { ViewEncapsulation } from '@angular/core';
 import { SemiGuardService } from '../../_services/semiGuard.service';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
+import { User } from 'src/app/modules/auth';
 
 
 
@@ -54,6 +55,11 @@ export class CustomerComponent implements OnInit {
 
   usageTotal : number;
 
+  // Check User
+  userProfile: User | null = null;
+  checkRole : string;
+
+
   constructor(
     // private route: ActivatedRoute,
     // private authService: AuthService,
@@ -68,6 +74,14 @@ export class CustomerComponent implements OnInit {
     if(!this.semiGuard.app_cus)
       this.router.navigate(['/dashboard']);
 
+
+    const userProfile = localStorage.getItem('currentUser$'); 
+    if(userProfile) {
+      this.userProfile = JSON.parse(userProfile) as User;
+      this.checkRole = this.userProfile?.role;
+    }
+
+    this.FUNC_Sync();
     this.FUNC_getData();
   }
 
@@ -102,6 +116,13 @@ export class CustomerComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+
+  FUNC_Sync(){
+    this.customerService.syncCustomerDB().subscribe((data: any) => {
+      console.log("Sync OK");
+    });
   }
 
   FUNC_getData() {

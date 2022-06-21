@@ -26,6 +26,10 @@ export class CustomerService {
     )
   }
 
+  syncCustomerDB(){
+    return  this.httpClient.post(this.apiURL + '/sync',null).pipe();
+  }
+
   riskCount() {
     return this.httpClient.get(this.apiURL + '/get/risk').pipe(
       catchError(this.errorHandler)

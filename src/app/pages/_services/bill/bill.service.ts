@@ -26,6 +26,10 @@ export class BillService {
     )
   }
 
+  syncBillDB(){
+    return  this.httpClient.post(this.apiURL + '/sync',null).pipe();
+  }
+
   async async_getAll() {
     return await this.httpClient.get<BillModels[]>(this.apiURL + '/all').pipe( )
   }

@@ -104,7 +104,7 @@
             เครดิตวัน
           </th>
           <td mat-cell *matCellDef="let row">
-            <p class="fs-4 m-0">{{ row.paytrm }}</p>
+            <p class="fs-4 m-0">{{ row.creditbal | number }}</p>
           </td>
         </ng-container>
 
@@ -118,7 +118,7 @@
             วงเงินอนุมัติ
           </th>
           <td mat-cell *matCellDef="let row">
-            <p class="fs-4 m-0 text-end">{{ row.creditamt | number }}</p>
+            <p class="fs-4 m-0 text-end">{{ row.paytrm | number}}</p>
           </td>
         </ng-container>
 
@@ -132,7 +132,7 @@
             ยอดคงเหลือ
           </th>
           <td mat-cell *matCellDef="let row">
-            <p class="fs-4 m-0 text-end">{{ row.creditbal | number }}</p>
+            <p class="fs-4 m-0 text-end">{{ row.creditamt | number }}</p>
           </td>
         </ng-container>
 

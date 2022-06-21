@@ -151,8 +151,15 @@
           ชื่อลูกค้า
         </th>
         <td mat-cell *matCellDef="let row">
-          <p class="fs-4 m-0">{{ row.cuscod }}</p>
+          <p class="fs-4 m-0">
+            {{ row.cuscod }} 
+            <span class="position-absolute rounded-circle border border-4 border-white h-20px w-20px bg-success" 
+              [class.bg-danger]="row?.roomid == '1'" 
+              [class.bg-success]="row?.roomid == '2'">
+            </span>
+          </p>
           <p class="fs-6 text-gray-600">{{ row.cusnam }}</p>
+          
         </td>
       </ng-container>
 

@@ -25,4 +25,5 @@ export class CustomerModels {
     highlight?: string;
     img?: string;
     billdate?:string;
+    roomid?:string;
 }

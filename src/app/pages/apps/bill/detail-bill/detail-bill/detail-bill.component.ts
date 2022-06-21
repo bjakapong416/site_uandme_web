@@ -10,6 +10,14 @@ import { askBillModels } from '../../../../_models/askBill.model';
   styleUrls: ['./detail-bill.component.scss']
 })
 export class DetailBillComponent implements OnInit {
+  public circleColor: string;
+  private colors = [
+    '#EB7181', // red
+    '#468547', // green
+    '#FFD558', // yellow
+    '#3670B2', // blue
+  ];
+
   @Input() id: number;
   lastIndex: number;
   selectedTab: string;
@@ -27,6 +35,10 @@ export class DetailBillComponent implements OnInit {
     this.selectedTab = 'detail';
     await this.FUNC_getDataById();
     this.lastIndex = this.askData.length;
+    const colorR = (Math.floor(Math.random() * 56) + 128).toString(16);
+    const colorG = (Math.floor(Math.random() * 56) + 128).toString(16);
+    const colorB = (Math.floor(Math.random() * 56) + 128).toString(16);
+    this.circleColor = '#' + colorR + colorG + colorB;
   }
 
   async FUNC_getDataById() {

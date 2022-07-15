@@ -12,11 +12,10 @@ import { DetailStockComponent } from './detail-stock/detail-stock.component';
 import * as XLSX from 'xlsx';
 import * as FileSaver from 'file-saver';
 import { FileUploadService } from './file-upload.service';
-import {MatDialogModule} from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material/dialog';
 import { FileUploadComponent } from './file-upload/file-upload.component';
 import { SemiGuardService } from '../../_services/semiGuard.service';
 import { User } from 'src/app/modules/auth';
-
 
 const EXCEL_TYPE =
   'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8';
@@ -32,14 +31,10 @@ export class StockComponent implements OnInit {
   filterSelectObj: any = [];
   semiGuard: any = [];
 
-
   // Variable to store shortLink from api response
-  shortLink: string = "";
+  shortLink: string = '';
   loading: boolean = false; // Flag variable
   file: any = null; // Variable to store file
-
-
-
 
   displayedColumns: string[] = [
     'name',
@@ -73,7 +68,7 @@ export class StockComponent implements OnInit {
 
   // Check User
   userProfile: User | null = null;
-  checkRole : string;
+  checkRole: string;
 
   // used to build a slice of papers relevant at any given time
   public getPaginatorData(event: any): void {
@@ -113,66 +108,54 @@ export class StockComponent implements OnInit {
 
   ngOnInit(): void {
     this.semiGuard = this.semiGuardService.ActiveRole;
-    if(!this.semiGuard.app_stock)
-      this.router.navigate(['/dashboard']);
+    if (!this.semiGuard.app_stock) this.router.navigate(['/dashboard']);
 
-
-    const userProfile = localStorage.getItem('currentUser$'); 
-    if(userProfile) {
+    const userProfile = localStorage.getItem('currentUser$');
+    if (userProfile) {
       this.userProfile = JSON.parse(userProfile) as User;
       this.checkRole = this.userProfile?.role;
     }
 
-    
     this.FUNC_Sync();
     this.FUNC_getData();
   }
 
-
   // On file Select
-  onChange(event:any) {
-      this.file = event.target.files[0];
+  onChange(event: any) {
+    this.file = event.target.files[0];
   }
 
   // OnClick of button Upload
   onUpload() {
-      this.loading = !this.loading;
-      console.log(this.file);
-      this.fileUploadService.upload(this.file).subscribe(
-          (event: any) => {
+    this.loading = !this.loading;
+    console.log(this.file);
+    this.fileUploadService.upload(this.file).subscribe((event: any) => {
+      // Open modal
+      const modalRef = this.modalService.open(FileUploadComponent, {
+        size: 'xl',
+      });
 
-            // Open modal
-            const modalRef = this.modalService.open(FileUploadComponent, {
-              size: 'xl',
-            });
+      if (typeof event === 'object') {
+        // Short link via api response
+        this.shortLink = event.link;
 
-              if (typeof (event) === 'object') {
-
-                  
-                  // Short link via api response
-                  this.shortLink = event.link;
-
-                  this.loading = false; // Flag variable 
-              }
-          }
-      );
+        this.loading = false; // Flag variable
+      }
+    });
   }
 
-  onDownload(){
-
+  onDownload() {
     // FileSaver.saveAs(data, fileName);
     // this.fileUploadService.download().subscribe()
 
-    console.log("Downlaod");
+    console.log('Downlaod');
 
     this.fileUploadService.download().subscribe();
-    
   }
 
-
-  FUNC_Sync(){
+  FUNC_Sync() {
     this.stockService.syncStockDB().subscribe((data: any) => {
-      console.log("Sync OK");
+      console.log('Sync OK');
     });
   }
 
@@ -294,7 +277,7 @@ export class StockComponent implements OnInit {
       }
       return obj;
     });
-    return uniqChk;
+    return uniqChk.sort();
   }
 
   // Called on Filter change
